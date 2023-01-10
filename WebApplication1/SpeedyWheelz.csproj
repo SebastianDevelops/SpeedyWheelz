@@ -172,47 +172,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202301031830365_InitialCreate.cs" />
-    <Compile Include="Migrations\202301031830365_InitialCreate.Designer.cs">
-      <DependentUpon>202301031830365_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301061758148_InitialCreate1.cs" />
-    <Compile Include="Migrations\202301061758148_InitialCreate1.Designer.cs">
-      <DependentUpon>202301061758148_InitialCreate1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301061806521_ProductsTable.cs" />
-    <Compile Include="Migrations\202301061806521_ProductsTable.Designer.cs">
-      <DependentUpon>202301061806521_ProductsTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301061831374_CreatedProducts.cs" />
-    <Compile Include="Migrations\202301061831374_CreatedProducts.Designer.cs">
-      <DependentUpon>202301061831374_CreatedProducts.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301071704074_ForeignKeyRelationship.cs" />
-    <Compile Include="Migrations\202301071704074_ForeignKeyRelationship.Designer.cs">
-      <DependentUpon>202301071704074_ForeignKeyRelationship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301071719439_ProductForiegnKey.cs" />
-    <Compile Include="Migrations\202301071719439_ProductForiegnKey.Designer.cs">
-      <DependentUpon>202301071719439_ProductForiegnKey.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301071815395_CreatedProductImageTable.cs" />
-    <Compile Include="Migrations\202301071815395_CreatedProductImageTable.Designer.cs">
-      <DependentUpon>202301071815395_CreatedProductImageTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301071845283_ImagePathToImagUrl.cs" />
-    <Compile Include="Migrations\202301071845283_ImagePathToImagUrl.Designer.cs">
-      <DependentUpon>202301071845283_ImagePathToImagUrl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301071929401_add-migration imagefix.cs" />
-    <Compile Include="Migrations\202301071929401_add-migration imagefix.Designer.cs">
-      <DependentUpon>202301071929401_add-migration imagefix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301071941065_RemovedImageTable.cs" />
-    <Compile Include="Migrations\202301071941065_RemovedImageTable.Designer.cs">
-      <DependentUpon>202301071941065_RemovedImageTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -588,38 +547,6 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202301031830365_InitialCreate.resx">
-      <DependentUpon>202301031830365_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301061758148_InitialCreate1.resx">
-      <DependentUpon>202301061758148_InitialCreate1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301061806521_ProductsTable.resx">
-      <DependentUpon>202301061806521_ProductsTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301061831374_CreatedProducts.resx">
-      <DependentUpon>202301061831374_CreatedProducts.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301071704074_ForeignKeyRelationship.resx">
-      <DependentUpon>202301071704074_ForeignKeyRelationship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301071719439_ProductForiegnKey.resx">
-      <DependentUpon>202301071719439_ProductForiegnKey.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301071815395_CreatedProductImageTable.resx">
-      <DependentUpon>202301071815395_CreatedProductImageTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301071845283_ImagePathToImagUrl.resx">
-      <DependentUpon>202301071845283_ImagePathToImagUrl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301071929401_add-migration imagefix.resx">
-      <DependentUpon>202301071929401_add-migration imagefix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301071941065_RemovedImageTable.resx">
-      <DependentUpon>202301071941065_RemovedImageTable.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

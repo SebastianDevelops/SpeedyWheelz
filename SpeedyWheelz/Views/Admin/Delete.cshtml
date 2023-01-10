@@ -1,0 +1,90 @@
+﻿@model SpeedyWheelz.Models.Product
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <dl class="dl-horizontal text-center">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlcoholCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlcoholCategory.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TobaccoCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TobaccoCategory.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tag.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isAlcohol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isAlcohol)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isTobacco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isTobacco)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back", "Index", "Admin")
+        </div>
+    }
+</div>

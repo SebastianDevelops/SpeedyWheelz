@@ -1,0 +1,81 @@
+﻿@model SpeedyWheelz.Models.Product
+
+@using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.ProductId)
+
+    <div class="form-group">
+        <label class="control-label">Image</label>
+        <input type="file" name="ImageUrl" />
+    </div>
+
+    <div class="form-group text-center img-fluid img-thumbnail">
+        <img src="@Model.ImageUrl" alt="Product Image" style="max-width:200px;" />
+    </div>
+    <div class="form-group d-flex">
+        <div class="col-sm-6">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-sm-6">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group d-flex">
+        <div class="col-sm-6">
+            @Html.LabelFor(model => model.CategoryId, "Category", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-sm-6">
+            @Html.LabelFor(model => model.AlcoholCategoryId, "AlcoholCategory", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("AlcoholCategoryId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.AlcoholCategoryId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group d-flex">
+
+        <div class="col-sm-6">
+            @Html.LabelFor(model => model.TobaccoCategoryId, "TobaccoCategory", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("TobaccoCategoryId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TobaccoCategoryId, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-sm-6">
+            @Html.LabelFor(model => model.TagId, "Tag", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("TagId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TagId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-12">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group d-flex">
+        <div class="col-sm-6">
+            @Html.LabelFor(model => model.isAlcohol, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.isAlcohol, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.isAlcohol, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-sm-6">
+            @Html.LabelFor(model => model.isTobacco, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.isTobacco, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.isTobacco, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+}
