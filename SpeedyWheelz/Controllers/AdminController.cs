@@ -55,7 +55,7 @@ namespace SpeedyWheelz.Controllers
                         string fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
 
                         // Generate the file path
-                        string filePath = Path.Combine(Server.MapPath("~Content/Images"), fileName);
+                        string filePath = Path.Combine(Server.MapPath("~/Content/Images"), fileName);
 
                         // Save the file to the server
                         image.SaveAs(filePath);
