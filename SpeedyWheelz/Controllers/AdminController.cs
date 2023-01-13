@@ -26,12 +26,14 @@ namespace SpeedyWheelz.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            Session["isAdmin"] = true;
             var model = _db.Products.ToList();
             return View(model);
         }
 
         public ActionResult Create()
         {
+            Session["isAdmin"] = true;
             ViewBag.CategoryId = new SelectList(_db.Categories, "Id", "Name");
             ViewBag.AlcoholCategoryId = new SelectList(_db.AlcoholCategories, "Id", "Name");
             ViewBag.TobaccoCategoryId = new SelectList(_db.TobaccoCategories, "Id", "Name");
@@ -79,6 +81,7 @@ namespace SpeedyWheelz.Controllers
 
         public ActionResult Edit(int? id)
         {
+            Session["isAdmin"] = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -134,6 +137,7 @@ namespace SpeedyWheelz.Controllers
 
         public ActionResult Delete(int? id)
         {
+            Session["isAdmin"] = true;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
