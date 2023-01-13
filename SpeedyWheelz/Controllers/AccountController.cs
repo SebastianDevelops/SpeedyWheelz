@@ -57,6 +57,7 @@ namespace SpeedyWheelz.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            Session["loggingIn"] = true;
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }

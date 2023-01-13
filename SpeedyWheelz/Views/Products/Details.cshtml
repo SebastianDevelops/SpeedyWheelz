@@ -42,6 +42,7 @@
             success: function (data) {
                 if (data.success) {
                     alert("Product added to cart!");
+                    $('#cartItemsDiv').load(location.href + " #cartItemsDiv>*", "");
                 } else {
                     alert("Failed to add product to cart.");
                 }

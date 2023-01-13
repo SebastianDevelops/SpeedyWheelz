@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\OfflineController.cs" />
     <Compile Include="Models\CartModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -199,6 +200,14 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AppIcon\icon-72x72.png" />
+    <Content Include="Content\AppIcon\icon-128x128.png" />
+    <Content Include="Content\AppIcon\icon-144x144.png" />
+    <Content Include="Content\AppIcon\icon-152x152.png" />
+    <Content Include="Content\AppIcon\icon-192x192.png" />
+    <Content Include="Content\AppIcon\icon-384x384.png" />
+    <Content Include="Content\AppIcon\icon-512x512.png" />
+    <Content Include="Content\AppIcon\icon-96x96.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -215,7 +224,7 @@
     <Content Include="css\owl.carousel.min.css" />
     <Content Include="css\owl.theme.default.min.css" />
     <Content Include="css\style.css" />
-    <Content Include="favicon.ico" />
+    <Content Include="Content\favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -223,7 +232,6 @@
     <Content Include="images\bg_1.jpg" />
     <Content Include="images\bg_2.jpg" />
     <Content Include="images\bg_4.jpg" />
-    <Content Include="images\c7fa7395-95b9-440f-a43b-14074af98d82.jpg" />
     <Content Include="images\image_1.jpg" />
     <Content Include="images\image_2.jpg" />
     <Content Include="images\image_3.jpg" />
@@ -267,6 +275,8 @@
     <Content Include="js\owl.carousel.min.js" />
     <Content Include="js\popper.min.js" />
     <Content Include="js\scrollax.min.js" />
+    <Content Include="Offline.html" />
+    <Content Include="sw.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="css\.DS_Store" />
@@ -274,6 +284,7 @@
     <Content Include="css\css\.DS_Store" />
     <Content Include="images\.DS_Store" />
     <Content Include="js\.DS_Store" />
+    <Content Include="Views\Offline\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -416,6 +427,7 @@
     <Content Include="scss\style.scss" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Shared\_CartItems.cshtml" />
+    <Content Include="manifest.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<SpeedyWheelz.Models.Product>
 
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 @if (Model.Any())
 {
     <section class="ftco-section">
@@ -10,9 +14,10 @@
                     <div class="col-md-3 d-flex">
                         
                         <div class="product ftco-animate">
-                            
-                                <div class="img d-flex align-items-center justify-content-center" style="background-image: url(../../Content/Images/@product.ImageUrl);">
-                                </div>
+                                <a href="@Url.Action("Details", "Products", new { id = product.ProductId })">
+                                    <div class="img d-flex align-items-center justify-content-center" style="background-image: url(../../Content/Images/@product.ImageUrl);">
+                                    </div>
+                                </a>
                             <div class="text text-center">
                                 @if (product.Tag.Name == "None" || String.IsNullOrEmpty(product.Tag.Name))
                                 {

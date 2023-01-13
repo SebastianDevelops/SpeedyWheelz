@@ -52,9 +52,9 @@ namespace SpeedyWheelz.Controllers
             {
                 Cart cart = GetCart();
                 cart.RemoveItem(product);
-                return RedirectToAction("Index");
+                return Json(new { success = true });
             }
-            return HttpNotFound();
+            return Json(new { success = false });
         }
 
         private Cart GetCart()

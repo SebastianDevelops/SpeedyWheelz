@@ -66,7 +66,7 @@ namespace SpeedyWheelz.Controllers
                         product.ImageUrl = fileName;
                     }
                 }
-
+                
                 _db.Products.Add(product);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
@@ -104,6 +104,7 @@ namespace SpeedyWheelz.Controllers
         {
             if (ModelState.IsValid)
             {
+                string previousImageName = _db.Products.Where(p => p.ProductId == product.ProductId).Select(p => p.ImageUrl).FirstOrDefault();
                 // Check if a file was uploaded
                 if (image != null)
                 {
@@ -123,7 +124,10 @@ namespace SpeedyWheelz.Controllers
                         product.ImageUrl = fileName;
                     }
                 }
-
+                else
+                {
+                    product.ImageUrl = previousImageName;
+                }
                 _db.Entry(product).State = EntityState.Modified;
                 _db.SaveChanges();
                 return RedirectToAction("Index");
@@ -155,6 +159,11 @@ namespace SpeedyWheelz.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = _db.Products.Find(id);
+            var imagePath = Path.Combine(Server.MapPath("~/Content/Images"), product.ImageUrl);
+            if (System.IO.File.Exists(imagePath))
+            {
+                System.IO.File.Delete(imagePath);
+            }
             _db.Products.Remove(product);
             _db.SaveChanges();
             return RedirectToAction("Index");

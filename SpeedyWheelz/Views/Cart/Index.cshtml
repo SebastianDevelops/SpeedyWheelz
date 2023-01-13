@@ -1,9 +1,107 @@
 ﻿@model SpeedyWheelz.Models.Cart
 
+<style>
+    @@media (min-width: 1025px) {
+.h-custom {
+height: 100vh !important;
+}
+}
 
-<ul>
-    @foreach (var item in Model.Items)
-    {
-        <li>@item.Product.Name</li>
+    #cartItemDelete{
+        cursor: pointer;
     }
-</ul>
+
+</style>
+
+<section class="h-100 h-custom" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body p-4">
+
+                        <div class="row">
+
+                            <div class="col-lg-12 col-sm-6">
+                                <h5 class="mb-3">
+                                    <a href="#!" class="text-body">
+                                        <i class="flaticon-arrow-left me-2"></i>Continue shopping
+                                    </a>
+                                </h5>
+                                <hr>
+
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                </div>
+                                @foreach (var item in Model.Items)
+                                {
+                                    <div id="product-@item.Product.ProductId">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <div>
+                                                            <img src="../../Content/Images/@item.Product.ImageUrl"
+                                                                 class="img-fluid rounded" alt="Shopping item" style="width: 65px; margin-left: -11px;">
+                                                        </div>
+                                                        <div class="text-center">
+                                                            <h5>@item.Product.Name</h5>
+                                                            <p class="small mb-0">@item.Product.Description</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <div style="width: 50px;">
+                                                            <h5 class="fw-normal mb-0">@item.Quantity</h5>
+                                                        </div>
+                                                        <div class="d-flex" style="width: 80px;">
+                                                            <h5 class="mb-0">R @item.Product.Price</h5>
+                                                            <a id="cartItemDelete" onclick="removeFromCart('@item.Product.ProductId', )"> <i style="margin-top: 5px; margin-left: 10px;" class="fa fa-trash"></i></a>
+                                                        </div>
+                                                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            <div class="row" id="totalPriceDiv">
+                                <div>Total Price: R @Model.TotalPrice</div>
+                            </div>
+                            <div class="row">
+                                @if (Model.Items.Count == 0)
+                                {
+                                    <a href="#" class="btn btn-primary disabled btn-block">Checkout</a>
+                                }
+                                else
+                                {
+                                    <a href="#" class="btn btn-primary btn-block">Checkout</a>
+                                }
+                            </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+<script>
+    function removeFromCart(productId) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("RemoveFromCart", "Cart")/"+productId,
+            data: { productId: productId },
+            success: function (data) {
+                if (data.success) {
+                    $('#product-' + productId).remove();
+                    $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "");
+                } else {
+                    $('#product-' + productId).remove();
+                    $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "");
+                    
+                }
+            }
+        });
+    }
+</script>

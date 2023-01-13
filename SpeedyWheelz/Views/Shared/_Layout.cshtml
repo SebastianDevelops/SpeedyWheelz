@@ -4,8 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#b7472a" />
+    <link rel="apple-touch-icon" href="~/Content/AppIcon/icon-192x192.png">
     <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-
+    <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="~/css/animate.css">
@@ -22,7 +25,7 @@
     {
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar">
             <div class="container">
-                <a class="navbar-brand" href="@Url.Action("Index", "Home")">Speedy <span>Wheelz</span></a>
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")">Speedy <span style="color: #b7472a;">Wheelz</span></a>
                 <div class="order-lg-last btn-group">
                     <a href="#" class="btn-cart dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="flaticon-shopping-bag"></span>
@@ -38,15 +41,22 @@
 
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
-                        
+                        <li class="nav-item active"><a href="@Url.Action("Index", "Home")" class="nav-link">Home</a></li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown04">
-                                <a class="dropdown-item" href="product.html">Products</a>
-                                <a class="dropdown-item" href="product-single.html">Single Product</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "Cart")">Cart</a>
-                                <a class="dropdown-item" href="checkout.html">Checkout</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 2 })">Brandy</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 9 })">Gin</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 1 })">Rum</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 6 })">Tequila</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 7 })">Vodka</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 5 })">Whiskey</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 3 })">Beer</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 4 })">Cider</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 8 })">Tobacco</a>
+                                <a class="dropdown-item font-weight-bold" href="@Url.Action("Index", "Cart")">Cart</a>
+                                <a class="dropdown-item font-weight-bold" href="checkout.html">Checkout</a>
                             </div>
                         </li>
                     </ul>
@@ -59,7 +69,13 @@
         @RenderBody()
     </div>
 
-
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('/sw.js')
+                .then(function () { console.log('Service Worker Registered'); });
+        }
+    </script>
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/jquery-migrate-3.0.1.min.js"></script>
     <script src="~/js/popper.min.js"></script>
