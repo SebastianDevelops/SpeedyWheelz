@@ -20,7 +20,7 @@
 <body>
         @if (Session["IsAdmin"] == null || (bool)Session["IsAdmin"] != true)
             {
-                <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar">
                     <div class="container">
                         <a class="navbar-brand" href="@Url.Action("Index", "Home")">Speedy <span>Wheelz</span></a>
                         <div class="order-lg-last btn-group">

@@ -28,5 +28,13 @@ namespace SpeedyWheelz.Controllers
                             .ToList();
             return View(products);
         }
+
+        public ActionResult Details(int id) {
+            var product = _db.Products.SingleOrDefault(p => p.ProductId == id);
+            if (product == null)
+                return HttpNotFound();
+
+            return View(product);
+        }
     }
 }

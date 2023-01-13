@@ -1,0 +1,31 @@
+﻿@model SpeedyWheelz.Models.Product
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="../../Content/Images/@Model.ImageUrl" class="img-fluid" alt="@Model.Name">
+        </div>
+    </div>
+    <div class="row product">
+        <div class="col-md-6  text text-center">
+            @if (!String.IsNullOrEmpty(Model.Tag.Name))
+            {
+                <span style="margin-left: 15px;" class="sale">@Model.Tag.Name</span>
+            }
+            @if (Model.AlcoholCategory.Name == "None" || Model.AlcoholCategory == null)
+            {
+                <span class="category">@Model.TobaccoCategory.Name</span>
+            }
+            else
+            {
+                <span class="category">@Model.AlcoholCategory.Name</span>
+            }
+            <h2>@Model.Name</h2>
+            <h4>Price: R @Model.Price</h4>
+            <hr>
+            <hr>
+            <p>@Model.Description</p>
+            <hr>
+        </div>
+    </div>
+</div>
