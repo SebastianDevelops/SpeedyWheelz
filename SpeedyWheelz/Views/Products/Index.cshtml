@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SpeedyWheelz.Models.Product>
+
+@if (Model.Any())
+{
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                    <div class="col-md-3 d-flex">
+                        <div class="product ftco-animate">
+                            <div class="img d-flex align-items-center justify-content-center" style="background-image: url(../../Content/Images/@product.ImageUrl);">
+                                <div class="desc">
+                                    <p class="meta-prod d-flex">
+                                        <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
+                                        <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+                                        <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="text text-center">
+                                @if (product.Tag.Name == "None" || String.IsNullOrEmpty(product.Tag.Name))
+                                {
+                                    <span></span>
+                                }
+                                else
+                                {
+                                    <span class="sale">@product.Tag.Name</span>
+                                }
+                                <span class="category">@product.AlcoholCategory.Name</span>
+                                <h2>@product.Name</h2>
+                                <p class="mb-0"><span class="price">R @product.Price</span></p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <div class="alert text-center justify-content-center alert-danger">
+        <h3>Products will be added soon</h3>
+    </div>
+}

@@ -172,6 +172,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -182,6 +183,10 @@
     <Compile Include="Migrations\202301102032086_AddedDataAnnotations.cs" />
     <Compile Include="Migrations\202301102032086_AddedDataAnnotations.designer.cs">
       <DependentUpon>202301102032086_AddedDataAnnotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301130950265_ImageNullable.cs" />
+    <Compile Include="Migrations\202301130950265_ImageNullable.designer.cs">
+      <DependentUpon>202301130950265_ImageNullable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -251,6 +256,7 @@
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\Delete.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -275,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301102032086_AddedDataAnnotations.resx">
       <DependentUpon>202301102032086_AddedDataAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301130950265_ImageNullable.resx">
+      <DependentUpon>202301130950265_ImageNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

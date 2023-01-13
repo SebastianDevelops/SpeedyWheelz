@@ -48,7 +48,6 @@ namespace SpeedyWheelz.Models
         [Required(ErrorMessage = "Product Price Is Required")]
         [Display(Name = "Price(R)")]
         public int Price { get; set; }
-        [Required(ErrorMessage = "An Image Is Required For Every Product")]
         [Display(Name = "Select an image")]
         public string ImageUrl { get; set; }
         [ForeignKey("Category")]
