@@ -1,0 +1,9 @@
+﻿@model SpeedyWheelz.Models.Cart
+
+
+<ul>
+    @foreach (var item in Model.Items)
+    {
+        <li>@item.Product.Name</li>
+    }
+</ul>

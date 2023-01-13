@@ -27,5 +27,25 @@
             <p>@Model.Description</p>
             <hr>
         </div>
+        <div class="row">
+            <button onclick="addToCart('@Model.ProductId', 1)" class="btn btn-primary">Add To Cart</button>
+        </div>
     </div>
 </div>
+
+<script>
+    function addToCart(productId, quantity) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("AddToCart", "Cart")",
+            data: { productId: productId, quantity: quantity },
+            success: function (data) {
+                if (data.success) {
+                    alert("Product added to cart!");
+                } else {
+                    alert("Failed to add product to cart.");
+                }
+            }
+        });
+    }
+</script>

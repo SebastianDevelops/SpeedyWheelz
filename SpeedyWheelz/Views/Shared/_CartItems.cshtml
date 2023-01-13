@@ -1,0 +1,31 @@
+﻿@model SpeedyWheelz.Models.Cart
+
+
+@if (Model.Items.Count > 0)
+{
+    foreach (var item in Model.Items)
+    {
+        <div class="dropdown-item d-flex align-items-start" href="#">
+            <div class="img" style="background-image: url(../../Content/Images/@item.Product.ImageUrl);"></div>
+            <div class="text pl-3">
+                <h4>@item.Product.Name</h4>
+                <p class="mb-0"><a href="@Url.Action("Details","Products", new { id = item.Product.ProductId })" class="price">R @item.Product.Price</a><span class="quantity ml-3">Quantity: @item.Quantity</span></p>
+            </div>
+        </div>
+    }
+    <a class="dropdown-item text-center btn-link d-block w-100" href="@Url.Action("Index", "Cart")">
+        View All
+        <span class="ion-ios-arrow-round-forward"></span>
+    </a>
+}
+else
+	{
+<div class="row">
+    <div class="col-sm-4">
+        <div class="alert text-center justify-content-center alert-danger">
+            <h5>Cart Is Empty</h5>
+        </div>
+    </div>
+</div>
+
+	}
