@@ -4,14 +4,22 @@
     // Update 'version' if you need to refresh the cache
     var version = 'v1.0::CacheFirstSafe';
     var offlineUrl = "Offline/Index.cshtml"; // <-- Offline/Index.cshtml
-    var urlsToCache = ['/', offlineUrl]; // <-- Add more URLs you would like to cache.
+    var baseUrl = location.origin;
+    var urlsToCache = [baseUrl+'/Offline/Index.cshtml']; // <-- Add more URLs you would like to cache.
 
     // Store core files in a cache (including a page to display when offline)
     function updateStaticCache() {
-        return caches.open(version)
-            .then(function (cache) {
-                return cache.addAll(urlsToCache);
-            });
+        self.addEventListener('fetch', function (event) {
+            event.respondWith(
+                caches.match(event.request)
+                    .then(function (response) {
+                        return response || fetch(event.request)
+                            .catch(function () {
+                                return caches.match(offlineUrl);
+                            });
+                    })
+            );
+        });
     }
 
     function addToCache(request, response) {
