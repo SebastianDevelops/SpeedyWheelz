@@ -140,6 +140,7 @@ namespace SpeedyWheelz.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            Session["loggingIn"] = true;
             return View();
         }
 
@@ -150,9 +151,10 @@ namespace SpeedyWheelz.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            Session["loggingIn"] = true;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.Name, LastName = model.Surname };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

@@ -171,7 +171,16 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OfflineController.cs" />
+    <Compile Include="Migrations\202301141851411_OrderTableCreated.cs" />
+    <Compile Include="Migrations\202301141851411_OrderTableCreated.designer.cs">
+      <DependentUpon>202301141851411_OrderTableCreated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301141942110_FirstNameAndLastName.cs" />
+    <Compile Include="Migrations\202301141942110_FirstNameAndLastName.designer.cs">
+      <DependentUpon>202301141942110_FirstNameAndLastName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CartModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -193,6 +202,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProductModel.cs" />
@@ -428,6 +438,7 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Shared\_CartItems.cshtml" />
     <Content Include="manifest.json" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -455,6 +466,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301130950265_ImageNullable.resx">
       <DependentUpon>202301130950265_ImageNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301141851411_OrderTableCreated.resx">
+      <DependentUpon>202301141851411_OrderTableCreated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301141942110_FirstNameAndLastName.resx">
+      <DependentUpon>202301141942110_FirstNameAndLastName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
