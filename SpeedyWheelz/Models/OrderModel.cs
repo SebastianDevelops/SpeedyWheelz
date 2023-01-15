@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -10,9 +11,14 @@ namespace SpeedyWheelz.Models
     {
         [Key]
         public int AddressId { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
+        [Required]
         public string Street { get; set; }
+        [Required]
+        public string PhoneNumber { get; set; }
         public string City { get; set; } = "Johannesburg";
         public string ZipCode { get; set; } = "1830";
         public string Country { get; set; } = "South Africa";
@@ -26,6 +32,7 @@ namespace SpeedyWheelz.Models
     {
         [Key]
         public int OrderId { get; set; }
+        [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public int AddressId { get; set; }

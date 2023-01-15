@@ -36,7 +36,7 @@ namespace SpeedyWheelz.Models
 
         public DbSet<Tag> Tags { get; set; }
 
-        public DbSet<Address> Address { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
         public DbSet<Order> Orders { get; set; }
 

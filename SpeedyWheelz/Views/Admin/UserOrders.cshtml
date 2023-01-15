@@ -1,3 +1,38 @@
-﻿Orders:
+﻿@model IEnumerable<SpeedyWheelz.Models.Order>
 
-@Html.Action("Checkout", "Order")
+<div class="table-responsive-sm">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Total Paid</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.ApplicationUser.FirstName
+                    </td>
+                    <td>
+                        @item.ApplicationUser.LastName
+                    </td>
+                    <td>
+                        @item.Address.PhoneNumber
+                    </td>
+                    <td>
+                        @item.TotalPrice
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Orders", "Admin", new { id = item.UserId })" class="btn btn-primary">Order Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

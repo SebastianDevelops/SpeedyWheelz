@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="~/css/style.css">
 </head>
 <body>
-    @if (Session["IsAdmin"] == null || (bool)Session["IsAdmin"] != true)
+    @if (ViewContext.RouteData.Values["controller"].ToString() != "Admin")
     {
         if (ViewContext.RouteData.Values["controller"].ToString() != "Account")
         {

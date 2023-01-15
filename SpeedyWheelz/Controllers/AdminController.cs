@@ -170,6 +170,20 @@ namespace SpeedyWheelz.Controllers
         }
 
         public ActionResult UserOrders()
-        { return View(); }
+        {
+           var orders = _db.Orders.Include(o => o.Address).Include(o => o.ApplicationUser).ToList();
+            return View(orders); 
+        }
+
+        public ActionResult Orders(string id)
+        {
+            var orders = _db.Orders.Include(a => a.Address)
+                                    .Include(u => u.ApplicationUser)
+                                    .Where(o => o.UserId == id).ToList();
+            ViewBag.Address = orders[0].Address.Street.ToString();
+            ViewBag.CreatedAt = orders[0].CreatedAt.ToString();
+            ViewBag.Phone = orders[0].Address.PhoneNumber.ToString();
+            return View(orders);
+        }
     }
 }

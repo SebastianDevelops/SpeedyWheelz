@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace SpeedyWheelz.Models
 {
@@ -53,21 +54,25 @@ namespace SpeedyWheelz.Models
         [ForeignKey("Category")]
         [Required(ErrorMessage = "Please select a Category")]
         public int CategoryId { get; set; }
+        [JsonIgnore]
         public Category Category { get; set; }
         [ForeignKey("AlcoholCategory")]
         [Required(ErrorMessage = "Please select a Category of Alcohol")]
         [Display(Name = "Category Of Alcohol")]
         public int? AlcoholCategoryId { get; set; }
+        [JsonIgnore]
         public virtual AlcoholCategory AlcoholCategory { get; set; }
         [ForeignKey("TobaccoCategory")]
         [Required(ErrorMessage = "Please select a Category of Tobacco")]
         [Display(Name = "Category Of Tobacco")]
         public int TobaccoCategoryId { get; set; }
+        [JsonIgnore]
         public virtual TobaccoCategory TobaccoCategory { get; set; }
         [ForeignKey("Tag")]
         [Required(ErrorMessage = "Please select a Tag")]
         [Display(Name = "Tag")]
         public int TagId { get; set; }
+        [JsonIgnore]
         public virtual Tag Tag { get; set; }
         [Required(ErrorMessage = "Please enter a description")]
         public string Description { get; set; }

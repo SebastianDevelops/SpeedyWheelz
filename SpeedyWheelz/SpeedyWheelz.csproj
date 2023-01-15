@@ -181,6 +181,18 @@
     <Compile Include="Migrations\202301141942110_FirstNameAndLastName.designer.cs">
       <DependentUpon>202301141942110_FirstNameAndLastName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202301150952027_NumberInOder.cs" />
+    <Compile Include="Migrations\202301150952027_NumberInOder.designer.cs">
+      <DependentUpon>202301150952027_NumberInOder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301150956555_UserIDFK.cs" />
+    <Compile Include="Migrations\202301150956555_UserIDFK.designer.cs">
+      <DependentUpon>202301150956555_UserIDFK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301151139210_updatedAddressName.cs" />
+    <Compile Include="Migrations\202301151139210_updatedAddressName.designer.cs">
+      <DependentUpon>202301151139210_updatedAddressName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CartModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -202,6 +214,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DriverController.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -441,10 +454,12 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Admin\UserOrders.cshtml" />
     <Content Include="Views\Order\Checkout.cshtml" />
+    <Content Include="Views\Admin\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
+    <Folder Include="Views\Driver\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -474,6 +489,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301141942110_FirstNameAndLastName.resx">
       <DependentUpon>202301141942110_FirstNameAndLastName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301150952027_NumberInOder.resx">
+      <DependentUpon>202301150952027_NumberInOder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301150956555_UserIDFK.resx">
+      <DependentUpon>202301150956555_UserIDFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301151139210_updatedAddressName.resx">
+      <DependentUpon>202301151139210_updatedAddressName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
