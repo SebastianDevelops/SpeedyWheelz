@@ -38,6 +38,8 @@ namespace SpeedyWheelz.Models
         public int AddressId { get; set; }
         public Address Address { get; set; }
         public string OrderStatus { get; set; }
+        public string DriverId { get; set; }
+        public bool isAssigned { get; set; }
         public DateTime CreatedAt { get; set; }
         public string CartItemsJsonItems { get; set; }
         public decimal TotalPrice { get; set; }

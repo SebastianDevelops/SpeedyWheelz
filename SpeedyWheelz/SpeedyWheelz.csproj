@@ -46,10 +46,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.3\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -173,6 +180,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OfflineController.cs" />
+    <Compile Include="Hubs\OrderHub.cs" />
     <Compile Include="Migrations\202301141851411_OrderTableCreated.cs" />
     <Compile Include="Migrations\202301141851411_OrderTableCreated.designer.cs">
       <DependentUpon>202301141851411_OrderTableCreated.cs</DependentUpon>
@@ -192,6 +200,10 @@
     <Compile Include="Migrations\202301151139210_updatedAddressName.cs" />
     <Compile Include="Migrations\202301151139210_updatedAddressName.designer.cs">
       <DependentUpon>202301151139210_updatedAddressName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301151801275_createddrivertable.cs" />
+    <Compile Include="Migrations\202301151801275_createddrivertable.designer.cs">
+      <DependentUpon>202301151801275_createddrivertable.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\CartModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -214,7 +226,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\DriverController.cs" />
+    <Compile Include="Controllers\DriverController.cs" />
+    <Compile Include="Models\DriverModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -299,6 +312,8 @@
     <Content Include="js\popper.min.js" />
     <Content Include="js\scrollax.min.js" />
     <Content Include="Offline.html" />
+    <Content Include="Scripts\jquery.signalR-2.4.3.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.3.min.js" />
     <Content Include="sw.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -498,6 +513,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301151139210_updatedAddressName.resx">
       <DependentUpon>202301151139210_updatedAddressName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301151801275_createddrivertable.resx">
+      <DependentUpon>202301151801275_createddrivertable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
