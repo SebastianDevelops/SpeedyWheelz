@@ -168,5 +168,8 @@ namespace SpeedyWheelz.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult UserOrders()
+        { return View(); }
     }
 }
