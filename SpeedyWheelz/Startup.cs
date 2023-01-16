@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using Microsoft.AspNet.SignalR;
 
 [assembly: OwinStartupAttribute(typeof(SpeedyWheelz.Startup))]
 namespace SpeedyWheelz

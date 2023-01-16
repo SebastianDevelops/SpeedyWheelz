@@ -1,0 +1,63 @@
+﻿@model IEnumerable<SpeedyWheelz.Models.Order>
+
+
+
+
+@Scripts.Render("~/bundles/jquery")
+<style>
+    @@media (max-width: 767.98px) {
+        .border-sm-start-none {
+            border-left: none !important;
+        }
+    }
+</style>
+
+<section style="background-color: #eee;">
+    <div class="container py-5">
+        @foreach (var item in Model)
+        {
+            <div class="row justify-content-center mb-3">
+                <div class="col-md-12 col-xl-10">
+                    <div class="card shadow-0 border rounded-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-xl-6">
+                                    <h5>@item.ApplicationUser.FirstName @item.ApplicationUser.LastName</h5>
+                                    <div class="mt-1 mb-0 text-muted small">
+                                        <ul>
+                                            <li class="list-unstyled">
+                                                Phone Number: @item.Address.PhoneNumber
+                                            </li>
+                                            <li class="list-unstyled">
+                                                Street Address: @item.Address.Street
+                                            </li>
+                                            <li class="list-unstyled">
+                                                Zip code: @item.Address.ZipCode
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                                    <div class="d-flex flex-row align-items-center mb-1">
+                                        <h4 class="mb-1 me-1">R @item.TotalPrice</h4>
+                                    </div>
+                                    <div class="d-flex flex-column mt-4">
+                                        <a href="@Url.Action("OrderDetails", "Driver", new { id = item.OrderId })"><button class="btn btn-primary btn-sm" type="button">View Order Details</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+</section>
+
+@section scripts{
+    <script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
+    <script src="~/SignalR/hubs"></script>
+}
+
