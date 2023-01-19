@@ -1,0 +1,24 @@
+﻿@model SpeedyWheelz.Models.Order
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Scripts.Render("~/bundles/jquery")
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h5>Have you fulfilled @Model.ApplicationUser.FirstName's Order?</h5>
+        </div>
+    </div>
+    @using (Html.BeginForm("", "", new { id = "fillForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row d-flex justify-content-between">
+            
+                <button class="btn btn-primary btn-block" type="submit">Yes</button>
+
+                <p onclick="$('#exampleModal').hide()" class="btn btn-block btn-outline-danger">No</p>
+            </div>
+    }
+</div>
+

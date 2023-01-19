@@ -2,10 +2,11 @@
 @model List<SpeedyWheelz.Models.Order>
 
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     // Deserialize the JSON object
     var items = JsonConvert.DeserializeObject<List<SpeedyWheelz.Models.CartItem>>(Model[0].CartItemsJsonItems);
 }
-
+@Scripts.Render("~/bundles/jquery")
 <style>
     @@media (max-width: 767.98px) {
         .border-sm-start-none {
@@ -80,7 +81,37 @@
         }
 
     </div>
-        <h4>Subtotal:</h4>
-        <h5>R @Model[0].TotalPrice</h5>
+    <h4>Subtotal:</h4>
+    <h5>R @Model[0].TotalPrice</h5>
+    <button data-order-id="@Model[0].OrderId" id="completeBtn" class="btn btn-primary">Order Fulfilled</button>
 </section>
 
+<script>
+    $('#completeBtn').click(function () {
+        var orderId = $(this).data('order-id');
+        $.ajax({
+            url: '@Url.Action("FulfillOrder", "Driver")',
+            type: "get",
+            data: { orderId: orderId },
+            success: function (data) {
+                $('#fulfillmentData').html(data);
+                $('#exampleModal').show();
+            }
+        });
+    });
+</script>
+
+<div style="display: none;" class="modal" id="exampleModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Order Fulfilled?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#exampleModal').hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="fulfillmentData">
+            </div>
+        </div>
+    </div>
+</div>

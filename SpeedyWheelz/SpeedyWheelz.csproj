@@ -475,6 +475,9 @@
     <Content Include="Views\Driver\Index.cshtml" />
     <Content Include="Views\Driver\OrderDetails.cshtml" />
     <Content Include="Views\Driver\DriverAssignedOrders.cshtml" />
+    <Content Include="Views\Driver\FulfillOrder.cshtml" />
+    <Content Include="Views\Shared\_ProuctSearch.cshtml" />
+    <Content Include="Views\Shared\_ProductList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

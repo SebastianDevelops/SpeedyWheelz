@@ -4,6 +4,7 @@ using SpeedyWheelz.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -70,6 +71,31 @@ namespace SpeedyWheelz.Models
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
         }
+
+        public ActionResult FulfillOrder(int? orderId)
+        {
+            if (orderId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = _db.Orders.Include(m => m.ApplicationUser).Where(M => M.OrderId == orderId).FirstOrDefault();
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            return View(order);
+        }
+
+        [HttpPost, ActionName("FulfillOrder")]
+        [ValidateAntiForgeryToken]
+        public ActionResult FulfillOrderConfirmed(int orderId)
+        {
+            Order order = _db.Orders.Find(orderId);
+            _db.Orders.Remove(order);
+            _db.SaveChanges();
+            return RedirectToAction("DriverAssignedOrders");
+        }
+
 
     }
 }

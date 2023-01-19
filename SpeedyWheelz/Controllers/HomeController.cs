@@ -57,5 +57,21 @@ namespace SpeedyWheelz.Controllers
 
             return View();
         }
+
+        public ActionResult ProductSearch()
+        {
+            return PartialView("_ProuctSearch");
+        }
+
+        public ActionResult ProductList(string searchText)
+        {
+            searchText = searchText.ToLower();
+            var products = _db.Products.Where(m => m.Name.ToLower().Contains(searchText)).ToList();
+
+            products.Take(5);
+
+            return PartialView("_ProductList", products);
+        }
+
     }
 }

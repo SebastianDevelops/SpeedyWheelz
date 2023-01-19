@@ -1,0 +1,21 @@
+﻿@model IEnumerable<SpeedyWheelz.Models.Product>
+
+@if (Model.Any())
+{
+    foreach (var product in Model)
+    {
+        <div class="dropdown-item d-flex align-items-start" href="#">
+            <div class="img" style="background-image: url(../../Content/Images/@product.ImageUrl);"></div>
+            <div class="text pl-3">
+                <a href="@Url.Action("Details", "Products", new { id = product.ProductId })"><h4>@product.Name</h4></a>
+                <p class="mb-0"><a href="@Url.Action("Details", "Products", new { id = product.ProductId })" class="price">R @product.Price</a></p>
+            </div>
+        </div>
+    }
+    }
+    else
+            {
+<div class="dropdown-item d-flex align-items-start" href="#">
+    <h5>No items match your search</h5>
+</div>
+    }
