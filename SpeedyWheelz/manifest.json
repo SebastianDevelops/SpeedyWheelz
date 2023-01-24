@@ -4,7 +4,7 @@
   "description": "Speedy Wheelz because fast things shouldn't be slow.",
   "theme_color": "#b7472a",
   "background_color": "#b7472a",
-  "display": "standalone",
+  "display": "fullscreen",
   "start_url": "/",
   "icons": [
     {
