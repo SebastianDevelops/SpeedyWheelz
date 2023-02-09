@@ -70,7 +70,14 @@ namespace SpeedyWheelz.Controllers
         public ActionResult Checkout()
         {
             var cart = HttpContext.Session["cart"] as Cart;
-            ViewBag.TotalPrice = cart.TotalPrice + 30;
+            if(cart.TotalPrice > 500)
+            {
+                ViewBag.TotalPrice = cart.TotalPrice;
+            }
+            else
+            {
+                ViewBag.TotalPrice = cart.TotalPrice + 30;
+            }
             ViewBag.CartId = cart.Items.First().Product.Name;
             ViewBag.Name = User;
             var userId = User.Identity.GetUserId();
@@ -92,21 +99,6 @@ namespace SpeedyWheelz.Controllers
             var userId = User.Identity.GetUserId();
             // Retrieve the cart from the session
             var cart = HttpContext.Session["cart"] as Cart;
-            Guid uniqueId = new Guid(); 
-            Dictionary<string, string> pfData = new Dictionary<string, string>();
-            pfData.Add("merchant_id", "10028429");
-            pfData.Add("merchant_key", "wkxzok5x4xvsl");
-            pfData.Add("return_url", "https://www.example.com");
-            pfData.Add("notify_url", "https://www.example.com/notify_url");
-            pfData.Add("m_payment_id", uniqueId.ToString());
-            pfData.Add("amount", cart.TotalPrice.ToString());
-            pfData.Add("item_name", "order_"+uniqueId.ToString());
-
-            string passPhrase = "SpeedyWheelz2023";
-
-            var signiture = generateApiSignatureActionResult(pfData, passPhrase);
-
-            ViewBag.sig = signiture;
 
             // Convert the cart object to a JSON string
             order.AddressId = _db.Addresses.Where(u => u.ApplicationUserId == userId).Select(m => m.AddressId).FirstOrDefault();
@@ -119,7 +111,7 @@ namespace SpeedyWheelz.Controllers
             _db.Orders.Add(order);
             _db.SaveChanges();
 
-            return View(order);
+            return RedirectToAction("Index", "Home");
         }
 
         ActionResult generateApiSignatureActionResult(Dictionary<string, string> dataArray, string passPhrase = "")

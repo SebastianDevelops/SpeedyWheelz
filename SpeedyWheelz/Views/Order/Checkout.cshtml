@@ -5,102 +5,116 @@
 
 @Scripts.Render("~/bundles/jquery")
 
-@using (Html.BeginForm("Checkout", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    <button id="" type="Submit">Submit Mock</button>
-}
+<script type="text/javascript">
+    function shippingRequiredPayFast(formReference) {
+        let cont = true;
+        for (let i = 0; i < formReference.elements.length; i++) {
 
-<button id="" type="Submit">Submit Mock</button>
+            if (formReference.elements[i].className !== 'shipping')
+                continue;
 
-<form action="https://sandbox.payfast.co.za/eng/process" method="post">
-    <input type="hidden" name="merchant_id" value="10028429">
-    <input type="hidden" name="merchant_key" value="wkxzok5x4xvsl">
-    <input type="hidden" name="amount" value="100.00">
-    <input type="hidden" name="item_name" value="Test Product">
-    <input type="hidden" id="signature" name="signature" value="">
-    <input id="test" formtarget="_blank" type="submit">
-</form>
+            if (formReference.elements[i].name === 'line2')
+                continue;
 
-@*<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
-<script src="https://www.payfast.co.za/onsite/engine.js"></script>
-<script>
-        // Set up your data for the payment
-        const myData = {
-            'merchant_id': '10028429',
-            'merchant_key': 'wkxzok5x4xvsl',
-            'email_address': 'besman505@gmail.com',
-            'amount': '100.00',
-            'item_name': 'Test Product'
-        };
-        console.log(myData);
-        // Set up your passphrase
-        const passPhrase = 'SpeedyWheelz2023';
+            if (!cont)
+                continue;
 
-        // Function to convert data array to a string
-        const dataToString = (dataArray) => {
-            let pfParamString = "";
-            for (let key in dataArray) {
-                if (dataArray.hasOwnProperty(key)) {
-                    pfParamString += `${key}=${encodeURIComponent(dataArray[key]).replace(/%20/g, "+")}&`;
+            if (formReference.elements[i].name === 'country') {
+                if (formReference.elements[i].selectedIndex === 0) {
+                    cont = false;
+                    alert('Select a country');
+                }
+            } else {
+                if (0 === formReference.elements[i].value.length || /^\s*$/.test(formReference.elements[i].value)) {
+                    cont = false;
+                    alert('Complete all the mandatory address fields');
                 }
             }
-            return pfParamString.slice(0, -1);
-        };
-
-        // Function to generate a payment identifier
-        const generatePaymentIdentifier = async (pfParamString) => {
-            const result = await $.ajax({
-                type: "POST",
-                url: 'https://sandbox.payfast.co.za/eng/process',
-                data: pfParamString,
-                success: function (res) {
-                    return res || null;
-                },
-                error: function (error) {
-                    console.error(error);
-                }
-            });
-            console.log("res.data", result);
-            return result;
-        };
-
-
-        // Function to generate a signature
-    const generateSignature = function (data, passPhrase = null) {
-        // Create parameter string
-        let pfOutput = "";
-        $.each(data, function (key, value) {
-            if (data.hasOwnProperty(key)) {
-                if (value !== "") {
-                    pfOutput += `${key}=${encodeURIComponent(value.trim()).replace(/%20/g, "+")}&`
-                }
-            }
-        });
-        // Remove last ampersand
-        let getString = pfOutput.slice(0, -1);
-        if (passPhrase !== null) {
-            console.log(passPhrase);
-            getString += `&passphrase=${encodeURIComponent(passPhrase.trim()).replace(/%20/g, "+")}`;
         }
-        return CryptoJS.MD5(getString).toString();
+        if (!cont) {
+            return cont;
+        }
     }
+</script>
+<script type="text/javascript">
+    function customQuantitiesPayFast(formReference) {
+        formReference['amount'].value = formReference['amount'].value * formReference['custom_quantity'].value;
+        return true;
+    }
+</script>
+<script type="text/javascript">
+    function actionPayFastJavascript(formReference) {
+        let shippingValid = shippingRequiredPayFast(formReference);
+        let shippingValidOrOff = typeof shippingValid !== 'undefined' ? shippingValid : true;
+        let customValid = shippingValidOrOff ? customQuantitiesPayFast(formReference) : false;
+        if (typeof shippingValid !== 'undefined' && !shippingValid) {
+            return false;
+        }
+        if (typeof customValid !== 'undefined' && !customValid) {
+            return false;
+        }
+        return true;
+    }
+</script>
+<form onsubmit="return actionPayFastJavascript( this );" name="PayFastPayNowForm" action="https://sandbox.payfast.co.za/eng/process" method="post">
+    <input required type="hidden" name="cmd" value="_paynow">
+    <input required type="hidden" name="receiver" pattern="[0-9]" value="10028429">
+    <input type="hidden" name="return_url" value="https://8bbb-102-132-40-41.in.ngrok.io/Exceptions/Return">
+    <input type="hidden" name="cancel_url" value="https://8bbb-102-132-40-41.in.ngrok.io/Exceptions/Cancel">
+    <input type="hidden" name="notify_url" value="https://8bbb-102-132-40-41.in.ngrok.io/Exceptions/Notify">
+    <table>
+        <tr>
+            <td><label id="PayFastAmountLabel" for="PayFastAmount">Amount: </label></td>
+            <td><input hidden required id="PayFastAmount" type="number" step=".01" name="amount" min="5.00" placeholder="5.00" value="@ViewBag.TotalPrice"></td>
+            <td><input required disabled value="@ViewBag.TotalPrice"></td>
+        </tr>
+    </table>
 
-        // Handle button click to initiate payment
-        $('#test').click(async function () {
-            // Generate signature
-            myData["signature"] = generateSignature(myData, passPhrase);
-            console.log(myData["signature"]);
-            // Convert data array to a string
-            const pfParamString = dataToString(myData);
+    <table>
+        <tr>
+            <td><label for="custom_quantity">Quantity: </label></td>
+            <td><input required id="custom_quantity" type="number" name="custom_quantity" value="1"></td>
+        </tr>
+    </table>
 
-            // Generate payment identifier
-            const identifier = await generatePaymentIdentifier(pfParamString);
-
-            // Do something with identifier here
-            if (identifier.uuid != null) {
-                window.payfast_do_onsite_payment({ "uuid": identifier.uuid });
-            }
-        });
-
-</script>*@
+    <input required type="hidden" name="item_name" maxlength="255" value="Test item">
+    <input type="hidden" name="item_description" maxlength="255" value="This is a test">
+    <table>
+        <tr>
+            <td colspan="2"><span style="font-weight: bold;">Shipping Address</span></td>
+        </tr>
+        <tr>
+            <td><span style="color:red;">*</span>&nbsp;Line 1</td>
+            <td><input type="text" name="line1" class="shipping" value="@Model.Street"></td>
+        </tr>
+        <tr>
+            <td><span style="color:red;">*</span>&nbsp;City</td>
+            <td><input type="text" class="shipping" name="city" value="@Model.City"></td>
+        </tr>
+        <tr hidden>
+            <td><span style="color:red;">*</span>&nbsp;Province</td>
+            <td><input type="text" class="shipping" name="region" value="Gauteng"></td>
+        </tr>
+        <tr>
+            <td><span style="color:red;">*</span>&nbsp;Country</td>
+            <td>
+                <select name="country" class="shipping">
+                    <option value="">- Select -</option>
+                    <option selected="selected" value="South Africa">South Africa</option>
+                    <option value="">------------------------</option>
+                </select>
+            </td>
+        </tr>
+        <tr hidden>
+            <td><span style="color:red;">*</span>&nbsp;Postal Code</td>
+            <td><input type="number" name="code" class="shipping" value="1830"></td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td colspan=2 align=center>
+                <input type="image" src="https://my.payfast.io/images/buttons/BuyNow/Light-Large-BuyNow.png" alt="Buy Now" title="Buy Now with Payfast">
+            </td>
+        </tr>
+    </table>
+</form>

@@ -178,6 +178,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\ExceptionsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OfflineController.cs" />
     <Compile Include="Hubs\DriverHub.cs" />
@@ -480,6 +481,9 @@
     <Content Include="Views\Shared\_ProuctSearch.cshtml" />
     <Content Include="Views\Shared\_ProductList.cshtml" />
     <Content Include="Views\Order\showMore.cshtml" />
+    <Content Include="Views\Exceptions\Return.cshtml" />
+    <Content Include="Views\Exceptions\Notify.cshtml" />
+    <Content Include="Views\Exceptions\Cancel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

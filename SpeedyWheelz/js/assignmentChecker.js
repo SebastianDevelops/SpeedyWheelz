@@ -33,9 +33,7 @@
 let isLoading = true;
 
 setTimeout(() => {
-    $(document).ready(function () {
         $("#orderButton").click();
-    })
 
     // Task finished
     isLoading = false;

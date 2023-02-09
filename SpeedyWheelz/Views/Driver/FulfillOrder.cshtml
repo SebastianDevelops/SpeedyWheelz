@@ -10,15 +10,31 @@
             <h5>Have you fulfilled @Model.ApplicationUser.FirstName's Order?</h5>
         </div>
     </div>
-    @using (Html.BeginForm("", "", new { id = "fillForm" }))
-    {
-        @Html.AntiForgeryToken()
         <div class="row d-flex justify-content-between">
             
-                <button class="btn btn-primary btn-block" type="submit">Yes</button>
+                <button id="deliverConfirm" data-order-id="@Model.OrderId" class="btn btn-primary btn-block">Yes</button>
 
                 <p onclick="$('#exampleModal').hide()" class="btn btn-block btn-outline-danger">No</p>
             </div>
-    }
 </div>
+<script>
+
+    $(document).ready(function () {
+        $("#ftco-loader").fadeOut();
+    })
+    $('#deliverConfirm').click(function () {
+        var dataVal = $(this).data("order-id");
+        $.ajax({
+            url: '@Url.Action("FulfillOrderConfirmed", "Driver")',
+            type: "post",
+            data: { orderId: dataVal },
+            success: function () {
+                window.location.href = "@Url.Action("DriverAssignedOrders", "Driver", new { driverId = Model.DriverId })"
+            },
+            failure: function () {
+                console.log("Failure")
+            }
+            })
+    })
+</script>
 

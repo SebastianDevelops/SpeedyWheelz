@@ -6,6 +6,30 @@
 
 
 @Scripts.Render("~/bundles/jquery")
+@section scripts{
+    <script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
+    <script src="~/SignalR/hubs"></script>
+    <script src="~/js/assignmentChecker.js"></script>
+    <script>
+        $('.unassigned').click(function () {
+            const orderId = $(this).data('order-id');
+            $.ajax({
+                url: '@Url.Action("AssignOrder", "Driver")',
+                type: "post",
+                data: { orderId: orderId },
+                success: function (data) {
+                    console.log("assigned");
+                    $('#orderButton').val("Assigned");
+                    $('#orderButton').prop('disabled', 'true').trigger();
+                },
+                failure: function (error) {
+                    console.log(error);
+                }
+                })
+        });
+    </script>
+
+}
 <style>
     @@media (max-width: 767.98px) {
         .border-sm-start-none {
@@ -48,9 +72,18 @@
                                     </div>
                                     <div id="orderStatus">
                                     </div>
-                                    <div class="d-flex flex-column mt-4">
-                                        <button class="btn btn-primary btn-sm unassigned" data-order-id="@item.OrderId" id="orderButton" type="button"></button>
-                                    </div>
+                                    @if(item.isAssigned)
+                                    {
+                                <div class="d-flex flex-column mt-4">
+                                    <button class="btn btn-primary btn-sm assigned" disabled data-order-id="@item.OrderId" id="orderButton" type="button">Assigned</button>
+                                </div>
+                                    }
+                                    else
+                                    {
+                                <div class="d-flex flex-column mt-4">
+                                    <button class="btn btn-primary btn-sm unassigned" data-order-id="@item.OrderId" id="orderButton" type="button">Unassigned</button>
+                                </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -59,30 +92,7 @@
             </div>
         }
     </div>
-    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <div id="ftco-loader" class="fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
 
 </section>
-
-@section scripts{
-    <script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
-    <script src="~/SignalR/hubs"></script>
-    <script src="~/js/assignmentChecker.js"></script>
-    <script>
-        $('.unassigned').click(function () {
-            const orderId = $(this).data('order-id');
-            $.ajax({
-                url: '@Url.Action("AssignOrder", "Driver")',
-                type: "post",
-                data: { orderId: orderId },
-                success: function (data) {
-                    console.log("assigned");
-                },
-                failure: function (error) {
-                    console.log(error);
-                }
-                })
-        });
-    </script>
-
-}
 

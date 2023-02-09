@@ -54,10 +54,6 @@ namespace SpeedyWheelz.Models
             {
                 return new HttpNotFoundResult();
             }
-            else if (order.isAssigned)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Order already assigned");
-            }
             else
             {
                 order.isAssigned = true;
@@ -86,8 +82,7 @@ namespace SpeedyWheelz.Models
             return View(order);
         }
 
-        [HttpPost, ActionName("FulfillOrder")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
         public ActionResult FulfillOrderConfirmed(int orderId)
         {
             Order order = _db.Orders.Find(orderId);
