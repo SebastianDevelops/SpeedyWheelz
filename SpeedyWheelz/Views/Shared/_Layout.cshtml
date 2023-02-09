@@ -21,6 +21,14 @@
     <link rel="stylesheet" href="~/css/style.css">
 </head>
 <body>
+    <style>
+        #ftco-loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
     @if (ViewContext.RouteData.Values["controller"].ToString() != "Admin")
     {
         if (ViewContext.RouteData.Values["controller"].ToString() != "Account" && ViewContext.RouteData.Values["controller"].ToString() != "Driver")
@@ -72,13 +80,10 @@
         @RenderBody()
     </div>
 
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-                .register('/sw.js')
-                .then(function () { console.log('Service Worker Registered'); });
-        }
-    </script>
+    <div id="ftco-loader" class="show fullscreen "><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+
+
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/jquery-migrate-3.0.1.min.js"></script>
     <script src="~/js/popper.min.js"></script>
@@ -95,6 +100,20 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        $("body").append($("#ftco-loader"));
+        $("#ftco-loader").show();
+
+
+        $(window).on('load', function () {
+            $("#ftco-loader").fadeOut();
+        })
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('/sw.js')
+                .then(function () { console.log('Service Worker Registered'); });
+        }
+    </script>
 </body>
 
 

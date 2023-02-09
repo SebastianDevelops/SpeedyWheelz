@@ -57,6 +57,9 @@
                 <h4 style="color: #495057 ;">Delivery Details</h4>
             </div>
 
+            <script>
+                console.log(@ViewBag.sig);
+            </script>
 
             @using (Html.BeginForm("Index", "Order", FormMethod.Post, new { enctype = "multipart/form-data", @class = "mb-0" }))
             {

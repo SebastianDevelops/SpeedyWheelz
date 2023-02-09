@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<SpeedyWheelz.Models.Product>
 
 
-
 <div class="hero-wrap" style="background-image: url('../../images/bg_4.jpg'); " data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
@@ -156,16 +155,16 @@
     </div>
 </section>
 <!-- loader -->
-<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
 
 @Scripts.Render("~/bundles/jquery")
 
+
 <script>
-        $(document).ready(function () {
-            $("#scroll").click(function () {
-                $('html, body').animate({
-                    scrollTop: $("#itemCatalog").offset().top
-                }, 2000);
-            });
-        })
-    </script>
+    $(document).ready(function () {
+        $("#scroll").click(function () {
+            $('html, body').animate({
+                scrollTop: $("#itemCatalog").offset().top
+            }, 2000);
+        });
+    })
+</script>

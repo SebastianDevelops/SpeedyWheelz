@@ -313,6 +313,7 @@
     <Content Include="js\owl.carousel.min.js" />
     <Content Include="js\popper.min.js" />
     <Content Include="js\scrollax.min.js" />
+    <Content Include="loader.gif" />
     <Content Include="Offline.html" />
     <Content Include="Scripts\jquery.signalR-2.4.3.js" />
     <Content Include="Scripts\jquery.signalR-2.4.3.min.js" />
@@ -478,6 +479,7 @@
     <Content Include="Views\Driver\FulfillOrder.cshtml" />
     <Content Include="Views\Shared\_ProuctSearch.cshtml" />
     <Content Include="Views\Shared\_ProductList.cshtml" />
+    <Content Include="Views\Order\showMore.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

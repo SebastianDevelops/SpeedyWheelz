@@ -6,9 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 
 namespace SpeedyWheelz.Controllers
 {
@@ -67,8 +69,20 @@ namespace SpeedyWheelz.Controllers
 
         public ActionResult Checkout()
         {
-            Order order = new Order();
-            return View(order);
+            var cart = HttpContext.Session["cart"] as Cart;
+            ViewBag.TotalPrice = cart.TotalPrice + 30;
+            ViewBag.CartId = cart.Items.First().Product.Name;
+            ViewBag.Name = User;
+            var userId = User.Identity.GetUserId();
+            var address = _db.Addresses.Where(m => m.ApplicationUserId == userId).FirstOrDefault();
+            return View(address);
+        }
+
+        public ActionResult showMore()
+        {
+            var moreProducts = _db.Products.Take(3).ToList();
+
+            return PartialView("showMore", moreProducts);
         }
 
         [HttpPost]
@@ -78,6 +92,21 @@ namespace SpeedyWheelz.Controllers
             var userId = User.Identity.GetUserId();
             // Retrieve the cart from the session
             var cart = HttpContext.Session["cart"] as Cart;
+            Guid uniqueId = new Guid(); 
+            Dictionary<string, string> pfData = new Dictionary<string, string>();
+            pfData.Add("merchant_id", "10028429");
+            pfData.Add("merchant_key", "wkxzok5x4xvsl");
+            pfData.Add("return_url", "https://www.example.com");
+            pfData.Add("notify_url", "https://www.example.com/notify_url");
+            pfData.Add("m_payment_id", uniqueId.ToString());
+            pfData.Add("amount", cart.TotalPrice.ToString());
+            pfData.Add("item_name", "order_"+uniqueId.ToString());
+
+            string passPhrase = "SpeedyWheelz2023";
+
+            var signiture = generateApiSignatureActionResult(pfData, passPhrase);
+
+            ViewBag.sig = signiture;
 
             // Convert the cart object to a JSON string
             order.AddressId = _db.Addresses.Where(u => u.ApplicationUserId == userId).Select(m => m.AddressId).FirstOrDefault();
@@ -91,6 +120,46 @@ namespace SpeedyWheelz.Controllers
             _db.SaveChanges();
 
             return View(order);
+        }
+
+        ActionResult generateApiSignatureActionResult(Dictionary<string, string> dataArray, string passPhrase = "")
+        {
+            string payload = "";
+            if (passPhrase != "")
+            {
+                dataArray["passphrase"] = passPhrase;
+            }
+            Dictionary<string, string> sortedData = dataArray.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+            foreach (KeyValuePair<string, string> kvp in sortedData)
+            {
+                // Get all the data from PayFast and prepare parameter string
+                payload += kvp.Key + "=" +
+                    Uri.EscapeDataString(kvp.Value.Replace("+", " ")) + "&";
+            }
+            // After looping through, cut the last & or append your passphrase
+            payload = payload.Substring(0, payload.Length - 1);
+            string signature = System.Security.Cryptography.
+                MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(payload)).
+                ToString().ToLowerInvariant();
+
+            return new ContentResult { Content = signature };
+        }
+
+        public ActionResult PayFastPayment()
+        {
+            Guid paymentId= new Guid();
+            Dictionary<string, string> pfData = new Dictionary<string, string>
+    {
+        { "merchant_id", "10028429" },
+        { "merchant_key", "wkxzok5x4xvsl" },
+        { "return_url", "https://www.example.com" },
+        { "notify_url", "https://www.example.com/notify_url" },
+        { "m_payment_id", paymentId.ToString() },
+        { "amount", "200" },
+        { "item_name", "test product" }
+    };
+            string passPhrase = "jt7NOE43FZPn";
+            return generateApiSignatureActionResult(pfData, passPhrase);
         }
     }
 }

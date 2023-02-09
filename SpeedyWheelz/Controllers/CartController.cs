@@ -45,6 +45,43 @@ namespace SpeedyWheelz.Controllers
             return Json(new { success = false });
         }
 
+        [HttpPost]
+        public ActionResult DecreaseCartItem(int productId, int quantity)
+        {
+            try
+            {
+                // Get the cart from the session
+                Cart cart = (Cart)Session["cart"];
+
+                // Get the cart item to be decreased
+                CartItem item = cart.Items.Where(x => x.Product.ProductId == productId).FirstOrDefault();
+                if (item != null)
+                {
+                    // Decrease the quantity of the item
+                    item.Quantity -= quantity;
+
+                    // If the quantity is less than or equal to zero, remove the item from the cart
+                    if (item.Quantity <= 0)
+                    {
+                        cart.RemoveItem(item.Product);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Invalid product id.");
+                }
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception and redirect to an error page
+                // You can also show an error message to the user
+                var message = ex.InnerException;
+                return Json(new { success = false });
+            }
+        }
+
+
         public ActionResult RemoveFromCart(int productId)
         {
             Product product = GetProduct(productId);

@@ -2,15 +2,14 @@
 
 <style>
     @@media (min-width: 1025px) {
-.h-custom {
-height: 100vh !important;
-}
-}
-
-    #cartItemDelete{
-        cursor: pointer;
+        .h-custom {
+            height: 100vh !important;
+        }
     }
 
+    #cartItemDelete {
+        cursor: pointer;
+    }
 </style>
 
 <section class="h-100 h-custom" style="background-color: #eee;">
@@ -22,7 +21,7 @@ height: 100vh !important;
 
                         <div class="row">
 
-                            <div class="col-lg-12 col-sm-6">
+                            <div class="col-lg-12 col-sm-6" id="prodContent">
                                 <h5 class="mb-3">
                                     <a href="#!" class="text-body">
                                         <i class="flaticon-arrow-left me-2"></i>Continue shopping
@@ -49,8 +48,11 @@ height: 100vh !important;
                                                         </div>
                                                     </div>
                                                     <div class="d-flex flex-row align-items-center">
-                                                        <div style="width: 50px;">
-                                                            <h5 class="fw-normal mb-0">@item.Quantity</h5>
+                                                        <div style="width: 25px;">
+                                                            <button class="increase-quantity-button btn btn-sm btn-primary" data-item-id="@item.Product.ProductId" data-quantity="1">+</button>
+                                                            <input class="form-control form-control-sm form-control-plaintext" id="quantVal" type="number" name="Quantity" value="@item.Quantity" />
+                                                            <button class="decrease-quantity-button btn btn-sm btn-primary" data-item-id="@item.Product.ProductId" data-quantity="1">-</button>
+
                                                         </div>
                                                         <div class="d-flex" style="width: 80px;">
                                                             <h5 class="mb-0">R @item.Product.Price</h5>
@@ -63,19 +65,19 @@ height: 100vh !important;
                                         </div>
                                     </div>
                                 }
-                            <div class="row" id="totalPriceDiv">
-                                <div>Total Price: R @Model.TotalPrice</div>
-                            </div>
-                            <div class="row">
-                                @if (Model.Items.Count == 0)
-                                {
-                                    <a href="#" class="btn btn-primary disabled btn-block">Next</a>
-                                }
-                                else
-                                {
-                                    <a href="@Url.Action("Index", "Order")" class="btn btn-primary btn-block">Next</a>
-                                }
-                            </div>
+                                <div class="row" id="totalPriceDiv">
+                                    <div>Total Price: R @Model.TotalPrice</div>
+                                </div>
+                                <div class="row">
+                                    @if (Model.Items.Count == 0)
+                                    {
+                                        <a href="#" id="nextCheckout" class="btn btn-primary disabled btn-block">Next</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("Index", "Order")" id="nextCheckout" class="btn btn-primary btn-block">Next</a>
+                                    }
+                                </div>
                             </div>
                         </div>
 
@@ -84,8 +86,14 @@ height: 100vh !important;
             </div>
         </div>
     </div>
+    <div class="justify-content-center">
+        <h5 class="text-center">Would You Like To Add:</h5>
+    </div>
+    @Html.Action("showMore","Order")
 </section>
-    
+
+@Scripts.Render("~/bundles/jquery")
+
 <script>
     function removeFromCart(productId) {
         $.ajax({
@@ -95,13 +103,61 @@ height: 100vh !important;
             success: function (data) {
                 if (data.success) {
                     $('#product-' + productId).remove();
+                    $('#nextCheckout').addClass('disabled');
                     $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "");
                 } else {
+                    $('#nextCheckout').addClass('disabled');
                     $('#product-' + productId).remove();
                     $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "");
-                    
                 }
             }
         });
     }
+
+
+    $(document).on('click', '.increase-quantity-button', function () {
+        const itemId = $(this).data('item-id');
+        const newQuantity = $(this).data('quantity');
+        var currentQuant = $('#quantVal').val();
+        var total = parseInt(currentQuant) + parseInt(newQuantity);
+        console.log(total);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AddToCart", "Cart")',
+            data: { productId: itemId, quantity: newQuantity },
+            success: function (response) {
+                $('#quantVal').val(total);
+                $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "");
+            },
+            error: function (response) {
+                // code to handle the error response
+                console.log(response);
+            }
+        });
+    });
+
+    $(document).on('click', '.decrease-quantity-button', function () {
+        const itemId = $(this).data('item-id');
+        const newQuantity = $(this).data('quantity');
+        var currentQuant = $('#quantVal').val();
+        var total = parseInt(currentQuant) - parseInt(newQuantity);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DecreaseCartItem", "Cart")',
+            data: { productId: itemId, quantity: newQuantity },
+            success: function (response) {
+                if (total <= 0) {
+                    $('#nextCheckout').addClass('disabled');
+                    $('#product-' + itemId).remove();
+                    removeFromCart(itemId);
+                }
+                $('#quantVal').val(total);
+                $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "");
+            },
+            error: function (response) {
+                // code to handle the error response
+                console.log(response);
+            }
+        });
+    });
 </script>

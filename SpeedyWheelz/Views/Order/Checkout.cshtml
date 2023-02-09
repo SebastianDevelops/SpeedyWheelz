@@ -1,8 +1,106 @@
-﻿<h1>Payment gateway will display here</h1>
+﻿@model SpeedyWheelz.Models.Address
+@using Microsoft.AspNet.Identity;
+@using SpeedyWheelz.Models;
+<h1>Payment gateway will display here</h1>
 
+@Scripts.Render("~/bundles/jquery")
 
 @using (Html.BeginForm("Checkout", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    <button type="Submit">Submit Mock</button>
+    <button id="" type="Submit">Submit Mock</button>
 }
+
+<button id="" type="Submit">Submit Mock</button>
+
+<form action="https://sandbox.payfast.co.za/eng/process" method="post">
+    <input type="hidden" name="merchant_id" value="10028429">
+    <input type="hidden" name="merchant_key" value="wkxzok5x4xvsl">
+    <input type="hidden" name="amount" value="100.00">
+    <input type="hidden" name="item_name" value="Test Product">
+    <input type="hidden" id="signature" name="signature" value="">
+    <input id="test" formtarget="_blank" type="submit">
+</form>
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+<script src="https://www.payfast.co.za/onsite/engine.js"></script>
+<script>
+        // Set up your data for the payment
+        const myData = {
+            'merchant_id': '10028429',
+            'merchant_key': 'wkxzok5x4xvsl',
+            'email_address': 'besman505@gmail.com',
+            'amount': '100.00',
+            'item_name': 'Test Product'
+        };
+        console.log(myData);
+        // Set up your passphrase
+        const passPhrase = 'SpeedyWheelz2023';
+
+        // Function to convert data array to a string
+        const dataToString = (dataArray) => {
+            let pfParamString = "";
+            for (let key in dataArray) {
+                if (dataArray.hasOwnProperty(key)) {
+                    pfParamString += `${key}=${encodeURIComponent(dataArray[key]).replace(/%20/g, "+")}&`;
+                }
+            }
+            return pfParamString.slice(0, -1);
+        };
+
+        // Function to generate a payment identifier
+        const generatePaymentIdentifier = async (pfParamString) => {
+            const result = await $.ajax({
+                type: "POST",
+                url: 'https://sandbox.payfast.co.za/eng/process',
+                data: pfParamString,
+                success: function (res) {
+                    return res || null;
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+            console.log("res.data", result);
+            return result;
+        };
+
+
+        // Function to generate a signature
+    const generateSignature = function (data, passPhrase = null) {
+        // Create parameter string
+        let pfOutput = "";
+        $.each(data, function (key, value) {
+            if (data.hasOwnProperty(key)) {
+                if (value !== "") {
+                    pfOutput += `${key}=${encodeURIComponent(value.trim()).replace(/%20/g, "+")}&`
+                }
+            }
+        });
+        // Remove last ampersand
+        let getString = pfOutput.slice(0, -1);
+        if (passPhrase !== null) {
+            console.log(passPhrase);
+            getString += `&passphrase=${encodeURIComponent(passPhrase.trim()).replace(/%20/g, "+")}`;
+        }
+        return CryptoJS.MD5(getString).toString();
+    }
+
+        // Handle button click to initiate payment
+        $('#test').click(async function () {
+            // Generate signature
+            myData["signature"] = generateSignature(myData, passPhrase);
+            console.log(myData["signature"]);
+            // Convert data array to a string
+            const pfParamString = dataToString(myData);
+
+            // Generate payment identifier
+            const identifier = await generatePaymentIdentifier(pfParamString);
+
+            // Do something with identifier here
+            if (identifier.uuid != null) {
+                window.payfast_do_onsite_payment({ "uuid": identifier.uuid });
+            }
+        });
+
+</script>*@
