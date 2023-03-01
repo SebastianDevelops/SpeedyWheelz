@@ -1,0 +1,181 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Download SpeedyWheelz";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Modal Video-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/app/2-0/vendor/modal-video/css/modal-video.min.css">
+    <!-- Google fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,600,800&amp;display=swap">
+    <!-- Device Mockup-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/app/2-0/css/device-mockups.010c4b03.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/app/2-0/css/style.default.bc008ef3.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/app/2-0/css/custom.0a822280.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="https://d19m59y37dris4.cloudfront.net/app/2-0/img/favicon.af9617d1.png">
+
+
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#b7472a" />
+    <link rel="apple-touch-icon" href="~/Content/AppIcon/icon-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/css/animate.css">
+
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.js" integrity="sha512-nO7wgHUoWPYGCNriyGzcFwPSF+bPDOR+NvtOYy2wMcWkrnCNPKBcFEkU80XIN14UVja0Gdnff9EmydyLlOL7mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://unpkg.com/%40lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <!-- Hero Section-->
+    <section class="hero bg-top" id="hero" style="background: url(https://d19m59y37dris4.cloudfront.net/app/2-0/img/banner-4.86a86274.png) no-repeat; background-size: 100% 80%">
+        <div class="container py-5">
+            <div class="row py-5">
+                <div class="col-lg-5 py-5">
+                    <h1>Download SpeedyWheelz </h1>
+                    <p class="my-4 text-muted">Are you looking for premium same day delivery? We got you!</p>
+                    <ul class="list-inline mb-0">
+                        <li class="mb-2 mb-lg-0"><a class="btn btn-primary btn-lg btn-block" id="downloadApp" href="#!"> <i class="fab fa-google-play me-3"></i>Download</a></li>
+                    </ul>
+                </div>
+                <p>If you've already installed the app, click here:  <a href="@Url.Action("Index","Home")">Open App</a></p>
+                <div class="col-lg-6 ml-auto">
+                    <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_cwdfgwnw.json" mode="bounce" background="transparent" speed="0.5" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-center py-0" id="about" style="background: url(https://d19m59y37dris4.cloudfront.net/app/2-0/img/service-bg.d0e67e81.svg) no-repeat; background-size: cover">
+        <section class="about py-0">
+            <div class="container">
+                <p class="h6 text-uppercase text-primary">What is it all about?</p>
+                <h2 class="mb-5">Speedy Delivery...</h2>
+                <div class="row pb-5 gy-4">
+                    <div class="col-lg-4 col-md-6">
+                        <!-- Services Item-->
+                        <div class="card border-0 shadow rounded-lg py-4 text-start">
+                            <div class="card-body p-5">
+                                <svg class="svg-icon svg-icon-light" style="width:60px;height:60px;color:#ff904e">
+                                    <use xlink:href="#document-saved-1"> </use>
+                                </svg>
+                                <h3 class="h4 my-4">Organised orders and amazing customer service</h3>
+                                <p class="text-sm text-muted mb-0">We will always provide you with a high quality service.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <!-- Services Item-->
+                        <div class="card border-0 shadow rounded-lg py-4 text-start">
+                            <div class="card-body p-5">
+                                <svg class="svg-icon svg-icon-light" style="width:60px;height:60px;color:#39f8d2">
+                                    <use xlink:href="#map-marker-1"> </use>
+                                </svg>
+                                <h3 class="h4 my-4">Speedy Delivery </h3>
+                                <p class="text-sm text-muted mb-0">At speedyWheelz we believe that time is money that's why we're always there in speedy time.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <!-- Services Item-->
+                        <div class="card border-0 shadow rounded-lg py-4 text-start">
+                            <div class="card-body p-5">
+                                <svg class="svg-icon svg-icon-light" style="width:60px;height:60px;color:#8190ff">
+                                    <use xlink:href="#arrow-target-1"> </use>
+                                </svg>
+                                <h3 class="h4 my-4">The only alcohol delivery service in Ennerdale</h3>
+                                <p class="text-sm text-muted mb-0">We're proud to mention that we are supporting local communities like Ennerdale, Lawley and Orange Farm.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- JavaScript files-->
+    <script src="https://d19m59y37dris4.cloudfront.net/app/2-0/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://d19m59y37dris4.cloudfront.net/app/2-0/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="https://d19m59y37dris4.cloudfront.net/app/2-0/vendor/modal-video/js/modal-video.js"></script>
+    <script>
+        $(document).ready(function () {
+            let deferredPrompt;
+
+            $("#downloadApp").click(function () {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then(function (choiceResult) {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User accepted the A2HS prompt');
+                        } else {
+                            console.log('User dismissed the A2HS prompt');
+                        }
+                        deferredPrompt = null;
+                    });
+                }
+            });
+
+            window.addEventListener('beforeinstallprompt', function (event) {
+                console.log('beforeinstallprompt fired');
+                event.preventDefault();
+                deferredPrompt = event;
+                $("#downloadApp").show();
+            });
+
+            // Listen for the appinstalled event
+            window.addEventListener('appinstalled', function (event) {
+                // Redirect the user to a specific page
+                location.href = '@Url.Action("Index", "Home")';
+            });
+        });
+
+
+
+        // ------------------------------------------------------- //
+        //   Inject SVG Sprite -
+        //   see more here
+        //   https://css-tricks.com/ajaxing-svg-sprite/
+        // ------------------------------------------------------ //
+        function injectSvgSprite(path) {
+
+            var ajax = new XMLHttpRequest();
+            ajax.open("GET", path, true);
+            ajax.send();
+            ajax.onload = function (e) {
+                var div = document.createElement("div");
+                div.className = 'd-none';
+                div.innerHTML = ajax.responseText;
+                document.body.insertBefore(div, document.body.childNodes[0]);
+            }
+        }
+        // this is set to BootstrapTemple website as you cannot
+        // inject local SVG sprite (using only 'icons/orion-svg-sprite.3bf7f71d.svg' path)
+        // while using file:// protocol
+        // pls don't forget to change to your domain :)
+        injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
+
+    </script>
+    <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+</body>
+</html>
+

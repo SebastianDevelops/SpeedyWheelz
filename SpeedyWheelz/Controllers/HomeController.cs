@@ -29,9 +29,22 @@ namespace SpeedyWheelz.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            if(User.IsInRole("Driver"))
+            {
+                return RedirectToAction("Index", "Driver");
+            }
             var model = _db.Products.ToList().Take(4);
 
             return View(model);
+        }
+
+        public ActionResult Download()
+        {
+            return View();
         }
 
         public ActionResult About()

@@ -3,6 +3,7 @@ using Microsoft.AspNet.SignalR;
 using SpeedyWheelz.Hubs;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -10,9 +11,12 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace SpeedyWheelz.Models
 {
+    [System.Web.Mvc.Authorize]
+    [System.Web.Mvc.Authorize(Roles = "Driver")]
     public class DriverController : Controller
     {
         private ApplicationDbContext _db;

@@ -178,6 +178,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\ExceptionsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OfflineController.cs" />
@@ -484,6 +485,8 @@
     <Content Include="Views\Exceptions\Return.cshtml" />
     <Content Include="Views\Exceptions\Notify.cshtml" />
     <Content Include="Views\Exceptions\Cancel.cshtml" />
+    <Content Include="Views\Home\Download.cshtml" />
+    <Content Include="Views\Download\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

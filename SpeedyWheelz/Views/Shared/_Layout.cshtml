@@ -100,7 +100,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script>
+<script>
         $("body").append($("#ftco-loader"));
         $("#ftco-loader").show();
 
@@ -113,7 +113,31 @@
                 .register('/sw.js')
                 .then(function () { console.log('Service Worker Registered'); });
         }
-    </script>
+    // Listen for the appinstalled event
+            window.addEventListener('appinstalled', function (event) {
+                // Redirect the user to a specific page
+                location.href = '@Url.Action("Index", "Home")';
+            });
+    if ('serviceWorker' in navigator && window.matchMedia('(display-mode: fullscreen)').matches || window.matchMedia('(display-mode: minimal-ui)').matches) {
+    if (window.location.href !== '@Url.Action("Index", "Download")') {
+        pass;
+    }
+    else {
+        window.location.href = '@Url.Action("Index", "Home")';
+    }
+} else if (window.matchMedia('(display-mode: standalone)').matches || window.matchMedia('(display-mode: minimal-ui)').matches) {
+    if (window.location.href !== '@Url.Action("Index", "Download")') {
+        pass;
+    }
+    else {
+        window.location.href = '@Url.Action("Index", "Home")';
+    }
+} else {
+    // The website is being used as a regular website
+    window.location.href = '@Url.Action("Index", "Download")';
+}
+
+</script>
 </body>
 
 
