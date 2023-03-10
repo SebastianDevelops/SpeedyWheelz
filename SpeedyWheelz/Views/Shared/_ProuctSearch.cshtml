@@ -139,7 +139,7 @@
             <div class="card">
                 <div class="mt-3 inputs">
                     <i class="fa fa-search"></i>
-                    <input type="text" class="form-control" id="searchField" placeholder="Search for something to make you smile..">
+                    <input type="text" class="form-control" id="searchField" placeholder="Start typing to search">
                 </div>
 
                 <div class="mt-3">
@@ -164,7 +164,13 @@
             data: { searchText: searchVal },
             success: function (data) {
                 console.log(data);
-                $('#productResult').html(data);
+                if (searchVal !== '' && searchVal !== ' ') {
+                    $('#productResult').html(data);
+                }
+                else {
+                    $('#productResult').html('');
+                }
+                
             },
             failure: function (error) {
                 console.log("Error " + error);

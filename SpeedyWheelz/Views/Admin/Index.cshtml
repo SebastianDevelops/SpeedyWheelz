@@ -32,5 +32,12 @@
 
 
         }
+    <div class="text-center">
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <a href="javascript:;" onclick="document.forms[0].submit();">Logout</a>
+        }
+    </div>
     </div>
 </section>

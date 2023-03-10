@@ -1,5 +1,4 @@
 ﻿@{
-    Layout = null;
     ViewBag.Title = "Download SpeedyWheelz";
 }
 
@@ -26,22 +25,10 @@
     <!-- Favicon-->
     <link rel="shortcut icon" href="https://d19m59y37dris4.cloudfront.net/app/2-0/img/favicon.af9617d1.png">
 
-
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#b7472a" />
-    <link rel="apple-touch-icon" href="~/Content/AppIcon/icon-192x192.png">
     <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="~/css/animate.css">
-
-    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="~/css/magnific-popup.css">
-
-    <link rel="stylesheet" href="~/css/flaticon.css">
-    <link rel="stylesheet" href="~/css/style.css">
 </head>
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.js" integrity="sha512-nO7wgHUoWPYGCNriyGzcFwPSF+bPDOR+NvtOYy2wMcWkrnCNPKBcFEkU80XIN14UVja0Gdnff9EmydyLlOL7mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -116,7 +103,6 @@
     <script src="https://d19m59y37dris4.cloudfront.net/app/2-0/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="https://d19m59y37dris4.cloudfront.net/app/2-0/vendor/modal-video/js/modal-video.js"></script>
     <script>
-        $(document).ready(function () {
             let deferredPrompt;
 
             $("#downloadApp").click(function () {
@@ -134,7 +120,7 @@
             });
 
             window.addEventListener('beforeinstallprompt', function (event) {
-                console.log('beforeinstallprompt fired');
+                alert('beforeinstallprompt fired');
                 event.preventDefault();
                 deferredPrompt = event;
                 $("#downloadApp").show();
@@ -145,7 +131,6 @@
                 // Redirect the user to a specific page
                 location.href = '@Url.Action("Index", "Home")';
             });
-        });
 
 
 

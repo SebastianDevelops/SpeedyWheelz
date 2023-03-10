@@ -4,10 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="@Url.Content("~/manifest.json")" crossorigin="use-credentials">
     <meta name="theme-color" content="#b7472a" />
     <link rel="apple-touch-icon" href="~/Content/AppIcon/icon-192x192.png">
-    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <!-- Google fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,600,800&amp;display=swap">
     <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -21,6 +22,13 @@
     <link rel="stylesheet" href="~/css/style.css">
 </head>
 <body>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('/sw.js')
+                .then(function () { console.log('Service Worker Registered'); });
+        }
+    </script>
     <style>
         #ftco-loader {
             position: fixed;
@@ -108,36 +116,13 @@
         $(window).on('load', function () {
             $("#ftco-loader").fadeOut();
         })
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-                .register('/sw.js')
-                .then(function () { console.log('Service Worker Registered'); });
-        }
-    // Listen for the appinstalled event
+            // Listen for the appinstalled event
             window.addEventListener('appinstalled', function (event) {
                 // Redirect the user to a specific page
                 location.href = '@Url.Action("Index", "Home")';
             });
-    if ('serviceWorker' in navigator && window.matchMedia('(display-mode: fullscreen)').matches || window.matchMedia('(display-mode: minimal-ui)').matches) {
-    if (window.location.href !== '@Url.Action("Index", "Download")') {
-        pass;
-    }
-    else {
-        window.location.href = '@Url.Action("Index", "Home")';
-    }
-} else if (window.matchMedia('(display-mode: standalone)').matches || window.matchMedia('(display-mode: minimal-ui)').matches) {
-    if (window.location.href !== '@Url.Action("Index", "Download")') {
-        pass;
-    }
-    else {
-        window.location.href = '@Url.Action("Index", "Home")';
-    }
-} else {
-    // The website is being used as a regular website
-    window.location.href = '@Url.Action("Index", "Download")';
-}
-
 </script>
+
 </body>
 
 
