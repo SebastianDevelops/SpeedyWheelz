@@ -10,7 +10,7 @@
 </script>
 
 <div hidden>
-    @using (Html.BeginForm("Checkout", "Order", FormMethod.Post))
+    @using (Html.BeginForm("Checkout", "Order", FormMethod.Post, new { target = "_blank" } ))
     {
         @Html.AntiForgeryToken()
         <input id="submission" type="submit" value="Submit">

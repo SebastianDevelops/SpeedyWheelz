@@ -208,6 +208,14 @@
     <Compile Include="Migrations\202301151801275_createddrivertable.designer.cs">
       <DependentUpon>202301151801275_createddrivertable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303112124324_prodTest.cs" />
+    <Compile Include="Migrations\202303112124324_prodTest.designer.cs">
+      <DependentUpon>202303112124324_prodTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303112142339_firstlastname.cs" />
+    <Compile Include="Migrations\202303112142339_firstlastname.designer.cs">
+      <DependentUpon>202303112142339_firstlastname.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CartModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -532,6 +540,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301151801275_createddrivertable.resx">
       <DependentUpon>202301151801275_createddrivertable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303112124324_prodTest.resx">
+      <DependentUpon>202303112124324_prodTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303112142339_firstlastname.resx">
+      <DependentUpon>202303112142339_firstlastname.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

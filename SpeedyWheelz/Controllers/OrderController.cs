@@ -70,15 +70,37 @@ namespace SpeedyWheelz.Controllers
         public ActionResult Checkout()
         {
             var cart = HttpContext.Session["cart"] as Cart;
-            if(cart.TotalPrice > 500)
+            if(cart.Items.Count > 0)
             {
-                ViewBag.TotalPrice = cart.TotalPrice;
+                if (cart.TotalPrice > 500)
+                {
+                    ViewBag.TotalPrice = cart.TotalPrice;
+                }
+                else
+                {
+                    ViewBag.TotalPrice = cart.TotalPrice + 30;
+                }
             }
-            else
+
+            List<string> itemList = new List<string>();
+
+            if(cart.Items.Count > 0)
             {
-                ViewBag.TotalPrice = cart.TotalPrice + 30;
+                foreach (var item in cart.Items)
+                {
+                    itemList.Add(item.Product.Name);
+                }
             }
-            ViewBag.CartId = cart.Items.First().Product.Name;
+
+            ViewBag.itemNames = itemList;
+
+            if (cart.Items.Count > 0)
+            {
+                ViewBag.CartId = cart.Items.First().Product.Name;
+            }
+
+            ViewBag.Quantity = cart.Items.Count;
+
             ViewBag.Name = User;
             var userId = User.Identity.GetUserId();
             var address = _db.Addresses.Where(m => m.ApplicationUserId == userId).FirstOrDefault();

@@ -6,6 +6,8 @@
     <title>@ViewBag.Title</title>
     <link rel="manifest" href="@Url.Content("~/manifest.json")" crossorigin="use-credentials">
     <meta name="theme-color" content="#b7472a" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="apple-touch-icon" href="~/Content/AppIcon/icon-192x192.png">
     <!-- Google fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,600,800&amp;display=swap">
@@ -74,7 +76,7 @@
                                     <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 4 })">Cider</a>
                                     <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 8 })">Tobacco</a>
                                     <a class="dropdown-item font-weight-bold" href="@Url.Action("Index", "Cart")">Cart</a>
-                                    <a class="dropdown-item font-weight-bold" href="checkout.html">Checkout</a>
+                                    <a class="dropdown-item font-weight-bold" href="@Url.Action("Checkout", "Order")">Checkout</a>
                                 </div>
                             </li>
                         </ul>
