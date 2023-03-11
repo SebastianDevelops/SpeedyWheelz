@@ -72,17 +72,17 @@
                                     </div>
                                     <div id="orderStatus">
                                     </div>
-                                    @if(item.isAssigned)
+                                    @if (item.isAssigned)
                                     {
-                                <div class="d-flex flex-column mt-4">
-                                    <button class="btn btn-primary btn-sm assigned" disabled data-order-id="@item.OrderId" id="orderButton" type="button">Assigned</button>
-                                </div>
+                                        <div class="d-flex flex-column mt-4">
+                                            <button class="btn btn-primary btn-sm assigned" disabled data-order-id="@item.OrderId" id="orderButton" type="button">Assigned</button>
+                                        </div>
                                     }
                                     else
                                     {
-                                <div class="d-flex flex-column mt-4">
-                                    <button class="btn btn-primary btn-sm unassigned" data-order-id="@item.OrderId" id="orderButton" type="button">Unassigned</button>
-                                </div>
+                                        <div class="d-flex flex-column mt-4">
+                                            <button class="btn btn-primary btn-sm unassigned" data-order-id="@item.OrderId" id="orderButton" type="button">Unassigned</button>
+                                        </div>
                                     }
                                 </div>
                             </div>
@@ -91,6 +91,19 @@
                 </div>
             </div>
         }
+        @if (!Model.Any())
+        {
+            <div class="text-center">
+                <h4>No Orders to display</h4>
+            </div>
+        }
+        <div class="text-center">
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <a href="javascript:;" onclick="document.forms[0].submit();">Logout</a>
+            }
+        </div>
     </div>
     <div id="ftco-loader" class="fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
 
