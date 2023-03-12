@@ -1,4 +1,5 @@
-﻿using SpeedyWheelz.Models;
+﻿using Microsoft.AspNet.Identity;
+using SpeedyWheelz.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,6 +74,9 @@ namespace SpeedyWheelz.Controllers
 
         public ActionResult ProductSearch()
         {
+            var userId = User.Identity.GetUserId();
+            ViewBag.firstName = _db.Users.Where(u => u.Id == userId).Select(u => u.FirstName).FirstOrDefault();
+
             return PartialView("_ProuctSearch");
         }
 
