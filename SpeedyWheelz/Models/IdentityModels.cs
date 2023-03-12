@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Reflection.Emit;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -43,6 +44,8 @@ namespace SpeedyWheelz.Models
         public DbSet<TobaccoCategory> TobaccoCategories { get; set; }
 
         public DbSet<AlcoholCategory> AlcoholCategories { get; set; }
+
+        public DbSet<pushSubscription> pushSubscriptions { get; set; }
 
         public static ApplicationDbContext Create()
         {

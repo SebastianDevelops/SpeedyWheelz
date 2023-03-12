@@ -79,6 +79,13 @@
                                     <a class="dropdown-item font-weight-bold" href="@Url.Action("Checkout", "Order")">Checkout</a>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <a class="nav-link" href="javascript:;" onclick="document.forms[0].submit();">LOGOUT</a>
+                                }
+                            </li>
                         </ul>
                     </div>
                 </div>
