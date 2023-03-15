@@ -80,6 +80,9 @@ namespace SpeedyWheelz.Models
         public bool isAlcohol { get; set; }
         [Display(Name = "Is This Tobacco?")]
         public bool isTobacco { get; set; }
+        [Required]
+        [Display(Name = "Total Stock")]
+        public int stockCount { get; set; }
     }
 
 }

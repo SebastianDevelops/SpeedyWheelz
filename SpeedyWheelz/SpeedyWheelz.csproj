@@ -231,6 +231,10 @@
     <Compile Include="Migrations\202303151009084_AdminOrderTable.designer.cs">
       <DependentUpon>202303151009084_AdminOrderTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303151015594_StockCount column.cs" />
+    <Compile Include="Migrations\202303151015594_StockCount column.designer.cs">
+      <DependentUpon>202303151015594_StockCount column.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CartModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -569,6 +573,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303151009084_AdminOrderTable.resx">
       <DependentUpon>202303151009084_AdminOrderTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303151015594_StockCount column.resx">
+      <DependentUpon>202303151015594_StockCount column.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
