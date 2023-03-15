@@ -8,9 +8,13 @@
     </div>
     <div class="row product">
         <div class="col-md-6  text text-center">
-            @if (!String.IsNullOrEmpty(Model.Tag.Name))
+            @if (!String.IsNullOrEmpty(Model.Tag.Name) && Model.stockCount > 0)
             {
                 <span style="margin-left: 15px;" class="sale">@Model.Tag.Name</span>
+            }
+            else if (Model.stockCount <= 0)
+            {
+                <span style="margin-left: 15px;" class="sale">Out Of Stock</span>
             }
             @if (Model.AlcoholCategory.Name == "None" || Model.AlcoholCategory == null)
             {
@@ -27,9 +31,19 @@
             <p>@Model.Description</p>
             <hr>
         </div>
-        <div class="row ml-2">
-            <button onclick="addToCart('@Model.ProductId', 1)" class="btn btn-primary">Add To Cart</button>
-        </div>
+        @if (Model.stockCount <= 0)
+        {
+            <div class="row ml-2">
+                <button disabled class="btn btn-primary">Add To Cart</button>
+            </div>
+        }
+        else
+        {
+            <div class="row ml-2">
+                <button onclick="addToCart('@Model.ProductId', 1)" class="btn btn-primary">Add To Cart</button>
+            </div>
+        }
+
     </div>
 </div>
 

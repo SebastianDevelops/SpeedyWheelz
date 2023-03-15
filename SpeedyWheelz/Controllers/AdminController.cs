@@ -44,7 +44,7 @@ namespace SpeedyWheelz.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductId,Name,Price,ImageUrl,CategoryId,AlcoholCategoryId,TobaccoCategoryId,TagId,Description,isAlcohol,isTobacco")] Product product, HttpPostedFileBase image)
+        public ActionResult Create([Bind(Include = "ProductId,Name,Price,ImageUrl,CategoryId,AlcoholCategoryId,TobaccoCategoryId,TagId,Description,isAlcohol,isTobacco,stockCount")] Product product, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +101,7 @@ namespace SpeedyWheelz.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,Name,Price,ImageUrl,CategoryId,AlcoholCategoryId,TobaccoCategoryId,TagId,Description,isAlcohol,isTobacco")] Product product, HttpPostedFileBase image)
+        public ActionResult Edit([Bind(Include = "ProductId,Name,Price,ImageUrl,CategoryId,AlcoholCategoryId,TobaccoCategoryId,TagId,Description,isAlcohol,isTobacco,stockCount")] Product product, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {

@@ -24,7 +24,7 @@ namespace SpeedyWheelz.Controllers
         public ActionResult Index(string productType, int? alcoholCategory)
         {
             var products = _db.Products
-                            .Where(p => p.isAlcohol == true && p.AlcoholCategoryId == alcoholCategory)
+                            .Where(p => p.isAlcohol == true && p.AlcoholCategoryId == alcoholCategory).OrderBy(n => n.Name)
                             .ToList();
             return View(products);
         }
@@ -41,22 +41,57 @@ namespace SpeedyWheelz.Controllers
         {
             List<Product> model = new List<Product>();
 
-            if(String.IsNullOrEmpty(searchText))
+            if (searchCategoryId == 10 && !String.IsNullOrEmpty(searchText))
+            {
+                searchText = searchText.ToLower();
+                model = _db.Products.Where(p => p.Name.ToLower().Contains(searchText) && p.AlcoholCategoryId == searchCategoryId).OrderBy(n => n.Name)
+               .ToList();
+
+                return PartialView("_AlcoholList", model);
+            }
+            if(searchCategoryId == 10)
+            {
+                model = _db.Products.Where(p => p.AlcoholCategoryId == searchCategoryId).OrderBy(n => n.Name)
+              .ToList();
+
+                return PartialView("_AlcoholList", model);
+            }
+
+            if(searchCategoryId == 8 && !String.IsNullOrEmpty(searchText))
+            {
+                searchText = searchText.ToLower();
+                model = _db.Products.Where(p => p.Name.ToLower().Contains(searchText) && p.AlcoholCategoryId == searchCategoryId).OrderBy(n => n.Name)
+               .ToList();
+
+                return PartialView("_AlcoholList", model);
+            }
+
+            if(searchCategoryId == 8)
+            {
+                model = _db.Products.Where(p => p.AlcoholCategoryId == searchCategoryId).OrderBy(n => n.Name)
+              .ToList();
+
+                return PartialView("_AlcoholList", model);
+            }
+
+
+            if (String.IsNullOrEmpty(searchText))
             {
 
                 model = _db.Products
-                            .Where(p => p.isAlcohol == true && p.AlcoholCategoryId == searchCategoryId)
+                            .Where(p => p.isAlcohol == true && p.AlcoholCategoryId == searchCategoryId).OrderBy(n => n.Name).OrderBy(n => n.Name)
                             .ToList();
+
+                return PartialView("_AlcoholList", model);
             }
             else
             {
                 searchText = searchText.ToLower();
-                model = _db.Products.Where(p => p.Name.ToLower().Contains(searchText) && p.AlcoholCategory.Name == searchCategory)
+                model = _db.Products.Where(p => p.Name.ToLower().Contains(searchText) && p.AlcoholCategory.Name == searchCategory).OrderBy(n => n.Name)
                .ToList();
-            }
-           
 
-            return PartialView("_AlcoholList", model);
+                return PartialView("_AlcoholList", model);
+            }
         }
     }
 }

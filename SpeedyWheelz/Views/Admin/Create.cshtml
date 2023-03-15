@@ -25,6 +25,13 @@
             @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group">
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.stockCount, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.stockCount, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.stockCount, "", new { @class = "text-danger" })
+        </div>
+    </div>
     <div class="form-group d-flex">
         <div class="col-sm-6" style="display: none;">
             @Html.LabelFor(model => model.isAlcohol, htmlAttributes: new { @class = "control-label" })

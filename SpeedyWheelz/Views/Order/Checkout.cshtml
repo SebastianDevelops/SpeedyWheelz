@@ -57,6 +57,10 @@
         return true;
     }
 </script>
+<div>
+
+</div>
+
 <form onsubmit="return actionPayFastJavascript( this );" name="PayFastPayNowForm" action="https://sandbox.payfast.co.za/eng/process" method="post">
     <input required type="hidden" name="cmd" value="_paynow">
     <input required type="hidden" name="receiver" pattern="[0-9]" value="10028429">
@@ -74,7 +78,7 @@
     <table>
         <tr>
             <td><label for="custom_quantity">Quantity: </label></td>
-            <td><input hidden required id="custom_quantity" type="number" name="custom_quantity" value="@ViewBag.Quantity"></td>
+            <td><input hidden required id="custom_quantity" type="number" name="custom_quantity" value="1"></td>
             <td><input required disabled value="@ViewBag.Quantity"></td>
         </tr>
     </table>

@@ -50,7 +50,7 @@
                                                     <div class="d-flex flex-row align-items-center">
                                                         <div style="width: 25px;">
                                                             <button class="increase-quantity-button btn btn-sm btn-primary" data-item-id="@item.Product.ProductId" data-quantity="1">+</button>
-                                                            <input class="form-control form-control-sm form-control-plaintext" id="quantVal" type="number" name="Quantity" value="@item.Quantity" />
+                                                            <input class="form-control form-control-sm form-control-plaintext" id="quantVal_@item.Product.ProductId" type="number" name="Quantity" value="@item.Quantity" />
                                                             <button class="decrease-quantity-button btn btn-sm btn-primary" data-item-id="@item.Product.ProductId" data-quantity="1">-</button>
 
                                                         </div>
@@ -65,8 +65,15 @@
                                         </div>
                                     </div>
                                 }
+                                @if (Model != null)
+                                {
+                                    <div id="lessThan" class="text-center">
+                                        <button type="button" class="btn-sm btn-warning">R35 delivery fee for orders less than <span class="badge">R500</span></button>
+                                    </div>
+                                }
+
                                 <div class="row" id="totalPriceDiv">
-                                    <div>Total Price: R @Model.TotalPrice</div>
+                                    <div>Total Price: R <input type="number" class="input-group" disabled id="totalPaid" value="@Model.TotalPrice" /> </div>
                                 </div>
                                 <div class="row">
                                     @if (Model.Items.Count == 0)
@@ -93,7 +100,11 @@
 </section>
 
 @Scripts.Render("~/bundles/jquery")
-
+<script>
+if (@Model.TotalPrice > 500) {
+    $('#lessThan').hide();
+}
+</script>
 <script>
     function removeFromCart(productId) {
         $.ajax({
@@ -103,12 +114,21 @@
             success: function (data) {
                 if (data.success) {
                     $('#product-' + productId).remove();
-                    $('#nextCheckout').addClass('disabled');
-                    $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "");
+                    $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "").then;
+
+                    setTimeout(function () {
+                        if($('#totalnInput').val() <= 30) {
+                            $('#nextCheckout').addClass('disabled');
+                        }
+                    }, 5000)
                 } else {
-                    $('#nextCheckout').addClass('disabled');
                     $('#product-' + productId).remove();
                     $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "");
+                    setTimeout(function () {
+                        if ($('#totalnInput').val() <= 30) {
+                            $('#nextCheckout').addClass('disabled');
+                        }
+                    }, 5000)
                 }
             }
         });
@@ -118,7 +138,7 @@
     $(document).on('click', '.increase-quantity-button', function () {
         const itemId = $(this).data('item-id');
         const newQuantity = $(this).data('quantity');
-        var currentQuant = $('#quantVal').val();
+        var currentQuant = $('#quantVal_' + itemId).val();
         var total = parseInt(currentQuant) + parseInt(newQuantity);
         console.log(total);
         $.ajax({
@@ -126,8 +146,11 @@
             url: '@Url.Action("AddToCart", "Cart")',
             data: { productId: itemId, quantity: newQuantity },
             success: function (response) {
-                $('#quantVal').val(total);
+                $('#quantVal_'+itemId).val(total);
                 $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "");
+                if ($('#totalnInput').val() > 500) {
+                    $('#lessThan').css('display', 'none');
+                }
             },
             error: function (response) {
                 // code to handle the error response
@@ -139,7 +162,7 @@
     $(document).on('click', '.decrease-quantity-button', function () {
         const itemId = $(this).data('item-id');
         const newQuantity = $(this).data('quantity');
-        var currentQuant = $('#quantVal').val();
+        var currentQuant = $('#quantVal_' + itemId).val();
         var total = parseInt(currentQuant) - parseInt(newQuantity);
         $.ajax({
             type: "POST",
@@ -151,8 +174,12 @@
                     $('#product-' + itemId).remove();
                     removeFromCart(itemId);
                 }
-                $('#quantVal').val(total);
+                $('#quantVal_' + itemId).val(total);
                 $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "");
+                console.log($('#totalPaid').val())
+                if ($('#totalnInput').val() < 500) {
+                    $('#lessThan').css('display', 'show');
+                } 
             },
             error: function (response) {
                 // code to handle the error response

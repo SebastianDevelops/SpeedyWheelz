@@ -23,7 +23,7 @@
     };
 
     //Button click jquery handler
-    $("#orderButton").click(function () {
+    $("#orderButton").on('click',function () {
         // Call SignalR hub method
         var order = $(this).data('order-id');
         myHub.server.checkOrderStatus(order);
@@ -32,17 +32,11 @@
 
 let isLoading = true;
 
-setTimeout(() => {
-        $("#orderButton").click();
-
-    // Task finished
-    isLoading = false;
-}, 2000);
-
 setInterval(() => {
     if (isLoading) {
         // Show loader
         document.getElementById("ftco-loader").style.display = "block";
+        isLoading = false
     } else {
         // Hide loader
         document.getElementById("ftco-loader").style.display = "none";

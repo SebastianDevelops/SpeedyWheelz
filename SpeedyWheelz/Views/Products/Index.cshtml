@@ -3,7 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@Scripts.Render("~/bundles/jquery")
 @if (Model.Any())
 {
     <div class="mt-3 inputs">
@@ -28,6 +28,10 @@
                                     {
                                         <span></span>
                                     }
+                                    else if(product.stockCount <= 0)
+                                    {
+                                        <span class="sale">Out Of Stock</span>
+                                    }
                                     else
                                     {
                                         <span class="sale">@product.Tag.Name</span>
@@ -37,7 +41,14 @@
                                     <p class="mb-0"><span class="price">R @product.Price</span></p>
                                 </div>
                                 <div style="margin-top: -10px" class="d-flex justify-content-center">
-                                    <div class="px-2"><a class="btn btn-primary" onclick="addToCart(@product.ProductId, 1)"><span class="flaticon-shopping-bag"></span></a></div>
+                                    @if (product.stockCount <= 0)
+                                    {
+                                        <div class="px-2"><a class="btn btn-primary" disabled><span class="flaticon-shopping-bag"></span></a></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="px-2"><a class="btn btn-primary" onclick="addToCart(@product.ProductId, 1)"><span class="flaticon-shopping-bag"></span></a></div>
+                                    }
                                     <div><a class="btn btn-success" href="@Url.Action("Details", "Products", new { id = product.ProductId })"><span class="flaticon-visibility"></span></a></div>
                                 </div>
                             </div>
@@ -72,7 +83,7 @@ else
     </div>
 }
 
-@Scripts.Render("~/bundles/jquery")
+
 
 <script>
     function addToCart(productId, quantity) {

@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<SpeedyWheelz.Models.Order>
+<div id="orderWrapper">
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
 
-@Scripts.Render("~/bundles/jquery")
-@section scripts{
-    <script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
-    <script src="~/SignalR/hubs"></script>
-    <script src="~/js/assignmentChecker.js"></script>
-    <script>
+    @Scripts.Render("~/bundles/jquery")
+    @section scripts{
+        <script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
+        <script src="~/SignalR/hubs"></script>
+        <script>
         $('.unassigned').click(function () {
             const orderId = $(this).data('order-id');
             $.ajax({
@@ -27,85 +27,121 @@
                 }
                 })
         });
-    </script>
+        var divToReload = $('#orderWrapper');
 
-}
-<style>
-    @@media (max-width: 767.98px) {
-        .border-sm-start-none {
-            border-left: none !important;
+
+        function serverCaller() {
+            setTimeout(function () {
+                $.ajax({
+                    url: '@Url.Action("Index","Driver")',
+                    success: function (response) {
+                        divToReload.html(response);
+                    },
+                    failure: function () {
+                        divToReload.html('<p class="text-danger">Please reload the page or contact support<p/>');
+                    }
+                });
+
+                serverCaller();
+            }, 7000)
         }
-    }
-</style>
 
-<section style="background-color: #eee;">
-    <div class="float-left fixed-top mt-1">
-        <a href="@Url.Action("DriverAssignedOrders", "Driver", new { driverId = ViewBag.driverId })"><button class="btn btn-primary">My Open Orders</button></a>
-    </div>
-    <div class="container py-5">
-        @foreach (var item in Model)
-        {
-            <div class="row justify-content-center mb-3">
-                <div class="col-md-12 col-xl-10">
-                    <div class="card shadow-0 border rounded-3">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 col-lg-6 col-xl-6">
-                                    <h5>@item.ApplicationUser.FirstName @item.ApplicationUser.LastName</h5>
-                                    <div class="mt-1 mb-0 text-muted small">
-                                        <ul>
-                                            <li class="list-unstyled">
-                                                Phone Number: @item.Address.PhoneNumber
-                                            </li>
-                                            <li class="list-unstyled">
-                                                Street Address: @item.Address.Street
-                                            </li>
-                                            <li class="list-unstyled">
-                                                Zip code: @item.Address.ZipCode
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
-                                    <div class="d-flex flex-row align-items-center mb-1">
-                                        <h4 class="mb-1 me-1">R @item.TotalPrice</h4>
-                                    </div>
-                                    <div id="orderStatus">
-                                    </div>
-                                    @if (item.isAssigned)
-                                    {
-                                        <div class="d-flex flex-column mt-4">
-                                            <button class="btn btn-primary btn-sm assigned" disabled data-order-id="@item.OrderId" id="orderButton" type="button">Assigned</button>
+            serverCaller();
+
+        </script>
+
+    }
+
+
+    <style>
+        @@media (max-width: 767.98px) {
+            .border-sm-start-none {
+                border-left: none !important;
+            }
+        }
+    </style>
+
+    <section style="background-color: #eee;">
+        <div class="float-left fixed-top mt-1">
+            <a href="@Url.Action("DriverAssignedOrders", "Driver", new { driverId = ViewBag.driverId })"><button class="btn btn-primary">My Open Orders</button></a>
+        </div>
+        <div class="container py-5">
+            @foreach (var item in Model)
+            {
+                <div class="row justify-content-center mb-3">
+                    <div class="col-md-12 col-xl-10">
+                        <div class="card shadow-0 border rounded-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-6 col-xl-6">
+                                        <h5>@item.ApplicationUser.FirstName @item.ApplicationUser.LastName</h5>
+                                        <div class="mt-1 mb-0 text-muted small">
+                                            <ul>
+                                                <li class="list-unstyled">
+                                                    Phone Number: @item.Address.PhoneNumber
+                                                </li>
+                                                <li class="list-unstyled">
+                                                    Street Address: @item.Address.Street
+                                                </li>
+                                                <li class="list-unstyled">
+                                                    Zip code: @item.Address.ZipCode
+                                                </li>
+                                            </ul>
                                         </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="d-flex flex-column mt-4">
-                                            <button class="btn btn-primary btn-sm unassigned" data-order-id="@item.OrderId" id="orderButton" type="button">Unassigned</button>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                                        <div class="d-flex flex-row align-items-center mb-1">
+                                            <h4 class="mb-1 me-1">R @item.TotalPrice</h4>
                                         </div>
-                                    }
+                                        @if (item.isAssigned)
+                                        {
+                                            <div id="orderStatus">
+                                                <p class="text-danger">Somebody is already assigned to this order</p>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div id="orderStatus">
+                                                <p class="text-success">Nobody is assigned to this order<p />
+                                            </div>
+                                        }
+                                        @if (item.isAssigned)
+                                        {
+                                            <div class="d-flex flex-column mt-4">
+                                                <button class="btn btn-primary btn-sm assigned" disabled data-order-id="@item.OrderId" id="orderButton" type="button">Assigned</button>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="d-flex flex-column mt-4">
+                                                <button class="btn btn-primary btn-sm unassigned" data-order-id="@item.OrderId" id="orderButton" type="button">Unassigned</button>
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
-        @if (!Model.Any())
-        {
-            <div class="alert text-center justify-content-center alert-danger">
-                <h3>Nothing to checkout</h3>
-            </div>
-        }
-        <div class="text-center">
-            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-                <a href="javascript:;" onclick="document.forms[0].submit();">Logout</a>
             }
+            @if (!Model.Any())
+            {
+                <div class="alert text-center justify-content-center alert-danger">
+                    <h3>Nothing To Assign</h3>
+                </div>
+            }
+            <div class="text-center">
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <a href="javascript:;" onclick="document.forms[0].submit();">Logout</a>
+                }
+            </div>
         </div>
-    </div>
-    <div id="ftco-loader" class="fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+        <div id="ftco-loader" class="fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
 
-</section>
+    </section>
+</div>
+
+
 
