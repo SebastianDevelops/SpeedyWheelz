@@ -45,4 +45,21 @@ namespace SpeedyWheelz.Models
         public decimal TotalPrice { get; set; }
     }
 
+    public class AdminOrder
+    {
+        [Key]
+        public int OrderId { get; set; }
+        [ForeignKey("ApplicationUser")]
+        public string UserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
+        public int AddressId { get; set; }
+        public Address Address { get; set; }
+        public string OrderStatus { get; set; }
+        public string DriverId { get; set; }
+        public bool isAssigned { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public string CartItemsJsonItems { get; set; }
+        public decimal TotalPrice { get; set; }
+    }
+
 }

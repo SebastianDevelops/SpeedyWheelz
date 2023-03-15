@@ -36,5 +36,27 @@ namespace SpeedyWheelz.Controllers
 
             return View(product);
         }
+
+        public ActionResult AlcoholList(string searchText, string searchCategory, int searchCategoryId)
+        {
+            List<Product> model = new List<Product>();
+
+            if(String.IsNullOrEmpty(searchText))
+            {
+
+                model = _db.Products
+                            .Where(p => p.isAlcohol == true && p.AlcoholCategoryId == searchCategoryId)
+                            .ToList();
+            }
+            else
+            {
+                searchText = searchText.ToLower();
+                model = _db.Products.Where(p => p.Name.ToLower().Contains(searchText) && p.AlcoholCategory.Name == searchCategory)
+               .ToList();
+            }
+           
+
+            return PartialView("_AlcoholList", model);
+        }
     }
 }

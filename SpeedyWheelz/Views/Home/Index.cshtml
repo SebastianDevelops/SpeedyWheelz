@@ -139,6 +139,14 @@
                     </a>
                 </div>
             </div>
+            <div class="col-lg-2 col-md-4 ">
+                <div class="sort w-100 text-center ftco-animate">
+                    <a href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 4 })">
+                        <div class="img" style="background-image: url(../../images/kind-9.jpg);"></div>
+                        <h3>Non-Alcoholic</h3>
+                    </a>
+                </div>
+            </div>
 
         </div>
         <div class="row justify-content-center">
@@ -165,6 +173,17 @@
             $('html, body').animate({
                 scrollTop: $("#itemCatalog").offset().top
             }, 2000);
+        });
+
+        $(window).on('load', function () {
+            if (document.cookie.indexOf("ageConfirmation=true") == -1) {
+                $('#myModal').modal('show');
+            }
+        });
+
+        $('#yesBtn').on('click', function () {
+            document.cookie = "ageConfirmation=true; expires=Thu, 01 Jan 2099 00:00:00 UTC";
+            $('#myModal').modal('hide');
         });
     })
 </script>

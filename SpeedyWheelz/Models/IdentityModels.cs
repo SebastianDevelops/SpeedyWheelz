@@ -47,6 +47,8 @@ namespace SpeedyWheelz.Models
 
         public DbSet<pushSubscription> pushSubscriptions { get; set; }
 
+        public DbSet<AdminOrder> adminOrders { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

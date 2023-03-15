@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<SpeedyWheelz.Models.Order>
 
-<div class="table-responsive-sm">
+<div class="table-responsive">
     <table class="table">
         <thead class="thead-dark">
             <tr>
@@ -28,7 +28,7 @@
                         @item.TotalPrice
                     </td>
                     <td>
-                        <a href="@Url.Action("Orders", "Admin", new { id = item.UserId })" class="btn btn-primary">Order Details</a>
+                        <a href="@Url.Action("Orders", "Admin", new { id = item.UserId })" class="btn btn-primary">Details</a>
                     </td>
                 </tr>
             }

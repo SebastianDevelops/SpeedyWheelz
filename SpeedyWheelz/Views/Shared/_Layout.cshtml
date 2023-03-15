@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="~/css/style.css">
 </head>
 <body>
+    <a hidden href="javascript:void(0)" onclick="start()">Click</a>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
@@ -38,6 +39,34 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+        /* Center modal */
+        .modal {
+            text-align: center;
+        }
+
+        .modal:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            margin-right: -4px; /* Adjusts for spacing */
+        }
+
+        .modal-dialog {
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+            margin-right: 30px;
+        }
+
+        /* Mobile responsive */
+        @@media (max-width: 767px) {
+            .modal-dialog {
+            max-width: 90%;
+            }
+        }
+
+
     </style>
     @if (ViewContext.RouteData.Values["controller"].ToString() != "Admin")
     {
@@ -99,6 +128,29 @@
 
     <div id="ftco-loader" class="fullscreen "><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
 
+    <!-- Modal -->
+    <div class="modal" id="myModal" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Are you 18 years old?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>You must be at least 18 years old to access this website. Are you 18 or older?</p>
+                    <div hidden id="ageVerify" class="text-center">
+                        <p class="text-danger">You have to be 18  in order to access this website</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="noBtn">No</button>
+                    <button type="button" class="btn btn-primary" id="yesBtn">Yes</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 
     <script src="~/js/jquery.min.js"></script>
@@ -117,7 +169,18 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-<script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js" integrity="sha512-eiqtDDb4GUVCSqOSOTz/s/eiU4B31GrdSb17aPAA4Lv/Cjc8o+hnDvuNkgXhSI5yHuDvYkuojMaQmrB5JB31XQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/serviceWorker.min.js" integrity="sha512-gZN7SatPzB7LiGjOd4Sree/ecjktoLPgWt22wfApKrzuCpS9KsK7uKEDB+AAGY96NHCW1sAEm1JdaHDDP4MsIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $('#noBtn').click(function () {
+            $('#ageVerify').removeAttr('hidden');
+        })
+
+        function start(){
+            Push.create("Hello World");
+        }
+
         $("body").append($("#ftco-loader"));
         $("#ftco-loader").show();
 
@@ -130,7 +193,7 @@
                 // Redirect the user to a specific page
                 location.href = '@Url.Action("Index", "Home")';
             });
-</script>
+    </script>
 
 </body>
 
