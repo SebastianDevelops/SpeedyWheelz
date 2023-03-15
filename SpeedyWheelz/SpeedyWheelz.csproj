@@ -516,6 +516,7 @@
     <Content Include="Views\Home\Download.cshtml" />
     <Content Include="Views\Download\Index.cshtml" />
     <Content Include="Views\Products\_AlcoholList.cshtml" />
+    <Content Include="Views\Shared\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
