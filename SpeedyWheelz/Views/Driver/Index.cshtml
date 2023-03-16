@@ -43,7 +43,7 @@
                 });
 
                 serverCaller();
-            }, 7000)
+            }, 5000)
         }
 
             serverCaller();
@@ -51,6 +51,7 @@
         </script>
 
     }
+
 
 
     <style>
@@ -85,6 +86,9 @@
                                                 </li>
                                                 <li class="list-unstyled">
                                                     Zip code: @item.Address.ZipCode
+                                                </li>
+                                                <li class="list-unstyled">
+                                                    Ordered At: @item.CreatedAt
                                                 </li>
                                             </ul>
                                         </div>

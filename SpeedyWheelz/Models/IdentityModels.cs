@@ -49,6 +49,8 @@ namespace SpeedyWheelz.Models
 
         public DbSet<AdminOrder> adminOrders { get; set; }
 
+        public DbSet<InventoryManagement> Inventory { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

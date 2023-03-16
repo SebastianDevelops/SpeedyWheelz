@@ -15,19 +15,20 @@
     }
 </style>
 
-<section class="pt-5 pb-5">
+<section class="pt-5 pb-5 text-center">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-6">
+            <div class="col-lg-12 col-md-12 col-12">
                 <h3 class="display-5 mb-2 text-center">User Delivery Details</h3>
                 <p class="mb-5 text-center">
                     <h4>Delivery Address:</h4>
                     <h5>@Model[0].Address.Street</h5>
-                    <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=@Model[0].Address.Street, @Model[0].Address.City, @Model[0].Address.Country" style="font-weight: bolder;">Open In Google Maps</a>
+                    <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=@Model[0].Address.Street, @Model[0].Address.City, @Model[0].Address.Country" target="_blank" style="font-weight: bolder;">Open In Google Maps</a>
                 </p>
                 <p class="mb-5 text-center">
-                    <h4>Phone Number:</h4>
-                    <h5>@Model[0].Address.PhoneNumber</h5>
+                    <h4>Phone Number</h4>
+                    <a href="tel:@Model[0].Address.PhoneNumber"><h5>@Model[0].Address.PhoneNumber</h5></a>
+                <p class="text-sm-center"><a href="tel:@Model[0].Address.PhoneNumber"><span class="lead">(click here to call)</span></a></p>
                 <p class="text-muted">Order Time: @Model[0].CreatedAt</p>
                 </p>
             </div>
@@ -39,54 +40,55 @@
 
 
 
-<section style="background-color: #eee;">
-    <div class="container py-5">
-        @foreach (var item in items)
-        {
-            <div class="row mb-3">
-                <div class="col-12">
-                    <div class="card shadow-0 border rounded-3">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                                        <img src="../../Content/Images/@item.Product.ImageUrl"
-                                             class="img-fluid img-thumbnail" />
-                                        <a href="#!">
-                                            <div class="hover-overlay">
-                                                <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
-                                            </div>
-                                        </a>
+
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+            @foreach (var item in items)
+            {
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <div class="card shadow-0 border rounded-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                            <img src="../../Content/Images/@item.Product.ImageUrl"
+                                                 class="img-fluid img-thumbnail" />
+                                            <a href="#!">
+                                                <div class="hover-overlay">
+                                                    <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <h5>@item.Product.Name</h5>
-                                    <p class="text-truncate mb-4 mb-md-0">
-                                        @item.Product.Description
-                                    </p>
-                                    <p>
-                                        <span class="font-weight-bold">Quantity: @item.Quantity</span>
-                                    </p>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <div class="d-flex flex-row align-items-center mb-1">
-                                        <h4 class="mb-1 me-1">R @item.Product.Price</h4>
+                                    <div class="col-12 col-sm-6">
+                                        <h5>@item.Product.Name</h5>
+                                        <p class="text-truncate mb-4 mb-md-0">
+                                            @item.Product.Description
+                                        </p>
+                                        <p>
+                                            <span class="font-weight-bold">Quantity: @item.Quantity</span>
+                                        </p>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="d-flex flex-row align-items-center mb-1">
+                                            <h4 class="mb-1 me-1">R @item.Product.Price</h4>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
 
-    </div>
-    <h4>Subtotal:</h4>
-    <h5>R @Model[0].TotalPrice</h5>
-    <button data-order-id="@Model[0].OrderId" id="completeBtn" class="btn btn-primary">Order Fulfilled</button>
-</section>
+        </div>
+        <h4>Subtotal:</h4>
+        <h5>R @Model[0].TotalPrice</h5>
+        <button data-order-id="@Model[0].OrderId" id="completeBtn" class="btn btn-primary">Order Fulfilled</button>
+    </section>
 
-<script>
+    <script>
     $('#completeBtn').click(function () {
         var orderId = $(this).data('order-id');
         $.ajax({
@@ -99,19 +101,19 @@
             }
         });
     });
-</script>
+    </script>
 
-<div style="display: none;" class="modal" id="exampleModal" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Order Fulfilled?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#exampleModal').hide(); $('#ftco-loader').fadeOut();">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="fulfillmentData">
+    <div style="display: none;" class="modal" id="exampleModal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Order Fulfilled?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#exampleModal').hide(); $('#ftco-loader').fadeOut();">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="fulfillmentData">
+                </div>
             </div>
         </div>
     </div>
-</div>

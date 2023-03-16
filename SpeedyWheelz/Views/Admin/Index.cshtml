@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<SpeedyWheelz.Models.Product>
 
-
 <div class="float-right mr-2 sticky-top" style="margin-top: -28px;">
     <a href="@Url.Action("Create", "Admin")"><button class="btn btn-primary">Add Product</button></a>
 </div>
@@ -9,6 +8,20 @@
 </div>
 <section style="background-color: #eee;">
     <div class="container py-5">
+        <div style="margin-right: 28px;" class="d-flex justify-content-center align-items-center">
+            <div class="mr-2">
+                <p class="btn btn-primary">
+                    Drivers
+                </p>
+            </div>
+            <div>
+                <a href="@Url.Action("Inventory","Admin")">
+                    <p class="btn btn-primary">
+                        Inventory
+                    </p>
+                </a>
+            </div>
+        </div>
         @foreach (var item in Model)
         {
             <div class="row justify-content-center">
@@ -47,12 +60,12 @@
 
 
         }
-    <div class="text-center">
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-            <a href="javascript:;" onclick="document.forms[0].submit();">Logout</a>
-        }
-    </div>
+        <div class="text-center">
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <a href="javascript:;" onclick="document.forms[0].submit();">Logout</a>
+            }
+        </div>
     </div>
 </section>

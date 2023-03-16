@@ -1,4 +1,5 @@
-﻿using SpeedyWheelz.Models;
+﻿using Newtonsoft.Json;
+using SpeedyWheelz.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -25,6 +26,7 @@ namespace SpeedyWheelz.Controllers
             _db = db;
         }
         // GET: Admin
+        [Authorize]
         public ActionResult Index()
         {
             Session["isAdmin"] = true;
@@ -42,6 +44,7 @@ namespace SpeedyWheelz.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProductId,Name,Price,ImageUrl,CategoryId,AlcoholCategoryId,TobaccoCategoryId,TagId,Description,isAlcohol,isTobacco,stockCount")] Product product, HttpPostedFileBase image)
@@ -80,6 +83,7 @@ namespace SpeedyWheelz.Controllers
             return View(product);
         }
 
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             Session["isAdmin"] = true;
@@ -101,6 +105,7 @@ namespace SpeedyWheelz.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "ProductId,Name,Price,ImageUrl,CategoryId,AlcoholCategoryId,TobaccoCategoryId,TagId,Description,isAlcohol,isTobacco,stockCount")] Product product, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
@@ -140,6 +145,7 @@ namespace SpeedyWheelz.Controllers
             return View(product);
         }
 
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             Session["isAdmin"] = true;
@@ -157,6 +163,7 @@ namespace SpeedyWheelz.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = _db.Products.Find(id);
@@ -169,13 +176,14 @@ namespace SpeedyWheelz.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        [Authorize]
         public ActionResult UserOrders()
         {
            var orders = _db.Orders.Include(o => o.Address).Include(o => o.ApplicationUser).ToList();
             return View(orders); 
         }
 
+        [Authorize]
         public ActionResult Orders(string id)
         {
             var orders = _db.Orders.Include(a => a.Address)
@@ -186,5 +194,26 @@ namespace SpeedyWheelz.Controllers
             ViewBag.Phone = orders[0].Address.PhoneNumber.ToString();
             return View(orders);
         }
+
+        public ActionResult InventoryMangement()
+        {
+            var orderedProducts = _db.adminOrders.Include(u => u.ApplicationUser).Include(a => a.Address).ToList();
+
+            List<AdminOrder> items = new List<AdminOrder>();
+
+            foreach (var item in orderedProducts)
+            {
+                var products = JsonConvert.DeserializeObject<List<SpeedyWheelz.Models.CartItem>>(item.CartItemsJsonItems);
+            }
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Inventory(string date)
+        {
+            return PartialView();
+        }
+
     }
 }

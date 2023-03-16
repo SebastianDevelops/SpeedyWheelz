@@ -1,7 +1,9 @@
 ﻿@model SpeedyWheelz.Models.Address
+@using System.Configuration
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var places = ConfigurationManager.AppSettings["googlePlaces"].ToString();
 }
 
 @Scripts.Render("~/bundles/jquery")
@@ -35,15 +37,91 @@
         margin-top: 50px;
     }
 </style>
-
 <script>
     $(document).ready(function () {
         $('#FirstName').val('@Model.FirstName');
         $('#FirstNameHidden').val('@Model.FirstName');
         $('#LastName').val('@Model.LastName');
         $('#LastNameHidden').val('@Model.LastName');
+        $('#Street').val(@Model.Street);
     });
 </script>
+
+<script>
+    let autocomplete;
+    const center = { lat: -26.4208498, lng: 27.8081384 };
+    // Create a bounding box with sides ~10km away from the center point
+    const defaultBounds = {
+        north: center.lat + 0.18,
+        south: center.lat - 0.18,
+        east: center.lng + 0.18,
+        west: center.lng - 0.18,
+    };
+
+    function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('Street'),
+            {
+                bounds: defaultBounds,
+                types: ['address'],
+                componentRestrictions: { 'country': 'za' },
+                fields: ['place_id', 'geometry', 'name']
+            });
+
+        autocomplete.addListener('place_changed', onPlaceChnaged);
+    }
+
+    function onPlaceChnaged() {
+        var place = autocomplete.getPlace();
+
+        if (!place.geometry) {
+            document.getElementById('Street').placeholder = 'Enter your address';
+        } else {
+            document.getElementById('details').innerHTML = place.name;
+        }
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCc58KYXWOLbA0-1yes8IoOPPsuSi8clzo&libraries=places&callback=initAutocomplete" async defer>
+</script>
+@*
+    <script>
+        let autocomplete;
+        const center = { lat: -26.4208498, lng: 27.8081384 };
+        // Create a bounding box with sides ~10km away from the center point
+        const defaultBounds = {
+            north: center.lat + 0.18,
+            south: center.lat - 0.18,
+            east: center.lng + 0.18,
+            west: center.lng - 0.18,
+        };
+
+        function intiAutoComplete() {
+            automcomplete = new google.maps.places.Autocomplete(
+                document.getElementById('Street'),
+                {
+                    bounds: defaultBounds,
+                    types: ['address'],
+                    componentRestrictions: { country: 'za' },
+                    fields: ['place_id', 'geometry', 'name']
+                });
+
+            autocomplete.addListener('place_changed', onPlaceChnaged);
+        }
+
+        function onPlaceChnaged() {
+            var place = autocomplete.getPlace();
+
+            if (!place.geometry) {
+                document.getElementById('Street').placeholder = 'Enter your address';
+            } else {
+                document.getElementById('details').innerHTML = place.name;
+            }
+        }
+    </script>
+*@
+
+
 
 <div class="row justify-content-center">
     <div class="text-center">
@@ -60,6 +138,8 @@
             <script>
                 console.log(@ViewBag.sig);
             </script>
+
+            <input type="text" id="autocomplete" placeholder="Enter a place"   />
 
             @using (Html.BeginForm("Index", "Order", FormMethod.Post, new { enctype = "multipart/form-data", @class = "mb-0" }))
             {
@@ -85,7 +165,7 @@
                 <div class="row mb-12">
                     <div class="col">
                         <div class="form-outline">
-                            @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control input-custom" } })
+                            @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control input-custom", placeholder = "Start typing to srarch" } })
                             <label class="form-label" for="form9Example6">Street Address</label>
                             @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
                         </div>

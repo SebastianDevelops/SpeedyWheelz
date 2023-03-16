@@ -186,6 +186,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\ExceptionsController.cs" />
+    <Compile Include="Controllers\InventoryManagementController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OfflineController.cs" />
     <Compile Include="Controllers\PushNotificationController.cs" />
@@ -235,6 +236,10 @@
     <Compile Include="Migrations\202303151015594_StockCount column.designer.cs">
       <DependentUpon>202303151015594_StockCount column.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303161803174_InventoryTable.cs" />
+    <Compile Include="Migrations\202303161803174_InventoryTable.designer.cs">
+      <DependentUpon>202303161803174_InventoryTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CartModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -258,6 +263,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Controllers\DriverController.cs" />
     <Compile Include="Models\DriverModel.cs" />
+    <Compile Include="Models\InventoryManagement.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -517,6 +523,8 @@
     <Content Include="Views\Download\Index.cshtml" />
     <Content Include="Views\Products\_AlcoholList.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\InventoryManagement\Index.cshtml" />
+    <Content Include="Views\Admin\Inventory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -577,6 +585,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303151015594_StockCount column.resx">
       <DependentUpon>202303151015594_StockCount column.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303161803174_InventoryTable.resx">
+      <DependentUpon>202303161803174_InventoryTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

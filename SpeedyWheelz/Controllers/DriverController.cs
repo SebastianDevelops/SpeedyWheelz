@@ -32,7 +32,7 @@ namespace SpeedyWheelz.Models
         public ActionResult Index()
         {
             ViewBag.driverId = User.Identity.GetUserId();
-            var orders = _db.Orders.Include(o => o.Address).Include(o => o.ApplicationUser).ToList();
+            var orders = _db.Orders.Include(o => o.Address).Include(o => o.ApplicationUser).OrderBy(d => d.CreatedAt).ToList();
             return View(orders);
         }
 
@@ -46,7 +46,7 @@ namespace SpeedyWheelz.Models
 
         public ActionResult DriverAssignedOrders(string driverId)
         {
-            var orders = _db.Orders.Include(o => o.Address).Include(o => o.ApplicationUser).Where(m => m.DriverId == driverId).ToList();
+            var orders = _db.Orders.Include(o => o.Address).Include(o => o.ApplicationUser).OrderBy(d => d.CreatedAt).Where(m => m.DriverId == driverId).ToList();
 
             return View(orders);
         }
@@ -92,7 +92,7 @@ namespace SpeedyWheelz.Models
         {
             Order order = _db.Orders.Find(orderId);
 
-            AdminOrder adminOrder = new AdminOrder
+            var adminOrder = new AdminOrder
             {
                 OrderId = order.OrderId,
                 UserId = order.UserId,
@@ -107,32 +107,36 @@ namespace SpeedyWheelz.Models
                 TotalPrice = order.TotalPrice
             };
 
+            var inventoryManagement = new InventoryManagement();
 
+            var products = JsonConvert.DeserializeObject<List<CartItem>>(order.CartItemsJsonItems);
 
-            var products = JsonConvert.DeserializeObject<List<SpeedyWheelz.Models.CartItem>>(order.CartItemsJsonItems);
+            var productIds = products.Select(p => p.Product.ProductId).ToList();
 
-            List<int> ProductIds = new List<int>();
-
-            foreach (var product in products)
-            {
-                ProductIds.Add(product.Product.ProductId);
-            }
-
-            foreach (var productId in ProductIds)
+            foreach (var productId in productIds)
             {
                 var product = _db.Products.FirstOrDefault(p => p.ProductId == productId);
-                if(product != null)
+
+                if (product != null)
                 {
-                    product.stockCount = product.stockCount - products.Where(i => i.Product.ProductId == productId).Select(c => c.Quantity).FirstOrDefault();
+                    var quantity = products.Where(p => p.Product.ProductId == productId).Select(p => p.Quantity).FirstOrDefault();
+                    product.stockCount -= quantity;
+
+                    inventoryManagement.Product = product.Name;
+                    inventoryManagement.QuantSold = quantity;
+                    inventoryManagement.Date = order.CreatedAt;
+                    inventoryManagement.RemainingQuant = product.stockCount;
+                    inventoryManagement.TotalSold = quantity * product.Price;
+                    inventoryManagement.OriginalQuant = inventoryManagement.QuantSold + inventoryManagement.RemainingQuant;
+                    _db.Inventory.Add(inventoryManagement);
                 }
-                
             }
 
-
-
+            _db.adminOrders.Add(adminOrder);
             _db.Orders.Remove(order);
             _db.SaveChanges();
             return RedirectToAction("DriverAssignedOrders");
+
         }
 
 

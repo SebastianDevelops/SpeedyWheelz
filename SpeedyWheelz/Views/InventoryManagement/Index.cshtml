@@ -1,0 +1,126 @@
+﻿@model List<SpeedyWheelz.Models.InventoryManagement>
+
+@{
+    Layout = null;
+}
+
+<section style="background-color: #eee;">
+
+    <div class="table-responsive">
+        <table id="stockTable" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr class="bg-dark">
+                    <th>Id</th>
+                    <th>Product</th>
+                    <th>Total Stock</th>
+                    <th>Total Stock Sold</th>
+                    <th>Remaining Stock</th>
+                    <th>Date</th>
+                    <th>Total Sold</th>
+                    <th>Cost Price</th>
+                    <th>Profit</th>
+                    <th>Total Costs</th>
+                    <th>Total Sales</th>
+                    <th>Total Profit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>@product.Id</td>
+                            <td>@product.Product</td>
+                            <td>@product.OriginalQuant</td>
+                            <td>@product.QuantSold</td>
+                            <td>@product.RemainingQuant</td>
+                            <td>@product.Date</td>
+                            <td>@product.TotalSold.ToString().Replace(",",".")</td>
+                            <td><input class="input-sm" data-val-quantsold="@product.QuantSold" name="@product.TotalSold.ToString().Replace(",",".")" onkeyup="profit(this)" id="@product.Id" type="number"  value="" /></td>
+                            <td><input class="input-sm" id="ppu_@product.Id" type="number" disabled  value="" /></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input id="totalCost" type="number" value="" /></td>
+                <td>@ViewBag.TotalSold</td>
+                <td><input id="totalProfit" type="number" value="" /></td>
+            </tr>
+
+                }
+                else
+                {
+                    <p>No Data To Display</p>
+                }
+            </tbody>
+            <tfoot hidden>
+            </tfoot>
+        </table>
+    </div>
+
+</section>
+
+<script>
+        $(document).ready(function () {
+            $('#stockTable').DataTable();
+        });
+
+        function profit(costPrice) {
+            //cost price
+            var ucost = costPrice.value;
+            var thisId = costPrice.id;
+            //unit sold
+            var usold = costPrice.getAttribute("data-val-quantsold");
+            //total sold price
+            var tsp = costPrice.name;
+            //unit total cost
+            var utcost = usold * ucost;
+            //nuit total sold profit
+            var uprofit = tsp - parseFloat(utcost);
+            $('#ppu_' + thisId).val(uprofit);
+            console.log(uprofit);
+        }
+
+        function calculateTotalCost() {
+            var totalCost = 0;
+            $('input[data-val-quantsold]').each(function () {
+                var costPrice = $(this).val();
+                var usold = $(this).data('val-quantsold');
+                var utcost = usold * costPrice;
+                totalCost += parseFloat(utcost);
+            });
+            var totalSold = @ViewBag.TotalSold.ToString().Replace(",", ".");
+            var totalProfit = totalSold - totalCost
+            $('#totalCost').val(totalCost);
+            $('#totalProfit').val(totalProfit);
+        }
+
+        // Call the function whenever the cost price field changes
+        $('input[data-val-quantsold]').on('keyup', function () {
+            calculateTotalCost();
+        });
+
+    $('#totalCost').keyup(function () {
+        var totalCost = $(this).val();
+        var totalSold = @ViewBag.TotalSold.ToString().Replace(",", ".");
+        var totalProfit = totalSold - totalCost;
+        $('#totalProfit').val(totalProfit);
+    })
+
+        // Call the function on page load to calculate the initial total cost
+        calculateTotalCost();
+
+
+</script>
