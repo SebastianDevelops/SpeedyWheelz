@@ -216,14 +216,18 @@ namespace SpeedyWheelz.Controllers
         }
 
         [Authorize]
-        public ActionResult Drivers()
+        public ActionResult DriverReport()
         {
-            // Get the IDs of all users who are in the "Driver" role
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Drivers(DateTime startDate, DateTime endDate)
+        {
             var driverIds = _db.Roles.Single(r => r.Name == "Driver").Users.Select(u => u.UserId).ToList();
 
-            // Get the users who are in the "Driver" role and their corresponding order counts
             var drivers = _db.adminOrders
-                        .Where(u => driverIds.Contains(u.DriverId))
+                        .Where(u => driverIds.Contains(u.DriverId) && u.CreatedAt >= startDate && u.CreatedAt <= endDate)
                         .GroupBy(u => u.DriverId)
                         .Select(g => new DriverViewModel
                         {
@@ -235,6 +239,7 @@ namespace SpeedyWheelz.Controllers
 
             return View(drivers);
         }
+
 
 
     }

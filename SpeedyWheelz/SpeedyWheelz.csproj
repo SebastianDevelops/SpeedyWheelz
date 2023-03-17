@@ -527,6 +527,7 @@
     <Content Include="Views\InventoryManagement\Index.cshtml" />
     <Content Include="Views\Admin\Inventory.cshtml" />
     <Content Include="Views\Admin\Drivers.cshtml" />
+    <Content Include="Views\Admin\DriverReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
