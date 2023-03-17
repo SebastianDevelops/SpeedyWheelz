@@ -16,15 +16,19 @@
         View All
         <span class="ion-ios-arrow-round-forward"></span>
     </a>
+    <a class="dropdown-item text-center btn-link d-block w-100" href="@Url.Action("Checkout", "Order")">
+        Checkout
+        <span class="ion-ios-arrow-round-forward"></span>
+    </a>
 }
 else
-	{
-<div class="row">
-    <div class="col-sm-4">
-        <div class="alert text-center justify-content-center alert-danger">
-            <h5>Cart Is Empty</h5>
+{
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="alert text-center justify-content-center alert-danger">
+                <h5>Cart Is Empty</h5>
+            </div>
         </div>
     </div>
-</div>
 
-	}
+}

@@ -39,11 +39,11 @@
 </style>
 <script>
     $(document).ready(function () {
+        $('#Street').val('@Model.Street');
         $('#FirstName').val('@Model.FirstName');
         $('#FirstNameHidden').val('@Model.FirstName');
         $('#LastName').val('@Model.LastName');
         $('#LastNameHidden').val('@Model.LastName');
-        $('#Street').val(@Model.Street);
     });
 </script>
 
@@ -139,8 +139,6 @@
                 console.log(@ViewBag.sig);
             </script>
 
-            <input type="text" id="autocomplete" placeholder="Enter a place"   />
-
             @using (Html.BeginForm("Index", "Order", FormMethod.Post, new { enctype = "multipart/form-data", @class = "mb-0" }))
             {
                 @Html.AntiForgeryToken()
@@ -165,7 +163,14 @@
                 <div class="row mb-12">
                     <div class="col">
                         <div class="form-outline">
-                            @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control input-custom", placeholder = "Start typing to srarch" } })
+                            @if (Model.Street != null)
+                            {
+                                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control input-custom", placeholder = "Start typing to search", @value = Model.Street } })
+                            }
+                            else
+                            {
+                                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control input-custom", placeholder = "Start typing to search" } })
+                            }
                             <label class="form-label" for="form9Example6">Street Address</label>
                             @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
                         </div>

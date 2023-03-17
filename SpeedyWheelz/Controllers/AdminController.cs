@@ -215,5 +215,27 @@ namespace SpeedyWheelz.Controllers
             return PartialView();
         }
 
+        [Authorize]
+        public ActionResult Drivers()
+        {
+            // Get the IDs of all users who are in the "Driver" role
+            var driverIds = _db.Roles.Single(r => r.Name == "Driver").Users.Select(u => u.UserId).ToList();
+
+            // Get the users who are in the "Driver" role and their corresponding order counts
+            var drivers = _db.adminOrders
+                        .Where(u => driverIds.Contains(u.DriverId))
+                        .GroupBy(u => u.DriverId)
+                        .Select(g => new DriverViewModel
+                        {
+                            Driver = _db.Users.Where(u => driverIds.Contains(u.Id) && u.Id == g.Key).FirstOrDefault(),
+                            OrderCount = g.Count()
+                        })
+                        .Where(d => d.Driver != null)
+                        .ToList();
+
+            return View(drivers);
+        }
+
+
     }
 }

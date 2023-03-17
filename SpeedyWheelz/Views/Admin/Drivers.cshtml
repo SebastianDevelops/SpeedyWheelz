@@ -1,0 +1,53 @@
+﻿@model List<SpeedyWheelz.Models.DriverViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<style>
+    @@media (min-width: 1025px) {
+        .h-custom {
+            height: 100vh !important;
+        }
+    }
+
+    #cartItemDelete {
+        cursor: pointer;
+    }
+</style>
+
+<section class="h-100 h-custom" style="background-color: #eee;">
+    <div class="table-responsive">
+        <table id="stockTable" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr class="bg-dark">
+                    <th>Name And Surname</th>
+                    <th>Email Address</th>
+                    <th>Total Trips</th>
+                    <th>Charge PT</th>
+                    <th>Total Made</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var driverId in Model)
+                {
+                    // Find the DriverViewModel object with the current driver ID
+                    var driver = Model.FirstOrDefault(d => d.Driver.Id == driverId.Driver.Id);
+
+                    var total = driver.OrderCount * 35;
+                    <tr>
+                        <td>@driver.Driver.FirstName @driver.Driver.LastName</td>
+                        <td>@driver.Driver.UserName</td>
+                        <td>@driver.OrderCount</td>
+                        <td>35</td>
+                        <td>@total</td>
+                    </tr>
+                }
+                </tbody>
+        </table>
+    </div>
+</section>
+
+

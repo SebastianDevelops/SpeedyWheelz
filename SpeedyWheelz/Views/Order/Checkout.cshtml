@@ -6,6 +6,21 @@
 
 <h4 class="font-weight-bolder">Please confirm your order details:</h4>
 
+<section style="background-color: #eee;">
+    <h5 class="h5">Order Summary:</h5>
+    @if (ViewBag.TotalPrice < 500)
+    {
+        <label id="delivery" for="deliver">Delivery Fee: </label>
+        <input type="number" disabled value="30" />
+    }
+    else
+    {
+        <label id="delivery" for="deliver">Delivery Fee: </label>
+        <input type="text" disabled value="Free Delivery" />
+    }
+</section>
+
+
 <script type="text/javascript">
     function shippingRequiredPayFast(formReference) {
         let cont = true;

@@ -32,9 +32,12 @@ namespace SpeedyWheelz.Controllers
             Address model = new Address();
             var userId = User.Identity.GetUserId();
             var FirstName = _db.Users.Where(u => u.Id == userId).Select(u => u.FirstName).FirstOrDefault();
-            model.FirstName = FirstName;
             var LastName = _db.Users.Where(u => u.Id == userId).Select(u => u.LastName).FirstOrDefault();
+            var Street = _db.Addresses.Where(u => u.ApplicationUserId == userId).Select(s => s.Street).FirstOrDefault();
+            model.FirstName = FirstName;
             model.LastName = LastName;
+            model.Street = Street;
+
             return View(model);
         }
 
@@ -111,7 +114,7 @@ namespace SpeedyWheelz.Controllers
 
         public ActionResult showMore()
         {
-            var moreProducts = _db.Products.Take(3).ToList();
+            var moreProducts = _db.Products.Where(l => l.AlcoholCategory.Name == "Non-Alcohol").Take(5).ToList();
 
             return PartialView("showMore", moreProducts);
         }
