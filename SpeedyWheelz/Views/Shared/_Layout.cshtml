@@ -44,13 +44,13 @@
             text-align: center;
         }
 
-        .modal:before {
-            content: '';
-            display: inline-block;
-            height: 100%;
-            vertical-align: middle;
-            margin-right: -4px; /* Adjusts for spacing */
-        }
+            .modal:before {
+                content: '';
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+                margin-right: -4px; /* Adjusts for spacing */
+            }
 
         .modal-dialog {
             display: inline-block;
@@ -62,16 +62,77 @@
         /* Mobile responsive */
         @@media (max-width: 767px) {
             .modal-dialog {
-            max-width: 90%;
+                max-width: 90%;
             }
         }
-
-
     </style>
+
+
     @if (ViewContext.RouteData.Values["controller"].ToString() != "Admin")
     {
-        if (ViewContext.RouteData.Values["controller"].ToString() != "Account" && ViewContext.RouteData.Values["controller"].ToString() != "Driver")
+        if (ViewContext.RouteData.Values["controller"].ToString() == "Transport" && ViewContext.RouteData.Values["controller"].ToString() != "Default")
         {
+            <div id="menuSelectMain" hidden class="text-center justify-content-center align-items-center">
+                <div class="text-center">
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="transportPage()" id="transportation" href="javascript:void(0)">Transport</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="drinksPage()" id="drinks" href="javascript:void(0)">Drinks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#food">Coming Soon</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--Navigation bar -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="ftco-navbar">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="@Url.Action("Index", "Transport")">Speedy <span style="color: #b7472a;">Wheelz</span></a>
+                    </div>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="mr-3"><a href="@Url.Action("Register", "Account")"> Sign Up</a></li>
+                            <li><a href="@Url.Action("Login", "Account")"> Log In</a></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="mr-3">
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <a class="nav-link" href="javascript:;" onclick="document.forms[0].submit();">LOGOUT</a>
+                                }
+                            </li>
+                        </ul>
+                    }
+                </div>
+            </nav>
+        }
+        if (ViewContext.RouteData.Values["controller"].ToString() != "Account" && ViewContext.RouteData.Values["controller"].ToString() != "Default" && ViewContext.RouteData.Values["controller"].ToString() != "Driver" && ViewContext.RouteData.Values["controller"].ToString() != "Transport")
+        {
+            <div id="menuSelectMain" hidden class="text-center justify-content-center align-items-center">
+                <div class="text-center">
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="transportPage()" id="transportation" href="javascript:void(0)">Transport</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="drinksPage()" id="drinks" href="javascript:void(0)">Drinks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#food">Coming Soon</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
                     <a class="navbar-brand" href="@Url.Action("Index", "Home")">Speedy <span style="color: #b7472a;">Wheelz</span></a>
@@ -92,9 +153,9 @@
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item active"><a href="@Url.Action("Index", "Home")" class="nav-link">Home</a></li>
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
-                                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                            <li class="nav-item dropdown open">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Products</a>
+                                <div class="dropdown-menu show" aria-labelledby="dropdown04">
                                     <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 2 })">Brandy</a>
                                     <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 9 })">Gin</a>
                                     <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 1 })">Rum</a>
@@ -172,6 +233,64 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/serviceWorker.min.js" integrity="sha512-gZN7SatPzB7LiGjOd4Sree/ecjktoLPgWt22wfApKrzuCpS9KsK7uKEDB+AAGY96NHCW1sAEm1JdaHDDP4MsIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
+        function transportPage() {
+            $('#ftco-loader').fadeIn();
+            if (!$('#menuSelect').hasClass('up')) {
+                $('#menuSelect').addClass('up');
+                $('#helpText').addClass('fade');
+            }
+
+            $.ajax({
+                url: '@Url.Action("Index", "Transport")',
+                type: 'get',
+                success: function (data) {
+                    $('#Content').fadeOut(200, function () {
+                        $(this).html(data).fadeIn(200);
+                    });
+                    $('#helpText').fadeOut();
+                    $('#ftco-loader').fadeOut();
+                    setTimeout(function () {
+                        $('#menuSelect').hide();
+                        $('#menuSelectMain').removeAttr('hidden').fadeIn();
+                        var transportLink = $('.nav-link#transportation');
+                        transportLink.addClass('active');
+                    },1000)
+                },
+                failure: function () {
+                    // handle failure
+                }
+            });
+        }
+
+        function drinksPage() {
+            $('#ftco-loader').fadeIn();
+            if (!$('#menuSelect').hasClass('up')) {
+                $('#menuSelect').addClass('up');
+                $('#helpText').addClass('fade');
+            }
+
+            $.ajax({
+                url: '@Url.Action("Index", "Home")',
+                type: 'get',
+                success: function (data) {
+                    $('#Content').fadeOut(200, function () {
+                        $(this).html(data).fadeIn(200);
+                    });
+                    $('#helpText').fadeOut();
+                    $('#ftco-loader').fadeOut();
+                    setTimeout(function () {
+                        $('#menuSelect').hide();
+                        $('#menuSelectMain').removeAttr('hidden');
+                        var drinksLink = $('.nav-link#drinks');
+                        drinksLink.addClass('active');
+                    }, 1000)
+                },
+                failure: function () {
+                    // handle failure
+                }
+            });
+        }
+
         $('#noBtn').click(function () {
             $('#ageVerify').removeAttr('hidden');
         })
@@ -183,6 +302,12 @@
         $("body").append($("#ftco-loader"));
         $("#ftco-loader").show();
 
+        $(document).ready(function () {
+            $(".nav-link").click(function () {
+                $(".nav-link").removeClass("active");
+                $(this).addClass("active");
+            });
+        });
 
         $(window).on('load', function () {
             $("#ftco-loader").fadeOut();

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using AuthorizeAttribute = System.Web.Mvc.AuthorizeAttribute;
 
 namespace SpeedyWheelz.Models
 {
@@ -28,6 +29,7 @@ namespace SpeedyWheelz.Models
         public DriverController(ApplicationDbContext db) {
             _db = db;
         }
+        [Authorize]
         // GET: Driver
         public ActionResult Index()
         {
@@ -35,7 +37,7 @@ namespace SpeedyWheelz.Models
             var orders = _db.Orders.Include(o => o.Address).Include(o => o.ApplicationUser).OrderBy(d => d.CreatedAt).ToList();
             return View(orders);
         }
-
+        [Authorize]
         public ActionResult OrderDetails(int id)
         {
             var orders = _db.Orders.Include(a => a.Address)
@@ -43,7 +45,7 @@ namespace SpeedyWheelz.Models
                                     .Where(o => o.OrderId == id).ToList();
             return View(orders);
         }
-
+        [Authorize]
         public ActionResult DriverAssignedOrders(string driverId)
         {
             var orders = _db.Orders.Include(o => o.Address).Include(o => o.ApplicationUser).OrderBy(d => d.CreatedAt).Where(m => m.DriverId == driverId).ToList();
@@ -72,7 +74,7 @@ namespace SpeedyWheelz.Models
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
         }
-
+        [Authorize]
         public ActionResult FulfillOrder(int? orderId)
         {
             if (orderId == null)
@@ -86,7 +88,7 @@ namespace SpeedyWheelz.Models
             }
             return View(order);
         }
-
+        [Authorize]
         [HttpPost]
         public ActionResult FulfillOrderConfirmed(int orderId)
         {

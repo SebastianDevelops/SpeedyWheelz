@@ -1,0 +1,37 @@
+﻿<style>
+    #menuSelect {
+        margin-top: 50%;
+        transition: margin-top 0.5s ease-out;
+    }
+
+        #menuSelect.up {
+            margin-top: -5px;
+        }
+
+    #helpText {
+        transition: opacity 0.5s ease-out;
+    }
+
+        #helpText.fade {
+            opacity: 0;
+        }
+</style>
+<div id="menuSelect" class="text-center justify-content-center align-items-center">
+    <h4 class="text-center" id="helpText">How Can We <span style="color: #b7472a;">Help</span> You</h4>
+    <div class="text-center">
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a class="nav-link" onclick="transportPage()" id="transportation" href="javascript:void(0)">Transport</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="drinksPage()" id="drinks" href="javascript:void(0)">Drinks</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#food">Coming Soon</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div id="Content">
+</div>

@@ -19,20 +19,20 @@ namespace SpeedyWheelz.Controllers
         {
             _db = db;
         }
-
+        [Authorize]
         public ActionResult Index()
         {
             Cart cart = GetCart();
             return View(cart);
         }
-
+        [Authorize]
         public ActionResult CartItems()
         {
             Cart cart = GetCart();
 
             return PartialView("_CartItems", cart);
         }
-
+        [Authorize]
         public ActionResult AddToCart(int productId, int quantity)
         {
             Product product = GetProduct(productId);
@@ -44,7 +44,7 @@ namespace SpeedyWheelz.Controllers
             }
             return Json(new { success = false });
         }
-
+        [Authorize]
         [HttpPost]
         public ActionResult DecreaseCartItem(int productId, int quantity)
         {
@@ -81,7 +81,7 @@ namespace SpeedyWheelz.Controllers
             }
         }
 
-
+        [Authorize]
         public ActionResult RemoveFromCart(int productId)
         {
             Product product = GetProduct(productId);
@@ -104,7 +104,7 @@ namespace SpeedyWheelz.Controllers
             }
             return cart;
         }
-
+        [Authorize]
         private Product GetProduct(int productId)
         {
             // Get product from database or other source

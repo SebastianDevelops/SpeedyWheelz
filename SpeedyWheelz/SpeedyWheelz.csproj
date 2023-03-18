@@ -184,12 +184,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\ExceptionsController.cs" />
     <Compile Include="Controllers\InventoryManagementController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OfflineController.cs" />
     <Compile Include="Controllers\PushNotificationController.cs" />
+    <Compile Include="Controllers\TransportController.cs" />
     <Compile Include="Hubs\DriverHub.cs" />
     <Compile Include="Hubs\Service\DriverService.cs" />
     <Compile Include="Migrations\202301141851411_OrderTableCreated.cs" />
@@ -239,6 +241,10 @@
     <Compile Include="Migrations\202303161803174_InventoryTable.cs" />
     <Compile Include="Migrations\202303161803174_InventoryTable.designer.cs">
       <DependentUpon>202303161803174_InventoryTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303180208369_InitialProd.cs" />
+    <Compile Include="Migrations\202303180208369_InitialProd.designer.cs">
+      <DependentUpon>202303180208369_InitialProd.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\CartModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -336,6 +342,7 @@
     <Content Include="images\prod-7.jpg" />
     <Content Include="images\prod-8.jpg" />
     <Content Include="images\prod-9.jpg" />
+    <Content Include="images\Transport\paul-hanaoka-D-qq7W751vs-unsplash.jpg" />
     <Content Include="js\assignmentChecker.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\google-map.js" />
@@ -528,10 +535,16 @@
     <Content Include="Views\Admin\Inventory.cshtml" />
     <Content Include="Views\Admin\Drivers.cshtml" />
     <Content Include="Views\Admin\DriverReport.cshtml" />
+    <Content Include="Views\Transport\Index.cshtml" />
+    <Content Include="Views\Default\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
+    <Folder Include="Content\Transport\" />
+    <Folder Include="js\Transport\" />
+    <Folder Include="Models\Transport\" />
+    <Folder Include="Scripts\Transport\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -591,6 +604,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303161803174_InventoryTable.resx">
       <DependentUpon>202303161803174_InventoryTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303180208369_InitialProd.resx">
+      <DependentUpon>202303180208369_InitialProd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

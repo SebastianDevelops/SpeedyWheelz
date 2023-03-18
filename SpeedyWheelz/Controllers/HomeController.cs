@@ -26,10 +26,6 @@ namespace SpeedyWheelz.Controllers
 
         public ActionResult Index()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Login", "Account");
-            }
             if (User.IsInRole("Admin"))
             {
                 return RedirectToAction("Index", "Admin");

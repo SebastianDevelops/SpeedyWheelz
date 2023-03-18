@@ -194,7 +194,7 @@ namespace SpeedyWheelz.Controllers
             ViewBag.Phone = orders[0].Address.PhoneNumber.ToString();
             return View(orders);
         }
-
+        [Authorize]
         public ActionResult InventoryMangement()
         {
             var orderedProducts = _db.adminOrders.Include(u => u.ApplicationUser).Include(a => a.Address).ToList();
