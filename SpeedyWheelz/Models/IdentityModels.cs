@@ -27,7 +27,7 @@ namespace SpeedyWheelz.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("vox50259_db", throwIfV1Schema: false)
         {
         }
 

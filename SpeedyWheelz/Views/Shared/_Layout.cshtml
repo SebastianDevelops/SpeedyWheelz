@@ -232,6 +232,59 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js" integrity="sha512-eiqtDDb4GUVCSqOSOTz/s/eiU4B31GrdSb17aPAA4Lv/Cjc8o+hnDvuNkgXhSI5yHuDvYkuojMaQmrB5JB31XQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/serviceWorker.min.js" integrity="sha512-gZN7SatPzB7LiGjOd4Sree/ecjktoLPgWt22wfApKrzuCpS9KsK7uKEDB+AAGY96NHCW1sAEm1JdaHDDP4MsIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    @if(User.Identity.IsAuthenticated)
+            {
+                <script>
+                     function drinksPage() {
+                         $.ajax({
+                             url: '@Url.Action("Index", "Home")',
+                             type: 'get',
+                             success: function (data) {
+                                 console.log("clicked");
+                                 $('#Content').html(data).fadeIn(200);
+                                 $('#helpText').fadeOut();
+                                 $('#ftco-loader').fadeOut();
+                                 setTimeout(function () {
+                                     $('#menuSelect').hide();
+                                     $('#menuSelectMain').removeAttr('hidden');
+                                     var drinksLink = $('.nav-link#drinks');
+                                     drinksLink.addClass('active');
+                                 }, 1000)
+                             },
+                             failure: function () {
+                                 console.log("Error")
+                             }
+                         });
+                    }
+                </script>
+    }
+    else
+    {
+<script>
+             function drinksPage() {
+                 $.ajax({
+                     url: '@Url.Action("Login", "Account")',
+                     type: 'get',
+                     success: function (data) {
+                         console.log("clicked");
+                         $('#Content').html(data).fadeIn(200);
+                         $('#helpText').fadeOut();
+                         $('#ftco-loader').fadeOut();
+                         setTimeout(function () {
+                             $('#menuSelect').hide();
+                             $('#menuSelectMain').removeAttr('hidden');
+                             var drinksLink = $('.nav-link#drinks');
+                             drinksLink.addClass('active');
+                         }, 1000)
+                     },
+                     failure: function () {
+                         console.log("Error")
+                     }
+                 });
+        }
+</script>
+    }
+
     <script>
         function transportPage() {
             $('#ftco-loader').fadeIn();
@@ -261,35 +314,8 @@
                 }
             });
         }
-
-        function drinksPage() {
-            $('#ftco-loader').fadeIn();
-            if (!$('#menuSelect').hasClass('up')) {
-                $('#menuSelect').addClass('up');
-                $('#helpText').addClass('fade');
-            }
-
-            $.ajax({
-                url: '@Url.Action("Index", "Home")',
-                type: 'get',
-                success: function (data) {
-                    $('#Content').fadeOut(200, function () {
-                        $(this).html(data).fadeIn(200);
-                    });
-                    $('#helpText').fadeOut();
-                    $('#ftco-loader').fadeOut();
-                    setTimeout(function () {
-                        $('#menuSelect').hide();
-                        $('#menuSelectMain').removeAttr('hidden');
-                        var drinksLink = $('.nav-link#drinks');
-                        drinksLink.addClass('active');
-                    }, 1000)
-                },
-                failure: function () {
-                    // handle failure
-                }
-            });
-        }
+       
+       
 
         $('#noBtn').click(function () {
             $('#ageVerify').removeAttr('hidden');
