@@ -39,6 +39,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+
         /* Center modal */
         .modal {
             text-align: center;
@@ -64,6 +65,14 @@
             .modal-dialog {
                 max-width: 90%;
             }
+        }
+
+        .showing {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            height: 100%;
+            transform: translate(-50%, -50%);
         }
     </style>
 
@@ -182,11 +191,12 @@
         }
     }
     <!-- END nav -->
+
     <div class="body-content">
         @RenderBody()
     </div>
 
-    <div id="ftco-loader" class="fullscreen "><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <div id="loader" hidden class="showing"><img src="~/loader.gif" alt="Displaying Loader" /></div>
 
     <!-- Modal -->
     <div class="modal" id="myModal" role="dialog" data-backdrop="static" data-keyboard="false">
@@ -231,17 +241,21 @@
     @RenderSection("scripts", required: false)
     <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js" integrity="sha512-eiqtDDb4GUVCSqOSOTz/s/eiU4B31GrdSb17aPAA4Lv/Cjc8o+hnDvuNkgXhSI5yHuDvYkuojMaQmrB5JB31XQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/serviceWorker.min.js" integrity="sha512-gZN7SatPzB7LiGjOd4Sree/ecjktoLPgWt22wfApKrzuCpS9KsK7uKEDB+AAGY96NHCW1sAEm1JdaHDDP4MsIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    @if(User.Identity.IsAuthenticated)
-            {
-                <script>
-                     function drinksPage() {
+    
+    @if (User.Identity.IsAuthenticated)
+    {
+        <script>
+            function drinksPage() {
+                        $('#loader').removeAttr('hidden').fadeIn();
+                        $('#loader').addClass('showing');
                          $.ajax({
                              url: '@Url.Action("Index", "Home")',
                              type: 'get',
                              success: function (data) {
                                  console.log("clicked");
-                                 $('#Content').html(data).fadeIn(200);
+                                 $('#Content').fadeOut(200, function () {
+                                     $(this).html(data).fadeIn(200);
+                                 });
                                  $('#helpText').fadeOut();
                                  $('#ftco-loader').fadeOut();
                                  setTimeout(function () {
@@ -250,24 +264,29 @@
                                      var drinksLink = $('.nav-link#drinks');
                                      drinksLink.addClass('active');
                                  }, 1000)
+                                 $('#loader').attr('hidden', true);
+                                 $('#loader').removeClass('showing');
                              },
                              failure: function () {
                                  console.log("Error")
                              }
                          });
                     }
-                </script>
+        </script>
     }
     else
     {
-<script>
-             function drinksPage() {
+        <script>
+            function drinksPage() {
+                $('#loader').removeAttr('hidden').fadeIn();
+                $('#loader').addClass('showing');
                  $.ajax({
                      url: '@Url.Action("Login", "Account")',
                      type: 'get',
                      success: function (data) {
-                         console.log("clicked");
-                         $('#Content').html(data).fadeIn(200);
+                         $('#Content').fadeOut(200, function () {
+                             $(this).html(data).fadeIn(200);
+                         });
                          $('#helpText').fadeOut();
                          $('#ftco-loader').fadeOut();
                          setTimeout(function () {
@@ -276,23 +295,25 @@
                              var drinksLink = $('.nav-link#drinks');
                              drinksLink.addClass('active');
                          }, 1000)
+                         $('#loader').attr('hidden', true);
+                         $('#loader').removeClass('showing');
                      },
                      failure: function () {
                          console.log("Error")
                      }
                  });
         }
-</script>
+        </script>
     }
 
     <script>
         function transportPage() {
-            $('#ftco-loader').fadeIn();
             if (!$('#menuSelect').hasClass('up')) {
                 $('#menuSelect').addClass('up');
                 $('#helpText').addClass('fade');
             }
-
+            $('#loader').removeAttr('hidden').fadeIn();
+            $('#loader').addClass('showing');
             $.ajax({
                 url: '@Url.Action("Index", "Transport")',
                 type: 'get',
@@ -307,15 +328,17 @@
                         $('#menuSelectMain').removeAttr('hidden').fadeIn();
                         var transportLink = $('.nav-link#transportation');
                         transportLink.addClass('active');
-                    },1000)
+                    }, 1000)
+                    $('#loader').attr('hidden', true);
+                    $('#loader').removeClass('showing');
                 },
                 failure: function () {
                     // handle failure
                 }
             });
         }
-       
-       
+
+
 
         $('#noBtn').click(function () {
             $('#ageVerify').removeAttr('hidden');
@@ -325,9 +348,6 @@
             Push.create("Hello World");
         }
 
-        $("body").append($("#ftco-loader"));
-        $("#ftco-loader").show();
-
         $(document).ready(function () {
             $(".nav-link").click(function () {
                 $(".nav-link").removeClass("active");
@@ -335,14 +355,23 @@
             });
         });
 
-        $(window).on('load', function () {
-            $("#ftco-loader").fadeOut();
-        })
+       
             // Listen for the appinstalled event
             window.addEventListener('appinstalled', function (event) {
                 // Redirect the user to a specific page
                 location.href = '@Url.Action("Index", "Home")';
             });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            $('#loader').removeAttr('hidden').fadeIn();
+            $('#loader').addClass('showing');
+        });
+
+        $(window).on('load', function () {
+            console.log("first")
+            $('#loader').attr('hidden', true);
+            $('#loader').removeClass('showing');
+        })
     </script>
 
 </body>
