@@ -292,6 +292,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\shee3.jpg" />
     <Content Include="css\ajax-loader.gif" />
     <Content Include="css\animate.css" />
     <Content Include="css\bootstrap.min.css" />
@@ -305,6 +306,10 @@
     <Content Include="css\owl.theme.default.min.css" />
     <Content Include="css\style.css" />
     <Content Include="Content\favicon.ico" />
+    <Content Include="fonts\flaticon\backup.txt" />
+    <Content Include="fonts\flaticon\font\flaticon.css" />
+    <Content Include="fonts\flaticon\font\flaticon.html" />
+    <Content Include="fonts\flaticon\font\Flaticon.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -325,6 +330,8 @@
     <Content Include="images\kind-5.jpg" />
     <Content Include="images\kind-6.jpg" />
     <Content Include="images\kind-7.jpg" />
+    <Content Include="images\kind-8.jpg" />
+    <Content Include="images\kind-9.jpg" />
     <Content Include="images\loc.png" />
     <Content Include="images\person_1.jpg" />
     <Content Include="images\person_2.jpg" />
@@ -370,6 +377,13 @@
     <Content Include="images\.DS_Store" />
     <Content Include="js\.DS_Store" />
     <Content Include="Views\Offline\Index.cshtml" />
+    <Content Include="fonts\flaticon\.DS_Store" />
+    <Content Include="fonts\flaticon\font\Flaticon.eot" />
+    <Content Include="fonts\flaticon\font\Flaticon.ttf" />
+    <Content Include="fonts\flaticon\font\Flaticon.woff" />
+    <Content Include="fonts\flaticon\font\Flaticon.woff2" />
+    <Content Include="fonts\flaticon\font\_flaticon.scss" />
+    <Content Include="fonts\flaticon\license\license.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -540,7 +554,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\" />
     <Folder Include="Content\Transport\" />
     <Folder Include="js\Transport\" />
     <Folder Include="Models\Transport\" />
