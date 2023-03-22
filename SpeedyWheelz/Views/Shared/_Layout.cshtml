@@ -146,7 +146,7 @@
                             <li class="nav-item active"><a href="@Url.Action("Index", "Home")" class="nav-link">Home</a></li>
 
                             <li class="nav-item dropdown open">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Products</a>
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" style="color: white !important" aria-expanded="true">Products</a>
                                 <div class="dropdown-menu show" aria-labelledby="dropdown04">
                                     <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 2 })">Brandy</a>
                                     <a class="dropdown-item" href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 9 })">Gin</a>
@@ -161,7 +161,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @style = "margin-top: 12px;" }))
                                 {
                                     @Html.AntiForgeryToken()
                                     <a class="nav-link" href="javascript:;" onclick="document.forms[0].submit();">LOGOUT</a>
