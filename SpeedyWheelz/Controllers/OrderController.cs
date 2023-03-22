@@ -136,6 +136,7 @@ namespace SpeedyWheelz.Controllers
             order.OrderStatus = "Paid";
             order.UserId = userId;
 
+            Session.Remove("Cart");
             _db.Orders.Add(order);
             _db.SaveChanges();
 
