@@ -1,4 +1,6 @@
-﻿@model SpeedyWheelz.Models.RegisterViewModel
+﻿@using System.Configuration
+
+@model SpeedyWheelz.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
@@ -42,12 +44,151 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="TC" class="control-label col-md-2">I have read and agree to the <a href="@Url.Action("Conditions","Conditions")" target="_blank">Terms And Conditions</a></label>
+        <div class="col-md-10">
+            <input type="checkbox" required name="TC" value="" oninvalid="setCustomValidity('The terms and conditions are required')" />
+        </div>
+    </div>
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-primary" value="Register" />
         </div>
     </div>
 }
 
+<!-- Modal -->
+<div class="modal" id="myModal" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Are you 18 years old?</h4>
+            </div>
+            <div class="modal-body">
+                <p>You must be at least 18 years old to access this website. Are you 18 or older?</p>
+                <div hidden id="ageVerify" class="text-center">
+                    <p class="text-danger">You have to be 18  in order to access this website</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="noBtn">No</button>
+                <button type="button" class="btn btn-primary" id="yesBtn">Yes</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js" integrity="sha512-eiqtDDb4GUVCSqOSOTz/s/eiU4B31GrdSb17aPAA4Lv/Cjc8o+hnDvuNkgXhSI5yHuDvYkuojMaQmrB5JB31XQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/serviceWorker.min.js" integrity="sha512-gZN7SatPzB7LiGjOd4Sree/ecjktoLPgWt22wfApKrzuCpS9KsK7uKEDB+AAGY96NHCW1sAEm1JdaHDDP4MsIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+    $('#noBtn').click(function () {
+            $('#ageVerify').removeAttr('hidden');
+        })
+
+        //Push notifications
+        vapidDetails = {
+                subject: '@ConfigurationManager.AppSettings["Email"].ToString()',
+                publicKey: '@ConfigurationManager.AppSettings["publicKey"].ToString()',
+                privateKey: '@ConfigurationManager.AppSettings["privateKey"].ToString()'
+    }
+
+        //Push notification config
+        if ('serviceWorker' in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("/sw.js")
+                    .then((reg) => {
+                        if (Notification.permission === "granted") {
+                            getSubscription(reg);
+                        } else {
+                            $("#GiveAccess").show();
+                            $("#yesBtn").click(() => requestNotificationAccess(reg));
+                        }
+                    });
+            });
+        } else {
+            $("#NoSupport").show();
+        }
+
+        function requestNotificationAccess(reg) {
+            Notification.requestPermission(function (status) {
+                $("#GiveAccess").hide();
+                if (status == "granted") {
+                    getSubscription(reg);
+                } else {
+                    $("#NoSupport").show();
+                }
+            });
+        }
+
+        function getSubscription(reg) {
+            reg.pushManager.getSubscription().then(function (sub) {
+                if (sub === null) {
+                    reg.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: '@ConfigurationManager.AppSettings["publicKey"].ToString()'
+                    }).then(function (sub) {
+                        fillSubscribeFields(sub);
+                    }).catch(function (e) {
+                        console.error("Unable to subscribe to push", e);
+                    });
+                } else {
+                    fillSubscribeFields(sub);
+                }
+            });
+        }
+
+    function fillSubscribeFields(sub) {
+        var endpoint = sub.endpoint;
+        var p256h = arrayBufferToBase64(sub.getKey("p256dh"));
+        var auth = arrayBufferToBase64(sub.getKey("auth"));
+
+        $.ajax({
+            url: '@Url.Action("StoreSubscription", "PushNotification")',
+            type: 'post',
+            data: { client: '', endpoint: endpoint, p256dh: p256h, auth: auth },
+            success: function (data) {
+                console.log("Successful");
+            },
+            error: function (statusText) {
+                console.log("Error");
+            }
+        })
+
+    }
+
+    /*
+
+        //For multiple users
+let userEndpoints = ['USER1_ENDPOINT', 'USER2_ENDPOINT', 'USER3_ENDPOINT'];
+
+userEndpoints.forEach(endpoint => {
+    let notificationData = {
+        endpoint,
+        payload: {
+            title: 'My Notification Title',
+            body: 'This is my notification body'
+        }
+    };
+
+Push.create(notificationData);
+});
+
+    */
+
+        function arrayBufferToBase64(buffer) {
+            var binary = '';
+            var bytes = new Uint8Array(buffer);
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return window.btoa(binary);
+        }
+    </script>
 }

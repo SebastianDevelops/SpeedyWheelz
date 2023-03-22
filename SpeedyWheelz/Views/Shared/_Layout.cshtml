@@ -227,8 +227,6 @@
     {
         <script>
             function drinksPage() {
-                        $('#loader').removeAttr('hidden').fadeIn();
-                        $('#loader').addClass('showing');
                          $.ajax({
                              url: '@Url.Action("Index", "Home")',
                              type: 'get',
@@ -245,8 +243,6 @@
                                      var drinksLink = $('.nav-link#drinks');
                                      drinksLink.addClass('active');
                                  }, 1000)
-                                 $('#loader').attr('hidden', true);
-                                 $('#loader').removeClass('showing');
                              },
                              failure: function () {
                                  console.log("Error")
