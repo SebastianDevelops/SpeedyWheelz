@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Configuration
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -13,13 +15,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,600,800&amp;display=swap">
     <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="~/css/animate.css">
-
     <link rel="stylesheet" href="~/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="~/css/magnific-popup.css">
-
     <link rel="stylesheet" href="~/css/flaticon.css">
     <link rel="stylesheet" href="~/css/style.css">
 </head>
@@ -126,22 +125,6 @@
         }
         if (ViewContext.RouteData.Values["controller"].ToString() != "Account" && ViewContext.RouteData.Values["controller"].ToString() != "Default" && ViewContext.RouteData.Values["controller"].ToString() != "Driver" && ViewContext.RouteData.Values["controller"].ToString() != "Transport")
         {
-            <div id="menuSelectMain" hidden class="text-center justify-content-center align-items-center">
-                <div class="text-center">
-                    <ul class="nav nav-pills nav-justified">
-                        <li class="nav-item">
-                            <a class="nav-link" onclick="transportPage()" id="transportation" href="javascript:void(0)">Transport</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" onclick="drinksPage()" id="drinks" href="javascript:void(0)">Drinks</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#food">Coming Soon</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
                     <a class="navbar-brand" href="@Url.Action("Index", "Home")">Speedy <span style="color: #b7472a;">Wheelz</span></a>
@@ -196,8 +179,6 @@
         @RenderBody()
     </div>
 
-    <div id="loader" hidden class="showing"><img src="~/loader.gif" alt="Displaying Loader" /></div>
-
     <!-- Modal -->
     <div class="modal" id="myModal" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
@@ -241,7 +222,7 @@
     @RenderSection("scripts", required: false)
     <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js" integrity="sha512-eiqtDDb4GUVCSqOSOTz/s/eiU4B31GrdSb17aPAA4Lv/Cjc8o+hnDvuNkgXhSI5yHuDvYkuojMaQmrB5JB31XQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/serviceWorker.min.js" integrity="sha512-gZN7SatPzB7LiGjOd4Sree/ecjktoLPgWt22wfApKrzuCpS9KsK7uKEDB+AAGY96NHCW1sAEm1JdaHDDP4MsIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
+
     @if (User.Identity.IsAuthenticated)
     {
         <script>
@@ -278,8 +259,6 @@
     {
         <script>
             function drinksPage() {
-                $('#loader').removeAttr('hidden').fadeIn();
-                $('#loader').addClass('showing');
                  $.ajax({
                      url: '@Url.Action("Login", "Account")',
                      type: 'get',
@@ -295,8 +274,6 @@
                              var drinksLink = $('.nav-link#drinks');
                              drinksLink.addClass('active');
                          }, 1000)
-                         $('#loader').attr('hidden', true);
-                         $('#loader').removeClass('showing');
                      },
                      failure: function () {
                          console.log("Error")
@@ -306,14 +283,12 @@
         </script>
     }
 
-    <script>
+<script>
         function transportPage() {
             if (!$('#menuSelect').hasClass('up')) {
                 $('#menuSelect').addClass('up');
                 $('#helpText').addClass('fade');
             }
-            $('#loader').removeAttr('hidden').fadeIn();
-            $('#loader').addClass('showing');
             $.ajax({
                 url: '@Url.Action("Index", "Transport")',
                 type: 'get',
@@ -329,8 +304,6 @@
                         var transportLink = $('.nav-link#transportation');
                         transportLink.addClass('active');
                     }, 1000)
-                    $('#loader').attr('hidden', true);
-                    $('#loader').removeClass('showing');
                 },
                 failure: function () {
                     // handle failure
@@ -344,6 +317,108 @@
             $('#ageVerify').removeAttr('hidden');
         })
 
+        //Push notifications
+        vapidDetails = {
+                subject: '@ConfigurationManager.AppSettings["Email"].ToString()',
+                publicKey: '@ConfigurationManager.AppSettings["publicKey"].ToString()',
+                privateKey: '@ConfigurationManager.AppSettings["privateKey"].ToString()'
+    }
+
+        //Push notification config
+        if ('serviceWorker' in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("/sw.js")
+                    .then((reg) => {
+                        if (Notification.permission === "granted") {
+                            getSubscription(reg);
+                        } else {
+                            $("#GiveAccess").show();
+                            $("#yesBtn").click(() => requestNotificationAccess(reg));
+                        }
+                    });
+            });
+        } else {
+            $("#NoSupport").show();
+        }
+
+        function requestNotificationAccess(reg) {
+            Notification.requestPermission(function (status) {
+                $("#GiveAccess").hide();
+                if (status == "granted") {
+                    getSubscription(reg);
+                } else {
+                    $("#NoSupport").show();
+                }
+            });
+        }
+
+        function getSubscription(reg) {
+            reg.pushManager.getSubscription().then(function (sub) {
+                if (sub === null) {
+                    reg.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: '@ConfigurationManager.AppSettings["publicKey"].ToString()'
+                    }).then(function (sub) {
+                        fillSubscribeFields(sub);
+                    }).catch(function (e) {
+                        console.error("Unable to subscribe to push", e);
+                    });
+                } else {
+                    fillSubscribeFields(sub);
+                }
+            });
+        }
+
+    function fillSubscribeFields(sub) {
+        var endpoint = sub.endpoint;
+        var p256h = arrayBufferToBase64(sub.getKey("p256dh"));
+        var auth = arrayBufferToBase64(sub.getKey("auth"));
+
+        $.ajax({
+            url: '@Url.Action("StoreSubscription", "PushNotification")',
+            type: 'post',
+            data: { client: '', endpoint: endpoint, p256dh: p256h, auth: auth },
+            success: function (data) {
+                console.log("Successful");
+            },
+            error: function (statusText) {
+                console.log("Error");
+            }
+        })
+
+    }
+
+    /*
+    
+        //For multiple users
+let userEndpoints = ['USER1_ENDPOINT', 'USER2_ENDPOINT', 'USER3_ENDPOINT'];
+
+userEndpoints.forEach(endpoint => {
+    let notificationData = {
+        endpoint,
+        payload: {
+            title: 'My Notification Title',
+            body: 'This is my notification body'
+        }
+    };
+
+Push.create(notificationData);
+});
+
+    */
+
+        function arrayBufferToBase64(buffer) {
+            var binary = '';
+            var bytes = new Uint8Array(buffer);
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return window.btoa(binary);
+        }
+
+
+
         function start(){
             Push.create("Hello World");
         }
@@ -355,24 +430,15 @@
             });
         });
 
-       
+
             // Listen for the appinstalled event
             window.addEventListener('appinstalled', function (event) {
                 // Redirect the user to a specific page
                 location.href = '@Url.Action("Index", "Home")';
             });
 
-        document.addEventListener("DOMContentLoaded", function () {
-            $('#loader').removeAttr('hidden').fadeIn();
-            $('#loader').addClass('showing');
-        });
-
-        $(window).on('load', function () {
-            console.log("first")
-            $('#loader').attr('hidden', true);
-            $('#loader').removeClass('showing');
-        })
-    </script>
+       
+</script>
 
 </body>
 

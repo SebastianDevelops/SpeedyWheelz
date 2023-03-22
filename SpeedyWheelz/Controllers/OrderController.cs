@@ -14,7 +14,7 @@ using System.Xml.Linq;
 
 namespace SpeedyWheelz.Controllers
 {
-
+    [Authorize]
     public class OrderController : Controller
     {
         private ApplicationDbContext _db;
@@ -26,6 +26,7 @@ namespace SpeedyWheelz.Controllers
         {
             _db = db;
         }
+       
         // GET: Checkout
         public ActionResult Index()
         {

@@ -25,6 +25,14 @@ namespace SpeedyWheelz
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/").Include(
+                      "~/css/animate.css",
+                      "~/css/owl.carousel.min.css",
+                      "~/css/owl.theme.default.min.css",
+                      "~/css/magnific-popup.css",
+                      "~/css/flaticon.css",
+                      "~/css/style.css"));
         }
     }
 }

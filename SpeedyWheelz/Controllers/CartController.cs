@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace SpeedyWheelz.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private readonly ApplicationDbContext _db;

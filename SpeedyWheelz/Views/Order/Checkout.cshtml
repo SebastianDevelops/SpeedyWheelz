@@ -83,9 +83,18 @@
 <form onsubmit="return actionPayFastJavascript( this );" name="PayFastPayNowForm" action="https://sandbox.payfast.co.za/eng/process" method="post">
     <input required type="hidden" name="cmd" value="_paynow">
     <input required type="hidden" name="receiver" pattern="[0-9]" value="10028429">
-    <input type="hidden" name="return_url" value="https://speedywheelz.co.za/Exceptions/Return">
-    <input type="hidden" name="cancel_url" value="https://speedywheelz.co.za/Exceptions/Cancel">
-    <input type="hidden" name="notify_url" value="https://speedywheelz.co.za/Exceptions/Notify">
+    @if (Request.Url.Host.Contains("www."))
+    {
+        <input type="hidden" name="return_url" value="https://www.speedywheelz.co.za/Exceptions/Return">
+        <input type="hidden" name="cancel_url" value="https://www.speedywheelz.co.za/Exceptions/Cancel">
+        <input type="hidden" name="notify_url" value="https://www.speedywheelz.co.za/Exceptions/Notify">
+    }
+    else
+    {
+        <input type="hidden" name="return_url" value="https://speedywheelz.co.za/Exceptions/Return">
+        <input type="hidden" name="cancel_url" value="https://speedywheelz.co.za/Exceptions/Cancel">
+        <input type="hidden" name="notify_url" value="https://speedywheelz.co.za/Exceptions/Notify">
+    }
     <table>
         <tr>
             <td><label id="PayFastAmountLabel" for="PayFastAmount">Amount: </label></td>

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace SpeedyWheelz.Controllers
 {
+    [Authorize]
     public class InventoryManagementController : Controller
     {
         private ApplicationDbContext _db;

@@ -8,7 +8,6 @@ using System.Web.Mvc;
 
 namespace SpeedyWheelz.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _db;
