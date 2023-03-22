@@ -142,44 +142,21 @@ namespace SpeedyWheelz.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        ActionResult generateApiSignatureActionResult(Dictionary<string, string> dataArray, string passPhrase = "")
+        public ActionResult OrderSummary()
         {
-            string payload = "";
-            if (passPhrase != "")
-            {
-                dataArray["passphrase"] = passPhrase;
-            }
-            Dictionary<string, string> sortedData = dataArray.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
-            foreach (KeyValuePair<string, string> kvp in sortedData)
-            {
-                // Get all the data from PayFast and prepare parameter string
-                payload += kvp.Key + "=" +
-                    Uri.EscapeDataString(kvp.Value.Replace("+", " ")) + "&";
-            }
-            // After looping through, cut the last & or append your passphrase
-            payload = payload.Substring(0, payload.Length - 1);
-            string signature = System.Security.Cryptography.
-                MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(payload)).
-                ToString().ToLowerInvariant();
-
-            return new ContentResult { Content = signature };
+            Cart cart = GetCart();
+            return PartialView("_Summary", cart);
         }
 
-        public ActionResult PayFastPayment()
+        private Cart GetCart()
         {
-            Guid paymentId= new Guid();
-            Dictionary<string, string> pfData = new Dictionary<string, string>
-    {
-        { "merchant_id", "10028429" },
-        { "merchant_key", "wkxzok5x4xvsl" },
-        { "return_url", "https://www.example.com" },
-        { "notify_url", "https://www.example.com/notify_url" },
-        { "m_payment_id", paymentId.ToString() },
-        { "amount", "200" },
-        { "item_name", "test product" }
-    };
-            string passPhrase = "jt7NOE43FZPn";
-            return generateApiSignatureActionResult(pfData, passPhrase);
+            Cart cart = (Cart)Session["Cart"];
+            if (cart == null)
+            {
+                cart = new Cart();
+                Session["Cart"] = cart;
+            }
+            return cart;
         }
     }
 }

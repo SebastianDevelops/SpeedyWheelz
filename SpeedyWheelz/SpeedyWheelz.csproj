@@ -556,6 +556,7 @@
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Conditions\Conditions.cshtml" />
     <Content Include="Views\Conditions\Privacy.cshtml" />
+    <Content Include="Views\Order\_Summary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

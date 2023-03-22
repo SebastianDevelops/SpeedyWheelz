@@ -4,157 +4,155 @@
 
 @Scripts.Render("~/bundles/jquery")
 
-<h4 class="font-weight-bolder">Please confirm your order details:</h4>
+<h4 class="font-weight-bolder">Please <span style="color: #b7472a;">confirm</span> your order details:</h4>
 
 <section style="background-color: #eee;">
-    <h5 class="h5">Order Summary:</h5>
+    <h5 class="h5" style="color: #b7472a;">Order Summary:</h5>
+    @Html.Action("OrderSummary", "Order")
     @if (ViewBag.TotalPrice < 500)
     {
-        <label id="delivery" for="deliver">Delivery Fee: </label>
-        <input type="number" disabled value="30" />
+        <div class="form-group">
+            <label id="delivery" for="deliver">Delivery Fee </label>
+            <input type="number" disabled value="30" />
+        </div>
     }
     else
     {
-        <label id="delivery" for="deliver">Delivery Fee: </label>
-        <input type="text" disabled value="Free Delivery" />
+        <div class="form-group">
+            <label id="delivery" for="deliver">Delivery Fee </label>
+            <input type="text" disabled value="Free Delivery" />
+        </div>
     }
-</section>
 
 
-<script type="text/javascript">
-    function shippingRequiredPayFast(formReference) {
-        let cont = true;
-        for (let i = 0; i < formReference.elements.length; i++) {
 
-            if (formReference.elements[i].className !== 'shipping')
-                continue;
 
-            if (formReference.elements[i].name === 'line2')
-                continue;
+    <script type="text/javascript">
+        function shippingRequiredPayFast(formReference) {
+            let cont = true;
+            for (let i = 0; i < formReference.elements.length; i++) {
 
-            if (!cont)
-                continue;
+                if (formReference.elements[i].className !== 'shipping')
+                    continue;
 
-            if (formReference.elements[i].name === 'country') {
-                if (formReference.elements[i].selectedIndex === 0) {
-                    cont = false;
-                    alert('Select a country');
-                }
-            } else {
-                if (0 === formReference.elements[i].value.length || /^\s*$/.test(formReference.elements[i].value)) {
-                    cont = false;
-                    alert('Complete all the mandatory address fields');
+                if (formReference.elements[i].name === 'line2')
+                    continue;
+
+                if (!cont)
+                    continue;
+
+                if (formReference.elements[i].name === 'country') {
+                    if (formReference.elements[i].selectedIndex === 0) {
+                        cont = false;
+                        alert('Select a country');
+                    }
+                } else {
+                    if (0 === formReference.elements[i].value.length || /^\s*$/.test(formReference.elements[i].value)) {
+                        cont = false;
+                        alert('Complete all the mandatory address fields');
+                    }
                 }
             }
-        }
-        if (!cont) {
-            return cont;
-        }
-    }
-</script>
-<script type="text/javascript">
-    function customQuantitiesPayFast(formReference) {
-        formReference['amount'].value = formReference['amount'].value * formReference['custom_quantity'].value;
-        return true;
-    }
-</script>
-<script type="text/javascript">
-    function actionPayFastJavascript(formReference) {
-        let shippingValid = shippingRequiredPayFast(formReference);
-        let shippingValidOrOff = typeof shippingValid !== 'undefined' ? shippingValid : true;
-        let customValid = shippingValidOrOff ? customQuantitiesPayFast(formReference) : false;
-        if (typeof shippingValid !== 'undefined' && !shippingValid) {
-            return false;
-        }
-        if (typeof customValid !== 'undefined' && !customValid) {
-            return false;
-        }
-        return true;
-    }
-</script>
-<div>
-    @using (Html.BeginForm("Checkout", "Order", FormMethod.Post, new { target = "_blank" }))
-    {
-        @Html.AntiForgeryToken()
-        <input id="submission" type="submit" value="Submit">
-    }
-</div>
-
-<form onsubmit="return actionPayFastJavascript( this );" name="PayFastPayNowForm" action="https://sandbox.payfast.co.za/eng/process" method="post">
-    <input required type="hidden" name="cmd" value="_paynow">
-    <input required type="hidden" name="receiver" pattern="[0-9]" value="10028429">
-    @if (Request.Url.Host.Contains("www."))
-    {
-        <input type="hidden" name="return_url" value="https://www.speedywheelz.co.za/Exceptions/Return">
-        <input type="hidden" name="cancel_url" value="https://www.speedywheelz.co.za/Exceptions/Cancel">
-        <input type="hidden" name="notify_url" value="https://www.speedywheelz.co.za/Exceptions/Notify">
-    }
-    else
-    {
-        <input type="hidden" name="return_url" value="https://speedywheelz.co.za/Exceptions/Return">
-        <input type="hidden" name="cancel_url" value="https://speedywheelz.co.za/Exceptions/Cancel">
-        <input type="hidden" name="notify_url" value="https://speedywheelz.co.za/Exceptions/Notify">
-    }
-    <table>
-        <tr>
-            <td><label id="PayFastAmountLabel" for="PayFastAmount">Amount: </label></td>
-            <td><input hidden required id="PayFastAmount" type="number" step=".01" name="amount" min="5.00" placeholder="5.00" value="@ViewBag.TotalPrice"></td>
-            <td><input required id="displayAmount" disabled value="@ViewBag.TotalPrice"></td>
-        </tr>
-    </table>
-
-    <table>
-        <tr>
-            <td><label for="custom_quantity">Quantity: </label></td>
-            <td><input hidden required id="custom_quantity" type="number" name="custom_quantity" value="1"></td>
-            <td><input required disabled value="@ViewBag.Quantity"></td>
-        </tr>
-    </table>
-
-    <input required type="hidden" name="item_name" maxlength="255" value="Test item">
-    <input type="hidden" name="item_description" maxlength="255" value="This is a test">
-    <table hidden>
-        <tr>
-            <td colspan="2"><span style="font-weight: bold;">Shipping Address</span></td>
-        </tr>
-        <tr>
-            <td><span style="color:red;">*</span>&nbsp;Line 1</td>
-            <td><input type="text" name="line1" class="shipping" value="@Model.Street"></td>
-        </tr>
-        <tr>
-            <td><span style="color:red;">*</span>&nbsp;City</td>
-            <td><input type="text" class="shipping" name="city" value="@Model.City"></td>
-        </tr>
-        <tr hidden>
-            <td><span style="color:red;">*</span>&nbsp;Province</td>
-            <td><input type="text" class="shipping" name="region" value="Gauteng"></td>
-        </tr>
-        <tr>
-            <td><span style="color:red;">*</span>&nbsp;Country</td>
-            <td>
-                <select name="country" class="shipping">
-                    <option value="">- Select -</option>
-                    <option selected="selected" value="South Africa">South Africa</option>
-                    <option value="">------------------------</option>
-                </select>
-            </td>
-        </tr>
-        <tr hidden>
-            <td><span style="color:red;">*</span>&nbsp;Postal Code</td>
-            <td><input type="number" name="code" class="shipping" value="1830"></td>
-        </tr>
-    </table>
-    <table>
-        <tr>
-            <td colspan=2 align=center>
-                <input id="paySubmit" type="submit" class="btn btn-primary" alt="Buy Now" name="Buy Now" title="Buy Now with Payfast">
-            </td>
-        </tr>
-    </table>
-    <script>
-        if ($('#PayFastAmount').val() == '') {
-            console.log("blank");
-            $('#paySubmit').prop('disabled', true);
+            if (!cont) {
+                return cont;
+            }
         }
     </script>
-</form>
+    <script type="text/javascript">
+        function customQuantitiesPayFast(formReference) {
+            formReference['amount'].value = formReference['amount'].value * formReference['custom_quantity'].value;
+            return true;
+        }
+    </script>
+    <script type="text/javascript">
+        function actionPayFastJavascript(formReference) {
+            let shippingValid = shippingRequiredPayFast(formReference);
+            let shippingValidOrOff = typeof shippingValid !== 'undefined' ? shippingValid : true;
+            let customValid = shippingValidOrOff ? customQuantitiesPayFast(formReference) : false;
+            if (typeof shippingValid !== 'undefined' && !shippingValid) {
+                return false;
+            }
+            if (typeof customValid !== 'undefined' && !customValid) {
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <form onsubmit="return actionPayFastJavascript( this );" name="PayFastPayNowForm" action="https://sandbox.payfast.co.za/eng/process" method="post">
+        <input required type="hidden" name="cmd" value="_paynow">
+        <input required type="hidden" name="receiver" pattern="[0-9]" value="10028429">
+        @if (Request.Url.Host.Contains("www."))
+        {
+            <input type="hidden" name="return_url" value="https://www.speedywheelz.co.za/Exceptions/Return">
+            <input type="hidden" name="cancel_url" value="https://www.speedywheelz.co.za/Exceptions/Cancel">
+            <input type="hidden" name="notify_url" value="https://www.speedywheelz.co.za/Exceptions/Notify">
+        }
+        else
+        {
+            <input type="hidden" name="return_url" value="https://speedywheelz.co.za/Exceptions/Return">
+            <input type="hidden" name="cancel_url" value="https://speedywheelz.co.za/Exceptions/Cancel">
+            <input type="hidden" name="notify_url" value="https://speedywheelz.co.za/Exceptions/Notify">
+        }
+        <table>
+            <tr>
+                <td><label id="PayFastAmountLabel" for="PayFastAmount">Amount: </label></td>
+                <td><input hidden required id="PayFastAmount" type="number" step=".01" name="amount" min="5.00" placeholder="5.00" value="@ViewBag.TotalPrice"></td>
+                <td><input required id="displayAmount" disabled value="@ViewBag.TotalPrice"></td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <td><input hidden required id="custom_quantity" type="number" name="custom_quantity" value="1"></td>
+                <td><input required hidden disabled value="@ViewBag.Quantity"></td>
+            </tr>
+        </table>
+
+        <input required type="hidden" name="item_name" maxlength="255" value="Test item">
+        <input type="hidden" name="item_description" maxlength="255" value="This is a test">
+        <table hidden>
+            <tr>
+                <td colspan="2"><span style="font-weight: bold;">Shipping Address</span></td>
+            </tr>
+            <tr>
+                <td><span style="color:red;">*</span>&nbsp;Line 1</td>
+                <td><input type="text" name="line1" class="shipping" value="@Model.Street"></td>
+            </tr>
+            <tr>
+                <td><span style="color:red;">*</span>&nbsp;City</td>
+                <td><input type="text" class="shipping" name="city" value="@Model.City"></td>
+            </tr>
+            <tr hidden>
+                <td><span style="color:red;">*</span>&nbsp;Province</td>
+                <td><input type="text" class="shipping" name="region" value="Gauteng"></td>
+            </tr>
+            <tr>
+                <td><span style="color:red;">*</span>&nbsp;Country</td>
+                <td>
+                    <select name="country" class="shipping">
+                        <option value="">- Select -</option>
+                        <option selected="selected" value="South Africa">South Africa</option>
+                        <option value="">------------------------</option>
+                    </select>
+                </td>
+            </tr>
+            <tr hidden>
+                <td><span style="color:red;">*</span>&nbsp;Postal Code</td>
+                <td><input type="number" name="code" class="shipping" value="1830"></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td colspan=2 align=center>
+                    <input id="paySubmit" type="submit" class="btn btn-primary" alt="Buy Now" name="Buy Now" title="Buy Now with Payfast">
+                </td>
+            </tr>
+        </table>
+        <script>
+            if ($('#PayFastAmount').val() == '') {
+                console.log("blank");
+                $('#paySubmit').prop('disabled', true);
+            }
+        </script>
+    </form>
+</section>

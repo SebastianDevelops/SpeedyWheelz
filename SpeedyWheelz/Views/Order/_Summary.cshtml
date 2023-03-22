@@ -1,0 +1,16 @@
+﻿@model SpeedyWheelz.Models.Cart
+
+@{ 
+    Layout = null;
+}
+
+@foreach (var item in Model.Items)
+{ 
+    var total = item.Product.Price * item.Quantity;
+    
+    <div class="form-group">
+        <label id="@item.Product.Name" for="@item.Product.Name">@item.Product.Name </label>
+        x @item.Quantity <input type="number" disabled value="@total" />
+    </div>
+    
+}
