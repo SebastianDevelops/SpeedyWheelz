@@ -39,6 +39,7 @@ namespace SpeedyWheelz
             #endregion
 
             MailMessage msg = new MailMessage();
+            msg.IsBodyHtml = true;
             msg.From = new MailAddress(ConfigurationManager.AppSettings["Email"].ToString());
             msg.To.Add(new MailAddress(message.Destination));
             msg.Subject = message.Subject;
