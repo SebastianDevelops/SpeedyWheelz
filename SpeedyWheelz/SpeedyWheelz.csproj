@@ -352,7 +352,6 @@
     <Content Include="images\prod-7.jpg" />
     <Content Include="images\prod-8.jpg" />
     <Content Include="images\prod-9.jpg" />
-    <Content Include="images\Transport\paul-hanaoka-D-qq7W751vs-unsplash.jpg" />
     <Content Include="js\assignmentChecker.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\google-map.js" />
@@ -563,6 +562,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Transport\" />
+    <Folder Include="images\Transport\" />
     <Folder Include="js\Transport\" />
     <Folder Include="Models\Transport\" />
     <Folder Include="Scripts\Transport\" />
