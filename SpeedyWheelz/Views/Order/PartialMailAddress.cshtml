@@ -2,9 +2,17 @@
 
 @{
     Layout = null;
+
+    
 }
 
-@Model.Street
+<td>
+    Address: <br />
+    @Model.Street
+</td>
 
-@ViewBag.Check
+<td>
+    @Model.FirstName @Model.LastName<br />
+    @Model.PhoneNumber
+</td>
 

@@ -161,13 +161,20 @@ namespace SpeedyWheelz.Controllers
 
         public ActionResult CustomerMailView()
         {
-            var loggedUser = User.Identity.GetUserId();
+            try
+            {
+                var loggedUser = User.Identity.GetUserId();
 
-            Cart cart = GetCart();
+                Cart cart = GetCart();
 
-            ViewBag.Address = _db.Addresses.Where(u => u.ApplicationUserId == loggedUser).Select(s => s.Street).FirstOrDefault();
+                return View(cart);
+            }
+            catch (Exception e)
+            {
+                var message = e.Message;
 
-            return View(cart);
+                throw;
+            }
         }
 
         public static string ViewToString(ControllerContext context, string viewName, object model)
