@@ -1,0 +1,404 @@
+﻿@model SpeedyWheelz.Models.Cart
+
+@{
+    ViewBag.Title = "Order";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="manifest" href="@Url.Content("~/manifest.json")" crossorigin="use-credentials">
+    <meta name="theme-color" content="#b7472a" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="~/Content/AppIcon/icon-192x192.png">
+    <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+
+    <style>
+        import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: lato;
+        }
+
+        h2 {
+            margin-bottom: 0px;
+            margin-top: 25px;
+            text-align: center;
+            font-weight: 200;
+            font-size: 19px;
+            font-size: 1.2rem;
+        }
+
+        .container {
+            height: 100%;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            align-items: center;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            background: -webkit-linear-gradient(#c5e5e5, #ccddf9);
+            background: linear-gradient(#c9e5e9,#ccddf9);
+        }
+
+        .dropdown-select.visible {
+            display: block;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+            ul li {
+                list-style: none;
+                padding-left: 10px;
+                cursor: pointer;
+            }
+
+                ul li:hover {
+                    background: rgba(255,255,255,0.1);
+                }
+
+        .dropdown-select {
+            position: absolute;
+            background: #77aaee;
+            text-align: left;
+            box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            width: 90%;
+            left: 2px;
+            line-height: 2em;
+            margin-top: 2px;
+            box-sizing: border-box;
+        }
+
+        .thin {
+            font-weight: 400;
+        }
+
+        .small {
+            font-size: 12px;
+            font-size: .8rem;
+        }
+
+        .half-input-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            .half-input-table td:first-of-type {
+                border-right: 10px solid #4488dd;
+                width: 50%;
+            }
+
+        .window {
+            height: 540px;
+            width: 800px;
+            background: #fff;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            box-shadow: 0px 15px 50px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 30px;
+            z-index: 10;
+        }
+
+        .order-info {
+            height: 100%;
+            width: 50%;
+            padding-left: 25px;
+            padding-right: 25px;
+            box-sizing: border-box;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .price {
+            bottom: 0px;
+            position: absolute;
+            right: 0px;
+            color: #4488dd;
+        }
+
+        .order-table td:first-of-type {
+            width: 25%;
+        }
+
+        .order-table {
+            position: relative;
+        }
+
+        .line {
+            height: 1px;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background: #ddd;
+        }
+
+        .order-table td:last-of-type {
+            vertical-align: top;
+            padding-left: 25px;
+        }
+
+        .order-info-content {
+            table-layout: fixed;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        .pay-btn {
+            border: none;
+            background: #22b877;
+            line-height: 2em;
+            border-radius: 10px;
+            font-size: 19px;
+            font-size: 1.2rem;
+            color: #fff;
+            cursor: pointer;
+            position: absolute;
+            bottom: 25px;
+            width: calc(100% - 50px);
+            -webkit-transition: all .2s ease;
+            transition: all .2s ease;
+        }
+
+            .pay-btn:hover {
+                background: #22a877;
+                color: #eee;
+                -webkit-transition: all .2s ease;
+                transition: all .2s ease;
+            }
+
+        .total {
+            margin-top: 25px;
+            font-size: 20px;
+            font-size: 1.3rem;
+            position: absolute;
+            right: 27px;
+            left: 35px;
+        }
+
+        .dense {
+            line-height: 1.2em;
+            font-size: 16px;
+            font-size: 1rem;
+        }
+
+        .input-field {
+            background: rgba(255,255,255,0.1);
+            margin-bottom: 10px;
+            margin-top: 3px;
+            line-height: 1.5em;
+            font-size: 20px;
+            font-size: 1.3rem;
+            border: none;
+            padding: 5px 10px 5px 10px;
+            color: #fff;
+            box-sizing: border-box;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .credit-info {
+            background: #4488dd;
+            height: 100%;
+            width: 50%;
+            color: #eee;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            font-size: 14px;
+            font-size: .9rem;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            box-sizing: border-box;
+            padding-left: 25px;
+            padding-right: 25px;
+            border-top-right-radius: 30px;
+            border-bottom-right-radius: 30px;
+            position: relative;
+        }
+
+        .dropdown-btn {
+            background: rgba(255,255,255,0.1);
+            width: 100%;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 1.5em;
+            cursor: pointer;
+            position: relative;
+            -webkit-transition: background .2s ease;
+            transition: background .2s ease;
+        }
+
+            .dropdown-btn:after {
+                content: '\25BE';
+                right: 8px;
+                position: absolute;
+            }
+
+            .dropdown-btn:hover {
+                background: rgba(255,255,255,0.2);
+                -webkit-transition: background .2s ease;
+                transition: background .2s ease;
+            }
+
+        .dropdown-select {
+            display: none;
+        }
+
+        .credit-card-image {
+            display: block;
+            max-height: 80px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+
+        .credit-info-content {
+            margin-top: 25px;
+            -webkit-flex-flow: column;
+            -ms-flex-flow: column;
+            flex-flow: column;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            width: 100%;
+        }
+
+        @@media (max-width: 600px) {
+            .window {
+                width: 100%;
+                height: 100%;
+                display: block;
+                border-radius: 0px;
+            }
+
+            .order-info {
+                width: 100%;
+                height: auto;
+                padding-bottom: 100px;
+                border-radius: 0px;
+            }
+
+            .credit-info {
+                width: 100%;
+                height: auto;
+                padding-bottom: 100px;
+                border-radius: 0px;
+            }
+
+            .pay-btn {
+                border-radius: 0px;
+            }
+        }
+    </style>
+
+    <div class='container'>
+        <div class='window'>
+            <div class='order-info'>
+                <div class='order-info-content'>
+                    <h2>Your Checkout Details</h2>
+                    <h5 class="text-center">Address: <br /></h5>
+                    <p class="lead text-center">@Html.Action("PartialMailAddress", "Order")</p>
+                    <div class='line'></div>
+
+                    @foreach (var item in Model.Items)
+                    {
+                        <table class='order-table'>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <br> @item.Product.Name<br> <span class='thin small'> @item.Product.Description<br><br></span>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='price'>R @item.Product.Price</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                        <div class='line'></div>
+                    }
+                    <div class='total'>
+                        <span style='float:left;'>
+                            <div class='thin dense'>Delivery</div>
+                            TOTAL
+                        </span>
+                        <span style='float:right; text-align:right;'>
+                            @if (Model.TotalPrice < 500)
+                            {
+                                <div class='thin dense'>R 30</div>
+                            }
+                            else
+                            {
+                                <div class='thin dense'>FREE</div>
+                            }
+
+                            @if (Model.TotalPrice < 500)
+                            {
+                                var total = Model.TotalPrice + 30;
+
+                                <div>R @total</div>
+                            }
+                            else
+                            {
+                                <div>@Model.TotalPrice</div>
+                            }
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

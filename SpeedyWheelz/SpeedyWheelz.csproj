@@ -557,6 +557,8 @@
     <Content Include="Views\Conditions\Conditions.cshtml" />
     <Content Include="Views\Conditions\Privacy.cshtml" />
     <Content Include="Views\Order\_Summary.cshtml" />
+    <Content Include="Views\Order\CustomerMailView.cshtml" />
+    <Content Include="Views\Order\PartialMailAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
