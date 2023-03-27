@@ -1,0 +1,108 @@
+﻿@{
+    Layout = null;
+}
+
+<section id="itemCatalog" class="ftco-section ftco-no-pb">
+    <div class="container">
+        <div class="row justify-content-center">
+            @Html.ActionLink("Go To Cart", "Cart", "Index")
+        </div>
+        <div class="row justify-content-center">
+            @Html.Action("ProductSearch", "Home")
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-2 col-md-4 ">
+                <a href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 2 })">
+                    <div class="sort w-100 text-center ftco-animate">
+                        <div class="img" style="background-image: url(../../images/kind-1.jpg);"></div>
+                        <h3>Brandy</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-4 ">
+                <a href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 9 })">
+                    <div class="sort w-100 text-center ftco-animate">
+                        <div class="img" style="background-image: url(../../images/kind-2.jpg);"></div>
+                        <h3>Gin</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-4 ">
+                <a href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 1 })">
+                    <div class="sort w-100 text-center ftco-animate">
+                        <div class="img" style="background-image: url(../../images/kind-3.jpg);"></div>
+                        <h3>Rum</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-4 ">
+                <a href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 6 })">
+                    <div class="sort w-100 text-center ftco-animate">
+                        <div class="img" style="background-image: url(../../images/kind-4.jpg);"></div>
+                        <h3>Tequila</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-4 ">
+                <a href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 7 })">
+                    <div class="sort w-100 text-center ftco-animate">
+                        <div class="img" style="background-image: url(../../images/kind-5.jpg);"></div>
+                        <h3>Vodka</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-4 ">
+                <a href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 5 })">
+                    <div class="sort w-100 text-center ftco-animate">
+                        <div class="img" style="background-image: url(../../images/kind-6.jpg);"></div>
+                        <h3>Whiskey</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-4 ">
+                <div class="sort w-100 text-center ftco-animate">
+                    <a href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 3 })">
+                        <div class="img" style="background-image: url(../../images/kind-7.jpg);"></div>
+                        <h3>Beer</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 ">
+                <div class="sort w-100 text-center ftco-animate">
+                    <a href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 8 })">
+                        <div class="img" style="background-image: url(../../Content/Images/shee3.jpg);"></div>
+                        <h3>Tobacco</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 ">
+                <div class="sort w-100 text-center ftco-animate">
+                    <a href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 4 })">
+                        <div class="img" style="background-image: url(../../images/kind-8.jpg);"></div>
+                        <h3>Cider</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 ">
+                <div class="sort w-100 text-center ftco-animate">
+                    <a href="@Url.Action("Index", "Products", new { productType = "AlcoholCategory", alcoholCategory = 10 })">
+                        <div class="img" style="background-image: url(../../images/kind-9.jpg);"></div>
+                        <h3>Non-Alcoholic</h3>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-2 col-md-4 ">
+                ᠎᠎᠎&nbsp;
+            </div>
+            <div class="col-lg-2 col-md-4 ">
+                &nbsp;
+            </div>
+            <div class="col-lg-2 col-md-4 ">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+</section>

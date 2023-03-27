@@ -381,11 +381,11 @@
     <Content Include="Views\Offline\Index.cshtml" />
     <Content Include="fonts\flaticon\.DS_Store" />
     <Content Include="fonts\flaticon\font\Flaticon.eot" />
-    <Content Include="fonts\flaticon\font\Flaticon.ttf" />
-    <Content Include="fonts\flaticon\font\Flaticon.woff" />
-    <Content Include="fonts\flaticon\font\Flaticon.woff2" />
     <Content Include="fonts\flaticon\font\_flaticon.scss" />
     <Content Include="fonts\flaticon\license\license.pdf" />
+    <Content Include="fonts\PayPalSansBig-Regular-Klim.ttf" />
+    <Content Include="fonts\flaticon\font\Flaticon.ttf" />
+    <Content Include="fonts\flaticon\font\Flaticon.woff" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -558,6 +558,8 @@
     <Content Include="Views\Order\_Summary.cshtml" />
     <Content Include="Views\Order\CustomerMailView.cshtml" />
     <Content Include="Views\Order\PartialMailAddress.cshtml" />
+    <Content Include="Views\Driver\OrderTaken.cshtml" />
+    <Content Include="Views\Products\Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -568,9 +570,6 @@
     <Folder Include="Scripts\Transport\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />

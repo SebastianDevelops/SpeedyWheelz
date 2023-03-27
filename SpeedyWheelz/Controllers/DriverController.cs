@@ -57,6 +57,12 @@ namespace SpeedyWheelz.Models
         public async Task<ActionResult> AssignOrder(int orderId)
         {
             var order = await _db.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+            if(order.OrderId == orderId)
+            {
+                OrderTaken();
+            }
+
             if (order == null)
             {
                 return new HttpNotFoundResult();
@@ -139,6 +145,11 @@ namespace SpeedyWheelz.Models
             _db.SaveChanges();
             return RedirectToAction("DriverAssignedOrders");
 
+        }
+
+        public ActionResult OrderTaken()
+        {
+            return View();
         }
 
 

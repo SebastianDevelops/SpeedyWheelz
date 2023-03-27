@@ -27,26 +27,7 @@
                 }
                 })
         });
-        var divToReload = $('#orderWrapper');
-
-
-        function serverCaller() {
-            setTimeout(function () {
-                $.ajax({
-                    url: '@Url.Action("Index","Driver")',
-                    success: function (response) {
-                        divToReload.html(response);
-                    },
-                    failure: function () {
-                        divToReload.html('<p class="text-danger">Please reload the page or contact support<p/>');
-                    }
-                });
-
-                serverCaller();
-            }, 5000)
-        }
-
-            serverCaller();
+            var divToReload = $('#orderWrapper');
 
         </script>
 

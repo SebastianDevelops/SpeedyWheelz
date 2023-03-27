@@ -12,8 +12,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="apple-touch-icon" href="~/Content/AppIcon/icon-192x192.png">
     <!-- Google fonts-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,600,800&amp;display=swap">
     <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
+    <link rel="stylesheet" href="@Url.Content("~/fonts/PayPalSansBig-Regular-Klim.ttf")" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/css/animate.css">
     <link rel="stylesheet" href="~/css/owl.carousel.min.css">
@@ -175,34 +175,30 @@
     }
     <!-- END nav -->
 
-    <div class="body-content">
-        @RenderBody()
-    </div>
-
     <!-- Modal -->
-    <div class="modal" id="myModal" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal" id="menuPrompt" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
 
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Are you 18 years old?</h4>
+                    <h4 class="modal-title">Add More Products?</h4>
                 </div>
-                <div class="modal-body">
-                    <p>You must be at least 18 years old to access this website. Are you 18 or older?</p>
-                    <div hidden id="ageVerify" class="text-center">
-                        <p class="text-danger">You have to be 18  in order to access this website</p>
-                    </div>
+                <div class="modal-body" id="MenuWrapper">
+                    <p>Would You Like To Add More Products?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="noBtn">No</button>
-                    <button type="button" class="btn btn-primary" id="yesBtn">Yes</button>
+                    <button type="button" class="btn btn-danger" id="promptNo">No</button>
+                    <button type="button" class="btn btn-primary" id="promptYes">Yes</button>
                 </div>
             </div>
 
         </div>
     </div>
 
+    <div class="body-content">
+        @RenderBody()
+    </div>
 
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/jquery-migrate-3.0.1.min.js"></script>
@@ -279,7 +275,7 @@
         </script>
     }
 
-<script>
+    <script>
         function transportPage() {
             if (!$('#menuSelect').hasClass('up')) {
                 $('#menuSelect').addClass('up');
@@ -385,7 +381,7 @@
     }
 
     /*
-    
+
         //For multiple users
 let userEndpoints = ['USER1_ENDPOINT', 'USER2_ENDPOINT', 'USER3_ENDPOINT'];
 
@@ -433,8 +429,8 @@ Push.create(notificationData);
                 location.href = '@Url.Action("Index", "Home")';
             });
 
-       
-</script>
+
+    </script>
 
 </body>
 

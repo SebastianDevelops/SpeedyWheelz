@@ -93,5 +93,11 @@ namespace SpeedyWheelz.Controllers
                 return PartialView("_AlcoholList", model);
             }
         }
+
+        public ActionResult Menu()
+        {
+            return PartialView("Menu");
+        }
+
     }
 }

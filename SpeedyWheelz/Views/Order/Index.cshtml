@@ -145,17 +145,17 @@
                 <div class="row mb-4">
                     <div class="col">
                         <div class="form-outline">
+                            <label class="form-label" for="form9Example1">First name</label>
                             <input type="text" id="FirstNameHidden" style="display: none;" value="" />
                             @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control input-custom" } })
-                            <label class="form-label" for="form9Example1">First name</label>
                             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-outline">
+                            <label class="form-label" for="form9Example2">Last name</label>
                             <input type="text" id="LastNameHidden" style="display: none;" value="" />
                             @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control input-custom" } })
-                            <label class="form-label" for="form9Example2">Last name</label>
                             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -163,6 +163,7 @@
                 <div class="row mb-12">
                     <div class="col">
                         <div class="form-outline">
+                            <label class="form-label" for="form9Example6">Street Address</label>
                             @if (Model.Street != null)
                             {
                                 @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control input-custom", placeholder = "Start typing to search", @value = Model.Street } })
@@ -171,7 +172,8 @@
                             {
                                 @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control input-custom", placeholder = "Start typing to search" } })
                             }
-                            <label class="form-label" for="form9Example6">Street Address</label>
+                            <p id="liveLocation" class="btn btn-block btn-primary btn-rounded">Use Live Location</p>
+
                             @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -179,14 +181,14 @@
                 <div class="row mb-12">
                     <div class="col">
                         <div class="form-outline">
-                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-custom" } })
                             <label class="form-label" for="typeEmail">Phone Number</label>
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-custom" } })
                             @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="AC" class="control-label col-md-2">I confirm my address is correct and understand that no disputes can take place if not</label>
+                    <label for="AC" class="control-label col-md-2">I confirm my address is correct</label>
                     <div class="col-md-10">
                         <input type="checkbox" required name="AC" value="" oninvalid="setCustomValidity('The terms and conditions are required')" />
                     </div>

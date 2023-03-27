@@ -18,6 +18,7 @@ namespace SpeedyWheelz.Models
         [Required]
         public string Street { get; set; }
         [Required]
+        [RegularExpression(@"^\+27[0-9]{9}$", ErrorMessage = "Please enter a valid Number(eg: +27 69 0010 0110)")]
         public string PhoneNumber { get; set; }
         public string City { get; set; } = "Johannesburg";
         public string ZipCode { get; set; } = "1830";

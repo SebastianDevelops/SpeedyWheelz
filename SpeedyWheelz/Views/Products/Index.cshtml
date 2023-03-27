@@ -12,6 +12,7 @@
     </div>
     <div id="alcoholWrapper">
         <section class="ftco-section">
+            <h5 class="text-center">Add More Products</h5>
             <div class="container">
                 <div class="row">
                     @foreach (var product in Model)
@@ -28,7 +29,7 @@
                                     {
                                         <span></span>
                                     }
-                                    else if(product.stockCount <= 0)
+                                    else if (product.stockCount <= 0)
                                     {
                                         <span class="sale">Out Of Stock</span>
                                     }
@@ -84,7 +85,6 @@ else
 }
 
 
-
 <script>
     function addToCart(productId, quantity) {
         $.ajax({
@@ -93,7 +93,7 @@ else
             data: { productId: productId, quantity: quantity },
             success: function (data) {
                 if (data.success) {
-                    alert("Product added to cart!");
+                    $('#menuPrompt').fadeIn();
                     $('#cartItemsDiv').load(location.href + " #cartItemsDiv>*", "");
                 } else {
                     alert("Failed to add product to cart.");

@@ -55,7 +55,7 @@
             data: { productId: productId, quantity: quantity },
             success: function (data) {
                 if (data.success) {
-                    alert("Product added to cart!");
+                    $('#menuPrompt').fadeIn();
                     $('#cartItemsDiv').load(location.href + " #cartItemsDiv>*", "");
                 } else {
                     alert("Failed to add product to cart.");
