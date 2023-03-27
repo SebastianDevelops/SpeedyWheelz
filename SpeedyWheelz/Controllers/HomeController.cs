@@ -33,9 +33,8 @@ namespace SpeedyWheelz.Controllers
             {
                 return RedirectToAction("Index", "Driver");
             }
-            var model = _db.Products.ToList().Take(4);
 
-            return View(model);
+            return View();
         }
 
         public ActionResult Download()

@@ -1,0 +1,6 @@
+﻿@model SpeedyWheelz.Models.Cart
+@{
+    Layout = null;
+}
+
+@Model.Items.Sum(q => q.Quantity)

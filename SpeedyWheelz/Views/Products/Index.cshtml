@@ -12,7 +12,6 @@
     </div>
     <div id="alcoholWrapper">
         <section class="ftco-section">
-            <h5 class="text-center">Add More Products</h5>
             <div class="container">
                 <div class="row">
                     @foreach (var product in Model)
@@ -39,7 +38,7 @@
                                     }
                                     <span class="category">@product.AlcoholCategory.Name</span>
                                     <h2>@product.Name</h2>
-                                    <p class="mb-0"><span class="price">R @product.Price</span></p>
+                                    <p class="mb-0"><span class="price">Price: R @product.Price</span></p>
                                 </div>
                                 <div style="margin-top: -10px" class="d-flex justify-content-center">
                                     @if (product.stockCount <= 0)
@@ -94,6 +93,7 @@ else
             success: function (data) {
                 if (data.success) {
                     $('#menuPrompt').fadeIn();
+                    $('#cartDisplay').load(location.href + " #cartDisplay>*", "");
                     $('#cartItemsDiv').load(location.href + " #cartItemsDiv>*", "");
                 } else {
                     alert("Failed to add product to cart.");
@@ -101,4 +101,23 @@ else
             }
         });
     }
+
+    $('#promptYes').click(function () {
+        $('#MenuWrapper').html('<img src="/Loading.gif" alt="Loading" /><img src="~/Loading.gif" hidden alt="Loading" />');
+        $('#promptNo').text('Close');
+        $.ajax({
+            url: '@Url.Action("Menu", "Products")',
+            type: 'get',
+            success: function (data) {
+                $('#MenuWrapper').html(data);
+            },
+            failure: function (error) {
+                console.log(error);
+            }
+        })
+    })
+
+    $('#promptNo').click(function () {
+        $('#menuPrompt').hide();
+    })
 </script>

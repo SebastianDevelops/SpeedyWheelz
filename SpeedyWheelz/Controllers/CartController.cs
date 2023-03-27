@@ -82,6 +82,13 @@ namespace SpeedyWheelz.Controllers
             }
         }
 
+        public ActionResult CartCount()
+        {
+            var cart = GetCart();
+
+            return PartialView("_CartCount", cart);
+        }
+
         [Authorize]
         public ActionResult RemoveFromCart(int productId)
         {

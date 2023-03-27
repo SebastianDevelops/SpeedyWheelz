@@ -112,7 +112,7 @@ if (@Model.TotalPrice > 500) {
                 if (data.success) {
                     $('#product-' + productId).remove();
                     $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "").then;
-
+                    $('#cartDisplay').load(location.href + " #cartDisplay>*", "");
                     setTimeout(function () {
                         if($('#totalnInput').val() <= 30) {
                             $('#nextCheckout').addClass('disabled');
@@ -121,6 +121,7 @@ if (@Model.TotalPrice > 500) {
                 } else {
                     $('#product-' + productId).remove();
                     $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "");
+                    $('#cartDisplay').load(location.href + " #cartDisplay>*", "");
                     setTimeout(function () {
                         if ($('#totalnInput').val() <= 30) {
                             $('#nextCheckout').addClass('disabled');
@@ -145,6 +146,7 @@ if (@Model.TotalPrice > 500) {
             success: function (response) {
                 $('#quantVal_'+itemId).val(total);
                 $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "");
+                $('#cartDisplay').load(location.href + " #cartDisplay>*", "");
                 if ($('#totalnInput').val() > 500) {
                     $('#lessThan').css('display', 'none');
                 }
@@ -173,6 +175,7 @@ if (@Model.TotalPrice > 500) {
                 }
                 $('#quantVal_' + itemId).val(total);
                 $('#totalPriceDiv').load(location.href + " #totalPriceDiv>*", "");
+                $('#cartDisplay').load(location.href + " #cartDisplay>*", "");
                 console.log($('#totalPaid').val())
                 if ($('#totalnInput').val() < 500) {
                     $('#lessThan').css('display', 'show');

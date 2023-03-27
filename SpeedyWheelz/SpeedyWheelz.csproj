@@ -367,6 +367,7 @@
     <Content Include="js\popper.min.js" />
     <Content Include="js\scrollax.min.js" />
     <Content Include="loader.gif" />
+    <Content Include="Loading.gif" />
     <Content Include="Offline.html" />
     <Content Include="Scripts\jquery.signalR-2.4.3.js" />
     <Content Include="Scripts\jquery.signalR-2.4.3.min.js" />
@@ -560,6 +561,7 @@
     <Content Include="Views\Order\PartialMailAddress.cshtml" />
     <Content Include="Views\Driver\OrderTaken.cshtml" />
     <Content Include="Views\Products\Menu.cshtml" />
+    <Content Include="Views\Shared\_CartCount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

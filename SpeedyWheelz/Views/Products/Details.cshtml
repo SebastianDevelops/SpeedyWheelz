@@ -56,6 +56,7 @@
             success: function (data) {
                 if (data.success) {
                     $('#menuPrompt').fadeIn();
+                    $('#cartDisplay').load(location.href + " #cartDisplay>*", "");
                     $('#cartItemsDiv').load(location.href + " #cartItemsDiv>*", "");
                 } else {
                     alert("Failed to add product to cart.");
@@ -63,4 +64,23 @@
             }
         });
     }
+
+    $('#promptYes').click(function () {
+        $('#MenuWrapper').html('<img src="/Loading.gif" alt="Loading" /><img src="~/Loading.gif" hidden alt="Loading" />');
+        $('#promptNo').text('Close');
+        $.ajax({
+            url: '@Url.Action("Menu", "Products")',
+            type: 'get',
+            success: function (data) {
+                $('#MenuWrapper').html(data);
+            },
+            failure: function (error) {
+                console.log(error);
+            }
+        })
+    })
+
+    $('#promptNo').click(function () {
+        $('#menuPrompt').hide();
+    });
 </script>
