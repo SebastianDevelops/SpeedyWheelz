@@ -121,6 +121,8 @@ namespace SpeedyWheelz.Controllers
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
             {
+                ViewBag.errorMessage = "Check your email and confirm your account, you must be confirmed "
+                             + "before you can log in.";
                 return View("Error");
             }
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
@@ -211,6 +213,7 @@ namespace SpeedyWheelz.Controllers
             {
                 ViewBag.Message = "Your verification link has expired, " +
                     "click on login and we will send you another.";
+                return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
@@ -321,6 +324,8 @@ namespace SpeedyWheelz.Controllers
             var userId = await SignInManager.GetVerifiedUserIdAsync();
             if (userId == null)
             {
+                ViewBag.errorMessage = "Check your email and confirm your account, you must be confirmed "
+                             + "before you can log in.";
                 return View("Error");
             }
             var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
@@ -343,6 +348,8 @@ namespace SpeedyWheelz.Controllers
             // Generate the token and send it
             if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
             {
+                ViewBag.Message = "Your verification link has expired, " +
+                    "click on login and we will send you another.";
                 return View("Error");
             }
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
