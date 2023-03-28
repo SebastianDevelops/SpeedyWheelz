@@ -5,6 +5,7 @@ using SpeedyWheelz.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
@@ -231,9 +232,20 @@ namespace SpeedyWheelz.Controllers
             {
                 var senderEmail = ConfigurationManager.AppSettings["Email"].ToString();
 
+                List<string> ccEmails = _db.Users
+                    .Where(u => u.Roles.Any(r => r.UserId == u.Id))
+                    .Select(u => u.Email)
+                    .ToList();
+
                 MailMessage msg = new MailMessage(senderEmail, toEmail, subject, emailBody);
+                foreach (string ccEmail in ccEmails)
+                {
+                    msg.CC.Add(new MailAddress(ccEmail));
+                }
                 msg.BodyEncoding = Encoding.UTF8;
                 msg.IsBodyHtml = true; // Set IsBodyHtml property to true to send email in HTML format
+
+
 
                 SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
                 System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["Email"].ToString(), ConfigurationManager.AppSettings["EmailPassword"].ToString());
