@@ -209,7 +209,8 @@ namespace SpeedyWheelz.Controllers
         {
             if (userId == null || code == null)
             {
-                return View("Error");
+                ViewBag.Message = "Your verification link has expired, " +
+                    "click on login and we will send you another.";
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
