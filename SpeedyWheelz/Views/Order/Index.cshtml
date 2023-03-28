@@ -58,7 +58,41 @@
         west: center.lng - 0.18,
     };
 
+    var lat = ''
+    var long = ''
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            window.alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    function showPosition(position) {
+        lat = position.coords.latitude
+
+        long = position.coords.longitude;
+    }
+
     function initAutocomplete() {
+        const geocoder = new google.maps.Geocoder();
+
+        document.getElementById("liveLocation").addEventListener("click", () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    lat = position.coords.latitude;
+                    long = position.coords.longitude;
+
+                    geocodeLatLng(geocoder);
+                }, () => {
+                    window.alert("Geolocation failed.");
+                });
+            } else {
+                window.alert("Geolocation is not supported by this browser.");
+            }
+        });
+
         autocomplete = new google.maps.places.Autocomplete(
             document.getElementById('Street'),
             {
@@ -80,9 +114,29 @@
             document.getElementById('details').innerHTML = place.name;
         }
     }
+
+    function geocodeLatLng(geocoder) {
+        const latlng = {
+            lat: lat,
+            lng: long,
+        };
+
+        geocoder
+            .geocode({ location: latlng })
+            .then((response) => {
+                if (response.results[0]) {
+                    $('#Street').val(response.results[0].formatted_address);
+                    console.log(response.results[0].formatted_address);
+                } else {
+                    window.alert("No results found");
+                }
+            })
+            .catch((e) => window.alert("Geocoder failed due to: " + e));
+    }
+
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCc58KYXWOLbA0-1yes8IoOPPsuSi8clzo&libraries=places&callback=initAutocomplete" async defer>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCc58KYXWOLbA0-1yes8IoOPPsuSi8clzo&libraries=places,geocoding&callback=initAutocomplete" async defer>
 </script>
 @*
     <script>
@@ -211,3 +265,8 @@
         </div>
     </div>
 </div>
+
+<p class="btn btn-primary" onclick="getLocation()">Click</p>
+
+<p id='latitudeAndLongitude'></p>
+<p id='address'></p>
