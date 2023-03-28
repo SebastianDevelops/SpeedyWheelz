@@ -1,17 +1,41 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 
 @{
-    if (String.IsNullOrEmpty(ViewBag.errorMessage))
-    {
+    <div id="Content">
+        @if (String.IsNullOrEmpty(ViewBag.errorMessage))
+        {
         <div class="alert text-center justify-content-center alert-danger">
             <h3>An error occurred while processing your request.</h3>
         </div>
-    }
-    else
-    {
+        }
+        else
+        {
         <div class="alert text-center justify-content-center alert-danger">
             <h3>@ViewBag.errorMessage</h3>
         </div>
-    }
+        <div class="text-center">
+            <p class="btn btn-primary" onclick="verifyResend()">Resend Verification</p>
+        </div>
+        }  
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+        function verifyResend() {
+            var userId = '@User.Identity.Name'
+            var subject = 'Verification Resend'
+
+            $.ajax({
+                url: '@Url.Action("SendEmailConfirmationTokenAsync", "Account")',
+                data: {
+                    userID: userId, subject: subject
+                },
+                success: function () {
+                    $('#Content').html('<div class="alert text-center justify-content-center alert-success">' +
+                        '<h3> Verification Link Has Been Sent</h3 >' + '</div>');
+                }
+            });
+        }
+    </script>
+
 }
 
