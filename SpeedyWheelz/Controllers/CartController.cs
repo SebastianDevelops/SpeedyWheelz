@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace SpeedyWheelz.Controllers
 {
-    [Authorize]
+    
     public class CartController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -26,7 +26,6 @@ namespace SpeedyWheelz.Controllers
             Cart cart = GetCart();
             return View(cart);
         }
-        [Authorize]
         public ActionResult CartItems()
         {
             Cart cart = GetCart();
