@@ -209,14 +209,30 @@ namespace SpeedyWheelz.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
-            if (userId == null || code == null)
+            try
             {
-                ViewBag.Message = "Your verification link has expired, " +
-                    "click on login and we will send you another.";
-                return View("Error");
+                if (userId == null || code == null)
+                {
+                    ViewBag.errorMessage = "Your verification link has expired, " +
+                        "resend verification below.";
+                    return View("Error");
+                }
+                var result = await UserManager.ConfirmEmailAsync(userId, code);
+                return View("ConfirmEmail");
             }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            catch (Exception)
+            {
+                if (userId == null || code == null)
+                {
+                    return View("Error");
+                }
+                else
+                {
+                    ViewBag.errorMessage = "Your verification link has expired, " +
+                        "resend verification below.";
+                    return View("Error");
+                }
+            }
         }
 
         //
@@ -348,8 +364,8 @@ namespace SpeedyWheelz.Controllers
             // Generate the token and send it
             if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
             {
-                ViewBag.Message = "Your verification link has expired, " +
-                    "click on login and we will send you another.";
+                ViewBag.errorMessage = "Your verification link has expired, " +
+                    "resend verification below.";
                 return View("Error");
             }
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
@@ -519,7 +535,31 @@ namespace SpeedyWheelz.Controllers
             }
         }
         #endregion
-        private async Task<string> SendEmailConfirmationTokenAsync(string userID, string subject)
+        
+        [AllowAnonymous]
+        public async Task<ActionResult> MailConfirm(string email, string subject)
+        {
+            email = email.Trim();
+            var user = await UserManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+                    return Json(new { Success = true, SuccessMessage = "Email Has been sent!" });
+                }
+                else
+                {
+                    return Json(new { Success = false, ErrorMessage = "This email has already been confirmed." });
+                }
+            }
+            else
+            {
+                return Json(new { Success = false, ErrorMessage = "This email does not exist, please enter a valid email." });
+            }
+        }
+        [AllowAnonymous]
+        public async Task<string> SendEmailConfirmationTokenAsync(string userID, string subject)
         {
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
             var callbackUrl = Url.Action("ConfirmEmail", "Account",

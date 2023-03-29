@@ -13,30 +13,71 @@
         <div class="alert text-center justify-content-center alert-danger">
             <h3>@ViewBag.errorMessage</h3>
         </div>
-        <div class="text-center">
-            <p class="btn btn-primary" onclick="verifyResend()">Resend Verification</p>
-        </div>
+        <form id="verifyForm">
+            <div class="form-group text-center">
+                <div>
+                    <label class="label" for="mail">Email</label>
+                </div>
+                <div>
+                    <input type="email" id="verifyMail" class="input-lg" name="mail" required value="" placeholder="Please Enter Your Email" />
+                </div>
+            </div>
+            <div class="text-center">
+                <p id="validationError" class="text-danger"></p>
+            </div>
+            <div class="text-center">
+                <p class="btn btn-primary" onclick="verifyResend($('#verifyMail').val())">Resend Verification</p>
+            </div>
+        </form>
         }  
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    <script>
-        function verifyResend() {
-            var userId = '@User.Identity.Name'
+<script>
+        function isEmail(email) {
+
+            // Regular Expression (Not accepts second @@ symbol
+            // before the @@gmail.com and accepts everything else)
+            var regexp = /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+            // Converting the email to lowercase
+            return regexp.test(String(email).toLowerCase());
+        }
+
+        function verifyResend(email) {
+            //var userId = 'User.Identity.Name'
             var subject = 'Verification Resend'
 
-            $.ajax({
-                url: '@Url.Action("SendEmailConfirmationTokenAsync", "Account")',
+            var emailVerify = isEmail(email);
+
+            if (emailVerify == false) {
+                $('#validationError').html("Please enter a valid email address");
+            }
+            else {
+                $(this).prop('disabled', true);
+                $.ajax({
+                url: '@Url.Action("MailConfirm", "Account")',
+                type: 'post',
                 data: {
-                    userID: userId, subject: subject
+                    email: email, subject: subject
                 },
-                success: function () {
-                    $('#Content').html('<div class="alert text-center justify-content-center alert-success">' +
-                        '<h3> Verification Link Has Been Sent</h3 >' + '</div>');
+                success: function (data) {
+                    if (data.ErrorMessage) {
+                        $('#validationError').html(data.ErrorMessage);
+                        $(this).prop('disabled', false);
+                    }
+                    else {
+                        $('#Content').html('<div class="alert text-center justify-content-center alert-success">' +
+                            '<h3> Verification Link Has Been Sent</h3 >' + '</div>');
+                    }
+                },
+                error: function (data) {
+                    $('#validationError').html(data.ErrorMessage);
                 }
             });
+            }
         }
-    </script>
+</script>
 
 }
 

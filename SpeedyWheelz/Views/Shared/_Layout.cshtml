@@ -48,13 +48,13 @@
             overflow-y: auto;
         }
 
-            #menuPrompt:before {
-                content: '';
-                display: inline-block;
-                height: 100%;
-                vertical-align: middle;
-                margin-right: -4px; /* Adjusts for spacing */
-            }
+        #menuPrompt:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            margin-right: -4px; /* Adjusts for spacing */
+        }
 
         #menuPrompt .modal-dialog {
             display: inline-block;
@@ -221,6 +221,30 @@
         }
     }
     <!-- END nav -->
+
+    <!-- Modal -->
+    <div class="modal" id="myModal" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Are you 18 years old?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>You must be at least 18 years old to access this website. Are you 18 or older?</p>
+                    <div hidden id="ageVerify" class="text-center">
+                        <p class="text-danger">You have to be 18  in order to access this website</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="noBtn">No</button>
+                    <button type="button" class="btn btn-primary" id="yesBtn">Yes</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <!-- Modal -->
     <div class="modal" id="menuPrompt" role="dialog" data-backdrop="static" data-keyboard="false">

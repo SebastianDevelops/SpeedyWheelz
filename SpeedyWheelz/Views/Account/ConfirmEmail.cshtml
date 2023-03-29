@@ -1,10 +1,32 @@
 ﻿@{
     ViewBag.Title = "Confirm Email";
 }
-
-<h2>@ViewBag.Title.</h2>
-<div>
+<div class="alert text-center justify-content-center alert-success">
     <p>
         Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
     </p>
 </div>
+
+    <script>
+        function verifyResend() {
+            var userId = '@User.Identity.Name'
+            var subject = 'Verification Resend'
+
+
+            $.ajax({
+                url: '@Url.Action("MailConfirm", "Account")',
+                type: 'get',
+                data: {
+                    userID: userId, subject: subject
+                },
+                success: function (data) {
+                    console.log(data);
+                    $('#Content').html('<div class="alert text-center justify-content-center alert-success">' +
+                        '<h3> Verification Link Has Been Sent</h3 >' + '</div>');
+                },
+                failure: function (xml) {
+                    console.log(xml.Message);
+                }
+            });
+        }
+    </script>
