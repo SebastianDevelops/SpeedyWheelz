@@ -33,8 +33,13 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        <div class="col-md-10 input-group">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "password-input" })
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="show-password-btn" data-action="show-password">
+                    <i class="fa fa-eye"></i>
+                </button>
+            </div>
         </div>
     </div>
     <div class="form-group">
@@ -89,7 +94,19 @@
     <script>
     $('#noBtn').click(function () {
             $('#ageVerify').removeAttr('hidden');
-        })
+    })
+
+        $(document).ready(function () {
+            $("#show-password-btn").click(function () {
+                var passwordInput = $("#password-input");
+                var passwordInputType = passwordInput.attr("type");
+                if (passwordInputType === "password") {
+                    passwordInput.attr("type", "text");
+                } else {
+                    passwordInput.attr("type", "password");
+                }
+            });
+        });
 
         //Push notifications
         vapidDetails = {
