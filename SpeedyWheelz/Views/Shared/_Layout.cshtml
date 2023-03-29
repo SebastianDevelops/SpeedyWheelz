@@ -337,9 +337,14 @@
     else
     {
         <script>
+            $(window).on('beforeunload', function () {
+                $('.preloader').fadeIn('slow');
+            });
+
             $(window).on('load', function () {
                 $('.preloader').fadeOut('slow');
             });
+
             function drinksPage() {
                  $.ajax({
                      url: '@Url.Action("Login", "Account")',
