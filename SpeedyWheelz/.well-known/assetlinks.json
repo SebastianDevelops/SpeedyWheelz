@@ -1,0 +1,6 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "za.co.speedywheelz.twa",
+                     "sha256_cert_fingerprints": ["57:52:6D:D4:8E:6C:C5:77:43:E5:B4:FC:01:4F:4A:42:A3:0C:93:B4:4E:87:F3:15:6B:57:4B:23:39:9E:6E:7B"] }
+      }
+]

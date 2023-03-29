@@ -388,7 +388,7 @@
     <Content Include="fonts\PayPalSansBig-Regular-Klim.ttf" />
     <Content Include="fonts\flaticon\font\Flaticon.ttf" />
     <Content Include="fonts\flaticon\font\Flaticon.woff" />
-    <Content Include=".well-know\assetlinks.json" />
+    <Content Include=".well-known\assetlinks.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
