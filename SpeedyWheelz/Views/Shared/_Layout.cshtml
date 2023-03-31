@@ -341,9 +341,14 @@
                 $('.preloader').fadeIn('slow');
             });
 
-            $(window).on('load', function () {
+            setTimeout(function () {
+                $('.preloader').fadeOut('slow');
+            }, 1500)
+
+            /*$(window).on('load', function () {
                 $('.preloader').fadeOut('slow');
             });
+            */
 
             function drinksPage() {
                  $.ajax({

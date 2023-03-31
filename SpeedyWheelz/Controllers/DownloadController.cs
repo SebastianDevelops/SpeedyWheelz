@@ -13,5 +13,28 @@ namespace SpeedyWheelz.Controllers
         {
             return View();
         }
+
+        public ActionResult DownloadApk(string device)
+        {
+            string filePath = "";
+
+            if(device == "android")
+            {
+                // Replace the file path with the path to your APK file
+                filePath = Server.MapPath("~/apk/SpeedyWheelz.apk");
+            }
+            else if(device == "ios")
+            {
+                // Replace the file path with the path to your APK file
+                filePath = Server.MapPath("~/apk/SpeedyWheelz.apk");
+            }
+
+            // Set the content type of the file
+            string contentType = MimeMapping.GetMimeMapping(filePath);
+
+            // Return the file as a download
+            return File(filePath, contentType, "SpeedyWheelz.apk");
+        }
+
     }
 }

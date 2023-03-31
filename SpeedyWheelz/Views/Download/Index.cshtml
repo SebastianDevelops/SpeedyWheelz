@@ -42,10 +42,11 @@
                     <h1>Download SpeedyWheelz </h1>
                     <p class="my-4 text-muted">Are you looking for premium same day delivery? We got you!</p>
                     <ul class="list-inline mb-0">
-                        <li class="mb-2 mb-lg-0"><a class="btn btn-primary btn-lg btn-block" id="downloadApp" href="#!"> <i class="fab fa-google-play me-3"></i>Download</a></li>
+                        <li class="mb-2 mb-lg-0"><a class="btn btn-primary btn-lg btn-block" id="androidDL" href="@Url.Action("DownloadApk", "Download", new { device = "android" })"> <i class="fab fa-google-play me-3"></i>Download</a></li>
+                        <li class="mt-3 mb-lg-0"><a class="btn btn-primary btn-lg btn-block" id="iosDL" href="@Url.Action("DownloadApk", "Download", new { device = "ios" })"> <i class="fab fa-app-store-ios me-3"></i>Download</a></li>
+
                     </ul>
                 </div>
-                <p>If you've already installed the app, click here:  <a href="@Url.Action("Index","Home")">Open App</a></p>
                 <div class="col-lg-6 ml-auto">
                     <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_cwdfgwnw.json" mode="bounce" background="transparent" speed="0.5" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
                 </div>
@@ -103,6 +104,10 @@
     <script src="https://d19m59y37dris4.cloudfront.net/app/2-0/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="https://d19m59y37dris4.cloudfront.net/app/2-0/vendor/modal-video/js/modal-video.js"></script>
     <script>
+        setTimeout(function () {
+            $('.preloader').fadeOut();
+        }, 1500)
+        /*
             let deferredPrompt;
 
             $("#downloadApp").click(function () {
@@ -129,10 +134,9 @@
             // Listen for the appinstalled event
             window.addEventListener('appinstalled', function (event) {
                 // Redirect the user to a specific page
-                location.href = '@Url.Action("Index", "Home")';
+                location.href = 'Url.Action("Index", "Home")';
             });
-
-
+            */
 
         // ------------------------------------------------------- //
         //   Inject SVG Sprite -

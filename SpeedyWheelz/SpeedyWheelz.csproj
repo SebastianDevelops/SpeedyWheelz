@@ -56,6 +56,9 @@
       <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.3\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MvcPaging, Version=2.1.13.46, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcPaging.2.1.13\lib\net40\MvcPaging.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -389,6 +392,7 @@
     <Content Include="fonts\flaticon\font\Flaticon.ttf" />
     <Content Include="fonts\flaticon\font\Flaticon.woff" />
     <Content Include=".well-known\assetlinks.json" />
+    <Content Include="apk\SpeedyWheelz.apk" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
