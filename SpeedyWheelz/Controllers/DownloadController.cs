@@ -23,11 +23,11 @@ namespace SpeedyWheelz.Controllers
                 // Replace the file path with the path to your APK file
                 filePath = Server.MapPath("~/apk/SpeedyWheelz.apk");
             }
-            //else if(device == "ios")
-            //{
-            //    // Replace the file path with the path to your APK file
-            //    filePath = Server.MapPath("~/apk/SpeedyWheelz.apk");
-            //}
+            else if(device == "ios")
+            {
+                // Replace the file path with the path to your APK file
+                filePath = Server.MapPath("~/apk/SpeedyWheelz.apk");
+            }
 
             // Set the content type of the file
             string contentType = MimeMapping.GetMimeMapping(filePath);

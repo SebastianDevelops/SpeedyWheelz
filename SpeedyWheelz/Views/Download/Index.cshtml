@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Download TierKos";
+    ViewBag.Title = "Download SpeedyWheelz";
 }
 
 <!DOCTYPE html>
@@ -39,10 +39,12 @@
         <div class="container py-5">
             <div class="row py-5">
                 <div class="col-lg-5 py-5">
-                    <h1>Download TierKos </h1>
+                    <h1>Download SpeedyWheelz </h1>
                     <p class="my-4 text-muted">Are you looking for premium same day delivery? We got you!</p>
                     <ul class="list-inline mb-0">
                         <li class="mb-2 mb-lg-0"><a class="btn btn-primary btn-lg btn-block" id="androidDL" href="@Url.Action("DownloadApk", "Download", new { device = "android" })"> <i class="fab fa-google-play me-3"></i>Download</a></li>
+                        <li class="mt-3 mb-lg-0"><a class="btn btn-primary btn-lg btn-block" id="iosDL" href="@Url.Action("DownloadApk", "Download", new { device = "ios" })"> <i class="fab fa-app-store-ios me-3"></i>Download</a></li>
+
                     </ul>
                 </div>
                 <div class="col-lg-6 ml-auto">
@@ -77,7 +79,7 @@
                                     <use xlink:href="#map-marker-1"> </use>
                                 </svg>
                                 <h3 class="h4 my-4">Speedy Delivery </h3>
-                                <p class="text-sm text-muted mb-0">At TierKos we believe that time is money that's why we're always there in speedy time.</p>
+                                <p class="text-sm text-muted mb-0">At speedyWheelz we believe that time is money that's why we're always there in speedy time.</p>
                             </div>
                         </div>
                     </div>
